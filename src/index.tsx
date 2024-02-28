@@ -1,20 +1,20 @@
 import React, { forwardRef, memo } from 'react'
 import {
-    View,
-    Image,
-    NativeModules,
-    requireNativeComponent,
-    StyleSheet,
+    AccessibilityProps,
+    ColorValue,
     FlexStyle,
+    Image,
+    ImageRequireSource,
     LayoutChangeEvent,
+    NativeModules,
+    Platform,
     ShadowStyleIOS,
     StyleProp,
+    StyleSheet,
     TransformsStyle,
-    ImageRequireSource,
-    Platform,
-    AccessibilityProps,
+    View,
     ViewProps,
-    ColorValue,
+    requireNativeComponent,
 } from 'react-native'
 
 export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center'
@@ -243,6 +243,7 @@ export interface FastImageStaticProperties {
     preload: (sources: Source[]) => void
     clearMemoryCache: () => Promise<void>
     clearDiskCache: () => Promise<void>
+    getCachePath: (source: Source) => Promise<string>
 }
 
 const FastImage: React.ComponentType<FastImageProps> &
@@ -261,6 +262,9 @@ FastImage.clearMemoryCache = () =>
     NativeModules.FastImageView.clearMemoryCache()
 
 FastImage.clearDiskCache = () => NativeModules.FastImageView.clearDiskCache()
+
+FastImage.getCachePath = (source: Source) =>
+    NativeModules.FastImageView.getCachePath(source);
 
 const styles = StyleSheet.create({
     imageContainer: {
