@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "react-native-fast-image": ["./src/index"]
+    },
     "target": "ESNext",
     "module": "ESNext",
     "composite": true,
@@ -28,7 +32,6 @@
     "resolveJsonModule": true,
     "declarationDir": "./dist",
     "outDir": "./dist",
-    "rootDir": "./src"
   },
   "include": ["./src"]
 }

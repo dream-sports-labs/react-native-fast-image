@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-const getNewKey = () => Math.random().toString()
+const getNewKey = () => Math.random().toString();
 
 export const useCacheBust = (
     url: string,
