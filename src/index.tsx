@@ -14,7 +14,7 @@ import {
     Platform,
     AccessibilityProps,
     ViewProps,
-    ColorValue,
+    ColorValue, Text,
 } from 'react-native'
 
 export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center'
