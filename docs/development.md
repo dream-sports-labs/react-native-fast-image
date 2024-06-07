@@ -13,7 +13,7 @@ yarn
 yarn link
 
 # Move to example folder.
-cd ReactNativeFastImageExample
+cd ReactNativeFastImageExampleOld
 
 # Install dependencies.
 yarn
