@@ -73,6 +73,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
             // Clear the image.
             setImageDrawable(null);
+            
             ThemedReactContext context = (ThemedReactContext) getContext();
             RCTEventEmitter eventEmitter = context.getJSModule(RCTEventEmitter.class);
             int viewId = getId();
