@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from 'react'
+import React, { forwardRef, memo, useCallback } from 'react'
 import {
     View,
     Image,
@@ -14,7 +14,7 @@ import {
     Platform,
     AccessibilityProps,
     ViewProps,
-    ColorValue, Text,
+    ColorValue, NativeSyntheticEvent, ImageErrorEventData,
 } from 'react-native'
 
 export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center'
@@ -59,6 +59,12 @@ export interface OnLoadEvent {
     }
 }
 
+export interface OnErrorEvent {
+    nativeEvent: {
+        message: string
+    }
+}
+
 export interface OnProgressEvent {
     nativeEvent: {
         loaded: number
@@ -92,7 +98,7 @@ export interface FastImageProps extends AccessibilityProps, ViewProps {
 
     onLoad?(event: OnLoadEvent): void
 
-    onError?(): void
+    onError?(event: OnErrorEvent): void
 
     onLoadEnd?(): void
 
@@ -175,6 +181,15 @@ function FastImageBase({
         delete cleanedSource.cache
         const resolvedSource = Image.resolveAssetSource(cleanedSource)
 
+        const onImageLoadError = useCallback((error: NativeSyntheticEvent<ImageErrorEventData>) => {
+            const errorMessage: OnErrorEvent = {
+                nativeEvent: {
+                    message: error.nativeEvent.error
+                }
+            }
+            onError?.(errorMessage)
+        }, [])
+
         return (
             <View style={[styles.imageContainer, style]} ref={forwardedRef}>
                 <Image
@@ -185,7 +200,7 @@ function FastImageBase({
                     onLoadStart={onLoadStart}
                     onProgress={onProgress}
                     onLoad={onLoad as any}
-                    onError={onError}
+                    onError={onImageLoadError}
                     onLoadEnd={onLoadEnd}
                     resizeMode={resizeMode}
                 />
