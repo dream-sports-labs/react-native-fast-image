@@ -181,9 +181,11 @@ e.g. `onLoad={e => console.log(e.nativeEvent.width, e.nativeEvent.height)}`
 
 ---
 
-### `onError?: () => void`
+### `onError?: (event) => void`
 
-Called on an image fetching error.
+Called on an image fetching error or when source is malformed (i.e: empty or null).
+
+e.g. `onError={e => console.log(e.nativeEvent.message}`
 
 ---
 
