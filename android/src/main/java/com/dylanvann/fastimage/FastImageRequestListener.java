@@ -39,9 +39,7 @@ public class FastImageRequestListener implements RequestListener<Drawable> {
         ThemedReactContext context = (ThemedReactContext) view.getContext();
         RCTEventEmitter eventEmitter = context.getJSModule(RCTEventEmitter.class);
         int viewId = view.getId();
-        WritableMap errorEvent = new WritableNativeMap();
-        errorEvent.putString("message", String.valueOf(e));
-        eventEmitter.receiveEvent(viewId, REACT_ON_ERROR_EVENT, errorEvent);
+        eventEmitter.receiveEvent(viewId, REACT_ON_ERROR_EVENT, new WritableNativeMap());
         eventEmitter.receiveEvent(viewId, REACT_ON_LOAD_END_EVENT, new WritableNativeMap());
         return false;
     }
