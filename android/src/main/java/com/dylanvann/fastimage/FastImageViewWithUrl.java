@@ -73,6 +73,14 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
             // Clear the image.
             setImageDrawable(null);
+            
+            ThemedReactContext context = (ThemedReactContext) getContext();
+            RCTEventEmitter eventEmitter = context.getJSModule(RCTEventEmitter.class);
+            int viewId = getId();
+            WritableMap event = new WritableNativeMap();
+            event.putString("message", "Image source uri cannot be empty or null:" + mSource);
+            eventEmitter.receiveEvent(viewId, REACT_ON_ERROR_EVENT, event);
+
             return;
         }
 
@@ -84,7 +92,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
             RCTEventEmitter eventEmitter = context.getJSModule(RCTEventEmitter.class);
             int viewId = getId();
             WritableMap event = new WritableNativeMap();
-            event.putString("message", "Invalid source prop:" + mSource);
+            event.putString("message", "Invalid source prop: " + mSource);
             eventEmitter.receiveEvent(viewId, REACT_ON_ERROR_EVENT, event);
 
             // Cancel existing requests.
