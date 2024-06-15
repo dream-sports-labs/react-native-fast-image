@@ -168,6 +168,7 @@ function FastImageBase({
     // eslint-disable-next-line no-shadow
     resizeMode = 'cover',
     forwardedRef,
+    accessible = false,
     ...props
 }: FastImageProps & { forwardedRef: React.Ref<any> }) {
     if (fallback) {
@@ -176,7 +177,7 @@ function FastImageBase({
         const resolvedSource = Image.resolveAssetSource(cleanedSource)
 
         return (
-            <View style={[styles.imageContainer, style]} ref={forwardedRef}>
+            <View style={[styles.imageContainer, style]} ref={forwardedRef} accessible>
                 <Image
                     {...props}
                     style={[StyleSheet.absoluteFill, { tintColor }]}
@@ -198,7 +199,7 @@ function FastImageBase({
     const resolvedDefaultSource = resolveDefaultSource(defaultSource)
 
     return (
-        <View style={[styles.imageContainer, style]} ref={forwardedRef}>
+        <View style={[styles.imageContainer, style]} ref={forwardedRef} accessible>
             <FastImageView
                 {...props}
                 tintColor={tintColor}
