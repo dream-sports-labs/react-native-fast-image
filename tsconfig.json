@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-fast-image": ["./src/index"]
+      "@d11/react-native-fast-image": ["./src/index"]
     },
     "target": "ESNext",
     "module": "ESNext",
