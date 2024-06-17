@@ -1,5 +1,5 @@
 {
-    "name": "react-native-fast-image",
+    "name": "@d11/react-native-fast-image",
     "version": "8.6.3",
     "description": "🚩 FastImage, performant React Native image component.",
     "keywords": [
@@ -9,16 +9,16 @@
         "image",
         "priority"
     ],
-    "homepage": "https://github.com/DylanVann/react-native-fast-image#readme",
+    "homepage": "https://github.com/dream11/react-native-fast-image#readme",
     "bugs": {
-        "url": "https://github.com/DylanVann/react-native-fast-image/issues"
+        "url": "https://github.com/dream11/react-native-fast-image/issues"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/DylanVann/react-native-fast-image.git"
+        "url": "https://github.com/dream11/react-native-fast-image.git"
     },
     "license": "(MIT AND Apache-2.0)",
-    "author": "Dylan Vann <dylan@dylanvann.com> (https://dylanvann.com)",
+    "author": "Deepanshu shukla <deepanshu.shukla@dream11.com> (https://dream11.com)",
     "main": "dist/index.cjs.js",
     "module": "dist/index.js",
     "typings": "dist/index.d.ts",
@@ -33,6 +33,7 @@
         "RNFastImage.podspec"
     ],
     "scripts": {
+        "prepack": "yarn build",
         "example": "yarn workspace reactnativefastimageexample",
         "build": "dv-scripts build && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
         "lint": "dv-scripts lint",

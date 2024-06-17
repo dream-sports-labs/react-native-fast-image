@@ -1746,6 +1746,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@d11/react-native-fast-image@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@d11/react-native-fast-image@workspace:."
+  dependencies:
+    "@babel/core": ^7.24.7
+    "@babel/preset-env": ^7.20.0
+    "@babel/runtime": ^7.24.7
+    "@react-native/babel-preset": 0.74.84
+    "@react-native/metro-config": 0.74.84
+    "@react-native/typescript-config": 0.74.84
+    "@types/jest": ^26.0.24
+    "@types/react": ^18.3.3
+    "@types/react-native": ^0.69.5
+    "@types/react-test-renderer": ^17.0.1
+    babel-plugin-module-resolver: ^5.0.0
+    dv-scripts: ^1.6.0
+    eslint-config-dv-scripts: ^1.1.1
+    metro-react-native-babel-preset: ^0.66.1
+    prettier: ^2.3.2
+    react: 18.2.0
+    react-native: 0.74.2
+    react-test-renderer: 17.0.2
+    typescript: ^4.3.5
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  languageName: unknown
+  linkType: soft
+
 "@dylanvann/multi-semantic-release@npm:^3.2.0":
   version: 3.2.0
   resolution: "@dylanvann/multi-semantic-release@npm:3.2.0"
@@ -13160,35 +13189,6 @@ __metadata:
   checksum: dfbf05ea6c5bcdff09ed2288919d8270bdb8ab78a7a973f2dbd970e63357bdf9fee05d95a2c9bee3795a609332e5ca37f667384ebe1cca61e4cb8f81e5aeabba
   languageName: node
   linkType: hard
-
-"react-native-fast-image@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "react-native-fast-image@workspace:."
-  dependencies:
-    "@babel/core": ^7.24.7
-    "@babel/preset-env": ^7.20.0
-    "@babel/runtime": ^7.24.7
-    "@react-native/babel-preset": 0.74.84
-    "@react-native/metro-config": 0.74.84
-    "@react-native/typescript-config": 0.74.84
-    "@types/jest": ^26.0.24
-    "@types/react": ^18.3.3
-    "@types/react-native": ^0.69.5
-    "@types/react-test-renderer": ^17.0.1
-    babel-plugin-module-resolver: ^5.0.0
-    dv-scripts: ^1.6.0
-    eslint-config-dv-scripts: ^1.1.1
-    metro-react-native-babel-preset: ^0.66.1
-    prettier: ^2.3.2
-    react: 18.2.0
-    react-native: 0.74.2
-    react-test-renderer: 17.0.2
-    typescript: ^4.3.5
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  languageName: unknown
-  linkType: soft
 
 "react-native-gesture-handler@npm:^2.16.2":
   version: 2.16.2

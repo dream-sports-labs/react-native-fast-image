@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ViewProps,
 } from 'react-native';
-import FastImage, {FastImageProps, Source} from 'react-native-fast-image';
+import FastImage, {FastImageProps, Source} from '@d11/react-native-fast-image';
 import Section from './Section';
 import FeatureText from './FeatureText';
 import FieldsBase64 from './images/fields';
