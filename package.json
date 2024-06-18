@@ -1,6 +1,6 @@
 {
     "name": "@d11/react-native-fast-image",
-    "version": "8.6.4",
+    "version": "8.6.5",
     "description": "🚩 FastImage, performant React Native image component.",
     "keywords": [
         "cache",
@@ -22,8 +22,6 @@
     "main": "dist/index.cjs.js",
     "module": "dist/index.js",
     "typings": "dist/index.d.ts",
-    "source": "src/index",
-    "react-native": "src/index",
     "files": [
         "android",
         "!android/build",
