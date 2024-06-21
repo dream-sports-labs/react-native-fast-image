@@ -1,92 +1,95 @@
 {
-    "name": "@d11/react-native-fast-image",
-    "version": "8.6.5",
-    "description": "🚩 FastImage, performant React Native image component.",
-    "keywords": [
-        "cache",
-        "cached",
-        "fastimage",
-        "image",
-        "priority"
+  "name": "@d11/react-native-fast-image",
+  "version": "8.6.7",
+  "description": "🚩 FastImage, performant React Native image component.",
+  "keywords": [
+    "cache",
+    "cached",
+    "fastimage",
+    "image",
+    "priority"
+  ],
+  "homepage": "https://github.com/dream11/react-native-fast-image#readme",
+  "bugs": {
+    "url": "https://github.com/dream11/react-native-fast-image/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dream11/react-native-fast-image.git"
+  },
+  "license": "(MIT AND Apache-2.0)",
+  "author": "Deepanshu shukla <deepanshu.shukla@dream11.com> (https://dream11.com)",
+  "source": "src/index",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "src",
+    "android",
+    "!android/build",
+    "ios",
+    "!ios/build",
+    "dist",
+    "RNFastImage.podspec"
+  ],
+  "scripts": {
+    "prepack": "yarn build",
+    "example": "yarn workspace reactnativefastimageexample",
+    "build": "dv-scripts build && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
+    "lint": "dv-scripts lint",
+    "release": "dv-scripts release",
+    "test": "dv-scripts test"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "all"
+  },
+  "eslintConfig": {
+    "extends": "dv-scripts"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "ReactNativeFastImageExample*",
+      "ReactNativeFastImageExampleServer*"
     ],
-    "homepage": "https://github.com/dream11/react-native-fast-image#readme",
-    "bugs": {
-        "url": "https://github.com/dream11/react-native-fast-image/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/dream11/react-native-fast-image.git"
-    },
-    "license": "(MIT AND Apache-2.0)",
-    "author": "Deepanshu shukla <deepanshu.shukla@dream11.com> (https://dream11.com)",
-    "main": "dist/index.cjs.js",
-    "module": "dist/index.js",
-    "typings": "dist/index.d.ts",
-    "files": [
-        "android",
-        "!android/build",
-        "ios",
-        "!ios/build",
-        "dist",
-        "RNFastImage.podspec"
+    "modulePathIgnorePatterns": [
+      "ReactNativeFastImageExample*",
+      "ReactNativeFastImageExampleServer*"
     ],
-    "scripts": {
-        "prepack": "yarn build",
-        "example": "yarn workspace reactnativefastimageexample",
-        "build": "dv-scripts build && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
-        "lint": "dv-scripts lint",
-        "release": "dv-scripts release",
-        "test": "dv-scripts test"
-    },
-    "prettier": {
-        "semi": false,
-        "singleQuote": true,
-        "tabWidth": 4,
-        "trailingComma": "all"
-    },
-    "eslintConfig": {
-        "extends": "dv-scripts"
-    },
-    "jest": {
-        "coveragePathIgnorePatterns": [
-            "ReactNativeFastImageExample*",
-            "ReactNativeFastImageExampleServer*"
-        ],
-        "modulePathIgnorePatterns": [
-            "ReactNativeFastImageExample*",
-            "ReactNativeFastImageExampleServer*"
-        ],
-        "preset": "react-native"
-    },
-    "resolutions": {
-        "@jest/create-cache-key-function": "^27"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.24.7",
-        "@babel/preset-env": "^7.20.0",
-        "@babel/runtime": "^7.24.7",
-        "@react-native/babel-preset": "0.74.84",
-        "@react-native/metro-config": "0.74.84",
-        "@react-native/typescript-config": "0.74.84",
-        "@types/jest": "^26.0.24",
-        "@types/react": "^18.3.3",
-        "@types/react-native": "^0.69.5",
-        "@types/react-test-renderer": "^17.0.1",
-        "babel-plugin-module-resolver": "^5.0.0",
-        "dv-scripts": "^1.6.0",
-        "eslint-config-dv-scripts": "^1.1.1",
-        "metro-react-native-babel-preset": "^0.66.1",
-        "prettier": "^2.3.2",
-        "react": "18.2.0",
-        "react-native": "0.74.2",
-        "react-test-renderer": "17.0.2",
-        "typescript": "^4.3.5"
-    },
-    "peerDependencies": {
-        "react": "*",
-        "react-native": "*"
-    },
-    "workspaces": [
-        "ReactNativeFastImageExample"
-    ]
+    "preset": "react-native"
+  },
+  "resolutions": {
+    "@jest/create-cache-key-function": "^27"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.24.7",
+    "@react-native/babel-preset": "0.74.84",
+    "@react-native/metro-config": "0.74.84",
+    "@react-native/typescript-config": "0.74.84",
+    "@types/jest": "^26.0.24",
+    "@types/react": "^18.3.3",
+    "@types/react-native": "^0.69.5",
+    "@types/react-test-renderer": "^17.0.1",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "dv-scripts": "^1.6.0",
+    "eslint-config-dv-scripts": "^1.1.1",
+    "metro-react-native-babel-preset": "^0.66.1",
+    "prettier": "^2.3.2",
+    "react": "18.2.0",
+    "react-native": "0.74.2",
+    "react-test-renderer": "17.0.2",
+    "typescript": "^4.3.5"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "workspaces": [
+    "ReactNativeFastImageExample"
+  ],
+  "packageManager": "yarn@3.6.4"
 }
