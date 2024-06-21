@@ -13290,7 +13290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:*, react-native@npm:0.74.2":
+"react-native@npm:*, react-native@npm:0.74.2, react-native@npm:^0.74.2":
   version: 0.74.2
   resolution: "react-native@npm:0.74.2"
   dependencies:
@@ -13430,7 +13430,7 @@ __metadata:
     jest: ^29.6.3
     prettier: 2.8.8
     react: 18.2.0
-    react-native: 0.74.2
+    react-native: ^0.74.2
     react-native-codegen: ^0.70.7
     react-native-gesture-handler: ^2.16.2
     react-native-image-picker: ^7.1.2
