@@ -27,6 +27,7 @@ const resizeMode = {
 } as const
 
 export type Priority = 'low' | 'normal' | 'high'
+console.log('test');
 
 const priority = {
     low: 'low',
