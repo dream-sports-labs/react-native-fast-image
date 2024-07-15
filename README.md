@@ -1,3 +1,4 @@
+### ⚠️ This is a fork of https://github.com/DylanVann/react-native-fast-image. All credit goes to the original author.
 <h1 align="center">
   🚩 FastImage
 </h1>
@@ -20,14 +21,14 @@ Performant React Native image component.
 <p align="center" >
   <kbd>
     <img
-      src="https://github.com/dream11/react-native-fast-image/blob/main/docs/assets/scroll.gif?raw=true"
+      src="https://github.com/dream-sports-labs/react-native-fast-image/blob/main/docs/assets/scroll.gif?raw=true"
       title="Scroll Demo"
       float="left"
     >
   </kbd>
   <kbd>
     <img
-      src="https://github.com/dream11/react-native-fast-image/blob/main/docs/assets/priority.gif?raw=true"
+      src="https://github.com/dream-sports-labs/react-native-fast-image/blob/main/docs/assets/priority.gif?raw=true"
       title="Priority Demo"
       float="left"
     >
@@ -269,10 +270,10 @@ Thanks to [@mobinni](https://github.com/mobinni) for helping with the conceptual
 -   SDWebImage - `MIT`
 -   Glide - BSD, part MIT and Apache 2.0. See the [LICENSE](https://github.com/bumptech/glide/blob/master/license) file for details.
 
-[build-badge]: https://github.com/dream11/react-native-fast-image/workflows/CI/badge.svg
-[build]: https://github.com/dream11/react-native-fast-image/actions?query=workflow%3ACI
-[coverage-badge]: https://img.shields.io/codecov/c/github/dream11/react-native-fast-image.svg
-[coverage]: https://codecov.io/github/dream11/react-native-fast-image
+[build-badge]: https://github.com/dream-sports-labs/react-native-fast-image/workflows/CI/badge.svg
+[build]: https://github.com/dream-sports-labs/react-native-fast-image/actions?query=workflow%3ACI
+[coverage-badge]: https://img.shields.io/codecov/c/github/dream-sports-labs/react-native-fast-image.svg
+[coverage]: https://codecov.io/github/dream-sports-labs/react-native-fast-image
 [downloads-badge]: https://img.shields.io/npm/dm/react-native-fast-image.svg
 [npmtrends]: http://www.npmtrends.com/@d11/react-native-fast-image
 [package]: https://www.npmjs.com/package/@d11/react-native-fast-image
@@ -280,6 +281,6 @@ Thanks to [@mobinni](https://github.com/mobinni) for helping with the conceptual
 [twitter]: https://twitter.com/home?status=Check%20out%20react-native-fast-image%20by%20%40atomarranger%20https%3A//github.com/DylanVann/react-native-fast-image
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/dylanvann/react-native-fast-image.svg?style=social
 [github-watch-badge]: https://img.shields.io/github/watchers/dylanvann/react-native-fast-image.svg?style=social
-[github-watch]: https://github.com/dylanvann/react-native-fast-image/watchers
+[github-watch]: https://github.com/dream-sports-labs/react-native-fast-image/watchers
 [github-star-badge]: https://img.shields.io/github/stars/dylanvann/react-native-fast-image.svg?style=social
-[github-star]: https://github.com/dream11/react-native-fast-image/stargazers
+[github-star]: https://github.com/dream-sports-labs/react-native-fast-image/stargazers
