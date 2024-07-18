@@ -1,4 +1,5 @@
 ### ⚠️ This is a fork of https://github.com/DylanVann/react-native-fast-image. All credit goes to the original author.
+
 <h1 align="center">
   🚩 FastImage
 </h1>
@@ -186,7 +187,6 @@ e.g. `onLoad={e => console.log(e.nativeEvent.width, e.nativeEvent.height)}`
 
 Called on an image fetching error or when source is malformed (i.e: empty or null).
 
-
 ---
 
 ### `onLoadEnd?: () => void`
@@ -268,7 +268,7 @@ Thanks to [@mobinni](https://github.com/mobinni) for helping with the conceptual
 
 -   FastImage - MIT © [Dream11](https://github.com/dream11)
 -   SDWebImage - `MIT`
--   Glide - BSD, part MIT and Apache 2.0. See the [LICENSE](https://github.com/bumptech/glide/blob/master/license) file for details.
+-   Glide - BSD, part MIT and Apache 2.0. See the [LICENSE](https://github.com/bumptech/glide/blob/master/LICENSE) file for details.
 
 [build-badge]: https://github.com/dream-sports-labs/react-native-fast-image/workflows/CI/badge.svg
 [build]: https://github.com/dream-sports-labs/react-native-fast-image/actions?query=workflow%3ACI
