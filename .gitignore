@@ -55,3 +55,6 @@ coverage
 ReactNativeFastImageExample/.yarn
 ReactNativeFastImageExampleServer/.yarn
 
+#workspace
+ReactNativeFastImageExample/ios/ReactNativeFastImageExample.xcworkspace
+
