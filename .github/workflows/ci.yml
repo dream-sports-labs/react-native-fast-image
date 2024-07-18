@@ -5,7 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x' # Specify the Node.js version you want to use
+      - name: Log Node.js version
+        run: node -v
+      - name: Log Yarn version
+        run: yarn -v
       - run: yarn --frozen-lockfile
       - run: yarn build
       - run: yarn test --coverage
