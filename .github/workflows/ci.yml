@@ -11,6 +11,8 @@ jobs:
           node-version: '20.x' # Specify the Node.js version you want to use
       - name: Log Node.js version
         run: node -v
+      - name: Enable Corepack
+        run: corepack enable
       - name: Log Yarn version
         run: yarn -v
       - run: yarn --frozen-lockfile
