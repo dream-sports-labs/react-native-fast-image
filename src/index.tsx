@@ -14,7 +14,7 @@ import {
     Platform,
     AccessibilityProps,
     ViewProps,
-    ColorValue
+    ColorValue,
 } from 'react-native'
 
 export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center'
@@ -165,7 +165,7 @@ function FastImageBase({
     style,
     fallback,
     children,
-    // eslint-disable-next-line no-shadow
+
     resizeMode = 'cover',
     forwardedRef,
     accessible = false,
@@ -177,7 +177,11 @@ function FastImageBase({
         const resolvedSource = Image.resolveAssetSource(cleanedSource)
 
         return (
-            <View style={[styles.imageContainer, style]} ref={forwardedRef} accessible ={accessible}>
+            <View
+                style={[styles.imageContainer, style]}
+                ref={forwardedRef}
+                accessible={accessible}
+            >
                 <Image
                     {...props}
                     style={[StyleSheet.absoluteFill, { tintColor }]}
@@ -199,7 +203,11 @@ function FastImageBase({
     const resolvedDefaultSource = resolveDefaultSource(defaultSource)
 
     return (
-        <View style={[styles.imageContainer, style]} ref={forwardedRef} accessible ={accessible}>
+        <View
+            style={[styles.imageContainer, style]}
+            ref={forwardedRef}
+            accessible={accessible}
+        >
             <FastImageView
                 {...props}
                 tintColor={tintColor}

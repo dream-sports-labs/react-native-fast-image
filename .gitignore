@@ -39,7 +39,7 @@ node_modules/
 npm-debug.log
 lib/android/src/main/gen
 ReactNativeFastImageExample/android/app/src/main/gen
-
+ReactNativeFastImageExample/ios/ReactNativeFastImageExample.xcworkspace
 # build
 react-native-fast-image-*.tgz
 dist/
@@ -55,3 +55,5 @@ coverage
 ReactNativeFastImageExample/.yarn
 ReactNativeFastImageExampleServer/.yarn
 
+# Rollup cache
+.rollup.cache/

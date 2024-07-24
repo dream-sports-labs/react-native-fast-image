@@ -6,6 +6,6 @@
       "@d11/react-native-fast-image": ["../src/index"]
     }
   },
-  "include": ["./src"]
+  "include": ["./src", "__tests__"]
 
 }
