@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Common Setup
-        uses: ./.github/actions/setup.yml
+        uses: ./.github/actions/setup
 
       - name: Log Yarn version
         run: yarn -v
