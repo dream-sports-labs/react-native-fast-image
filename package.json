@@ -44,6 +44,7 @@
     "test": "jest",
     "type-check": "tsc --noEmit",
     "release:nightly": "release-it --config .release-it-nightly.json",
+
     "changelog": "auto-changelog -p"
   },
   "prettier": {
