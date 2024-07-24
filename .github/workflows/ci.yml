@@ -21,9 +21,6 @@ jobs:
       - name: Run Test
         run: yarn test
 
-      - name: Yarn  Install
-        run: yarn --frozen-lockfile
-
       - name: Yarn Build
         run: yarn build
 
