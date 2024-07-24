@@ -23,7 +23,6 @@
   "module": "dist/index.js",
   "source": "src/index",
   "typings": "dist/index.d.ts",
-  "type": "module",
   "files": [
     "src",
     "android",
@@ -37,7 +36,7 @@
     "ReactNativeFastImageExample"
   ],
   "scripts": {
-    "build": "rollup -c && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
+    "build": "tsc && rollup -c && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
     "example": "yarn workspace reactnativefastimageexample",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "prepack": "yarn build",
