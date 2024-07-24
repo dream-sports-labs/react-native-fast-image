@@ -1,5 +1,7 @@
-name: ci
-on: [pull_request]
+name: CI
+
+on:
+  pull_request:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,11 +13,14 @@ jobs:
         run: yarn -v
 
       - name: Run Lint
-      - run: yarn lint
+        run: yarn lint
 
       - name: Run Test
-      - run: yarn test
+        run: yarn test
 
-      - run: yarn --frozen-lockfile
-      - run: yarn build
+      - name: Yarn  Install
+        run: yarn --frozen-lockfile
+
+      - name: Yarn Build
+        run: yarn build
 
