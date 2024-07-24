@@ -1,0 +1,19 @@
+{
+  "git": {
+    "requireCleanWorkingDir": true,
+    "tagName": "nightly-v${version}",
+    "commitMessage": "Nightly Release v${version}",
+    "tagAnnotation": "Nightly Release v${version}",
+    "pushRepo": "origin",
+    "requireUpstream": true
+  },
+  "npm": {
+    "publish": true,
+    "tag": "nightly",
+    "skipChecks": true
+  },
+  "hooks": {
+    "before:init": ["yarn type-check","yarn lint","yarn test","yarn build"],
+    "after:bump": "npx auto-changelog -p"
+  }
+}

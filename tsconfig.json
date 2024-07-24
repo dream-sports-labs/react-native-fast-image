@@ -10,9 +10,6 @@
     "incremental": true,
     "lib": ["ESNext"],
     "importHelpers": true,
-    "declarationMap": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
     "sourceMap": false,
     "strict": true,
     "noImplicitAny": true,
@@ -30,8 +27,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist",
   },
-  "include": ["./src"]
+  "include": ["./src"],
+  "exclude": ["node_modules", "dist"]
 }
