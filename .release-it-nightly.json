@@ -1,12 +1,14 @@
 {
-  "git": {
-    "requireCleanWorkingDir": true,
-    "tagName": "nightly-v${version}",
-    "commitMessage": "Nightly Release v${version}",
-    "tagAnnotation": "Nightly Release v${version}",
-    "pushRepo": "origin",
-    "requireUpstream": true
-  },
+   "git": {
+      "requireCleanWorkingDir": false,
+      "commitMessage": "Release v${version}",
+      "tagName": "nightly-v${version}",
+      "tagAnnotation": "Nightly Release v${version}",
+      "pushRepo": "origin",
+      "requireUpstream": true,
+      "addUntrackedFiles": true,
+      "commit": true
+    },
   "npm": {
     "publish": true,
     "tag": "nightly",
