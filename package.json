@@ -55,6 +55,9 @@
   "resolutions": {
     "@jest/create-cache-key-function": "^27"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@babel/plugin-transform-private-methods": "^7.24.7",
