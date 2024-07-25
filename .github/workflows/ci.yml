@@ -1,21 +1,26 @@
-name: ci
-on: [pull_request]
+name: CI
+
+on:
+  pull_request:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Common Setup
-        uses: ./.github/actions/setup.yml
+        uses: ./.github/actions/setup
 
       - name: Log Yarn version
         run: yarn -v
 
       - name: Run Lint
-      - run: yarn lint
+        run: yarn lint
 
       - name: Run Test
-      - run: yarn test
+        run: yarn test
 
-      - run: yarn --frozen-lockfile
-      - run: yarn build
+      - name: Yarn Build
+        run: yarn build
 

@@ -1,10 +1,11 @@
-import resolve from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import typescript from '@rollup/plugin-typescript'
-import { terser } from 'rollup-plugin-terser'
-import pkg from './package.json' assert { type: 'json' };
+const resolve = require('@rollup/plugin-node-resolve')
+const commonjs = require('@rollup/plugin-commonjs')
+const typescript = require('@rollup/plugin-typescript')
+const { terser } = require('rollup-plugin-terser')
+const json = require('@rollup/plugin-json')
+const pkg = require('./package.json')
 
-export default {
+module.exports = {
     input: 'src/index.tsx', // Entry point of your library
     output: [
         {
@@ -21,12 +22,9 @@ export default {
         resolve({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }), // Resolves node modules
         commonjs(), // Converts CommonJS modules to ES6
         typescript({
-          tsconfig: './tsconfig.json',
-          outputToFilesystem: true,
-          declaration: true,
-          declarationDir: './dist',
-          rootDir: './src'
+            tsconfig: './tsconfig.json',
         }), // Transpiles TypeScript to JavaScript
         terser(), // Minifies the code for production
+        json(), // Allows Rollup to import JSON files
     ],
 }

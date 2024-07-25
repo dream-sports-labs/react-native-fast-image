@@ -27,6 +27,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist"
   },
   "include": ["./src"],
   "exclude": ["node_modules", "dist"]
