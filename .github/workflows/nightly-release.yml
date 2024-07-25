@@ -15,7 +15,9 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Configure NPM authentication
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          npm config set @d11:registry https://registry.npmjs.org/
 
       - name: Check NPM config
         run: npm config list
