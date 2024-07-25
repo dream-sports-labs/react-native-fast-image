@@ -17,5 +17,7 @@
   "hooks": {
     "before:init": ["yarn type-check","yarn lint","yarn test","yarn build"],
     "after:bump": "npx auto-changelog -p"
-  }
+  },
+  "increment": "prerelease",
+  "preReleaseId": "nightly"
 }
