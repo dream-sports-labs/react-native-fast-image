@@ -14,6 +14,12 @@ jobs:
       - name: Common Setup
         uses: ./.github/actions/setup
 
+      - name: Configure NPM authentication
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      - name: Check NPM config
+        run: npm config list
+
       - name: Run nightly release
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
