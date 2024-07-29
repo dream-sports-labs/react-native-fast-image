@@ -22,6 +22,9 @@ jobs:
       - name: Check NPM config
         run: npm config list
 
+      - name: Make publish-nightly.sh executable
+        run: chmod +x publish-nightly.sh
+
       - name: Run nightly release
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
