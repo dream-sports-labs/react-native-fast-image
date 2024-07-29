@@ -42,8 +42,7 @@
     "prepack": "yarn build",
     "test": "jest",
     "type-check": "tsc --noEmit",
-    "release:nightly": "release-it --config .release-it-nightly.json",
-
+    "release:nightly": "./publish-nightly.sh",
     "changelog": "auto-changelog -p"
   },
   "prettier": {
@@ -54,6 +53,10 @@
   },
   "resolutions": {
     "@jest/create-cache-key-function": "^27"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
