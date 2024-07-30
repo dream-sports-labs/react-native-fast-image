@@ -1,0 +1,32 @@
+{
+  "npm": {
+    "publish": true,
+    "tag": "next"
+  },
+  "git": {
+    "requireCleanWorkingDir": true,
+    "requireBranch": "main",
+    "commitMessage": "Release v${version}-rc",
+    "tagName": "v${version}-rc",
+    "tagAnnotation": "Release v${version}-rc",
+    "push": true
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release v${version}-rc",
+    "tokenRef": "GITHUB_TOKEN"
+  },
+  "hooks": {
+    "before:init": ["yarn lint", "yarn type-check", "yarn test", "yarn build"],
+    "after:bump": "npx auto-changelog -p"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md"
+    }
+  },
+  "version": {
+    "preRelease": "rc"
+  }
+}

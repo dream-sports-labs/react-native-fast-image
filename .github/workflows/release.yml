@@ -14,8 +14,9 @@ jobs:
       - name: Common Setup
         uses: ./.github/actions/setup
 
-      - name: Run nightly release
+      - name: Release RC version
+#        if: github.ref == 'refs/heads/main'
+        run: yarn release:rc
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn release:nightly

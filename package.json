@@ -43,7 +43,8 @@
     "test": "jest",
     "type-check": "tsc --noEmit",
     "release:nightly": "./publish-nightly.sh",
-    "changelog": "auto-changelog -p"
+    "changelog": "auto-changelog -p",
+    "release:rc": "release-it --config .release-it.rc.json --preRelease=rc"
   },
   "prettier": {
     "semi": false,
