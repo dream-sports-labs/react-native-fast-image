@@ -20,14 +20,6 @@
     "before:init": ["yarn lint", "yarn type-check", "yarn test", "yarn build"],
     "after:bump": "npx auto-changelog -p"
   },
-  "plugins": {
-    "@release-it/conventional-changelog": {
-      "preset": {
-        "name": "angular"
-      },
-      "infile": "CHANGELOG.md"
-    }
-  },
   "version": {
     "preRelease": "rc"
   }
