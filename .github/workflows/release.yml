@@ -20,8 +20,7 @@ jobs:
           npm config set @d11:registry https://registry.npmjs.org/
 
       - name: Release RC version
-#        if: github.ref == 'refs/heads/main'
-        run: yarn release:rc
+        run: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

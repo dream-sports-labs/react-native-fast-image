@@ -1,19 +1,19 @@
 {
   "npm": {
     "publish": true,
-    "tag": "next"
+    "tag": "latest"
   },
   "git": {
     "requireCleanWorkingDir": true,
-    "requireBranch": "chore/release-rc",
-    "commitMessage": "Release v${version}-beta",
-    "tagName": "v${version}-beta",
-    "tagAnnotation": "Release v${version}-beta",
+    "requireBranch": "main",
+    "commitMessage": "Release v${version}",
+    "tagName": "v${version}",
+    "tagAnnotation": "Release v${version}",
     "push": true
   },
   "github": {
     "release": true,
-    "releaseName": "Release v${version}-beta",
+    "releaseName": "Release v${version}",
     "tokenRef": "GITHUB_TOKEN"
   },
   "hooks": {
@@ -21,6 +21,6 @@
     "after:bump": "npx auto-changelog -p"
   },
   "version": {
-    "preRelease": "beta"
+    "preRelease": "false"
   }
 }

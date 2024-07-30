@@ -44,7 +44,7 @@
     "type-check": "tsc --noEmit",
     "release:nightly": "./publish-nightly.sh",
     "changelog": "auto-changelog -p",
-    "release:rc": "release-it --config .release-it.rc.json --preRelease=beta"
+    "release": "release-it --config .release-it.json"
   },
   "prettier": {
     "semi": false,
