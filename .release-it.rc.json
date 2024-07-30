@@ -5,15 +5,15 @@
   },
   "git": {
     "requireCleanWorkingDir": true,
-    "requireBranch": "chore/release-rc",
-    "commitMessage": "Release v${version}-rc",
-    "tagName": "v${version}-rc",
-    "tagAnnotation": "Release v${version}-rc",
+    "requireBranch": "chore/release-beta",
+    "commitMessage": "Release v${version}-beta",
+    "tagName": "v${version}-beta",
+    "tagAnnotation": "Release v${version}-beta",
     "push": true
   },
   "github": {
     "release": true,
-    "releaseName": "Release v${version}-rc",
+    "releaseName": "Release v${version}-beta",
     "tokenRef": "GITHUB_TOKEN"
   },
   "hooks": {
@@ -21,6 +21,6 @@
     "after:bump": "npx auto-changelog -p"
   },
   "version": {
-    "preRelease": "rc"
+    "preRelease": "beta"
   }
 }
