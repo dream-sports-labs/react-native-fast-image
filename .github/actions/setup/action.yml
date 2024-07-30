@@ -15,3 +15,9 @@ runs:
     - name: Install dependencies
       run: yarn install
       shell: bash
+
+    - name: Set GitHub Config
+      run: |
+         git config --global user.email "deepanshu.shukla@dream11.com"
+         git config --global user.name "deepanshushuklad11"
+      shell: bash

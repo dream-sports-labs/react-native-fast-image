@@ -1,0 +1,26 @@
+{
+  "npm": {
+    "publish": true,
+    "tag": "next"
+  },
+  "git": {
+    "requireCleanWorkingDir": true,
+    "requireBranch": "chore/release-rc",
+    "commitMessage": "Release v${version}-beta",
+    "tagName": "v${version}-beta",
+    "tagAnnotation": "Release v${version}-beta",
+    "push": true
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release v${version}-beta",
+    "tokenRef": "GITHUB_TOKEN"
+  },
+  "hooks": {
+    "before:init": ["yarn lint", "yarn type-check", "yarn test", "yarn build"],
+    "after:bump": "npx auto-changelog -p"
+  },
+  "version": {
+    "preRelease": "beta"
+  }
+}
