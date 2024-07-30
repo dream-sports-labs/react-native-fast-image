@@ -5,7 +5,7 @@
   },
   "git": {
     "requireCleanWorkingDir": true,
-    "requireBranch": "main",
+    "requireBranch": "chore/release-rc",
     "commitMessage": "Release v${version}-rc",
     "tagName": "v${version}-rc",
     "tagAnnotation": "Release v${version}-rc",
