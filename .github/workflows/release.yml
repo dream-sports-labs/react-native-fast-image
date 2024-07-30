@@ -14,6 +14,11 @@ jobs:
       - name: Common Setup
         uses: ./.github/actions/setup
 
+      - name: Configure NPM authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          npm config set @d11:registry https://registry.npmjs.org/
+
       - name: Release RC version
 #        if: github.ref == 'refs/heads/main'
         run: yarn release:rc
