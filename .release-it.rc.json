@@ -5,7 +5,7 @@
   },
   "git": {
     "requireCleanWorkingDir": true,
-    "requireBranch": "chore/release-beta",
+    "requireBranch": "chore/release-rc",
     "commitMessage": "Release v${version}-beta",
     "tagName": "v${version}-beta",
     "tagAnnotation": "Release v${version}-beta",
