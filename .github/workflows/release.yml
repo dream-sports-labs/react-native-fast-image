@@ -19,7 +19,7 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           npm config set @d11:registry https://registry.npmjs.org/
 
-      - name: Release RC version
+      - name: Release to prod
         run: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
