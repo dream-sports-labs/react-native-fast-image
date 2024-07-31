@@ -1,7 +1,8 @@
 name: Nightly Release
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '30 18 * * *'  # This will run every day at 6:30 PM UTC (12:00 AM IST)
 
 jobs:
   release:
@@ -10,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          ref: main
 
       - name: Common Setup
         uses: ./.github/actions/setup
@@ -26,6 +29,7 @@ jobs:
         run: chmod +x publish-nightly.sh
 
       - name: Run nightly release
+        if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
