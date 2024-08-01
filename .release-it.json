@@ -1,0 +1,26 @@
+{
+  "npm": {
+    "publish": true,
+    "tag": "latest"
+  },
+  "git": {
+    "requireCleanWorkingDir": true,
+    "requireBranch": "main",
+    "commitMessage": "Release v${version}",
+    "tagName": "v${version}",
+    "tagAnnotation": "Release v${version}",
+    "push": true
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release v${version}",
+    "tokenRef": "GITHUB_TOKEN"
+  },
+  "hooks": {
+    "before:init": ["yarn lint", "yarn type-check", "yarn test", "yarn build"],
+    "after:bump": "npx auto-changelog -p"
+  },
+  "version": {
+    "preRelease": "false"
+  }
+}

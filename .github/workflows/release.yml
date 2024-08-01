@@ -14,8 +14,13 @@ jobs:
       - name: Common Setup
         uses: ./.github/actions/setup
 
-      - name: Run nightly release
+      - name: Configure NPM authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          npm config set @d11:registry https://registry.npmjs.org/
+
+      - name: Release to prod
+        run: yarn release
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn release:nightly
