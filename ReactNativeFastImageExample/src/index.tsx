@@ -13,9 +13,6 @@ LogBox.ignoreLogs([
   'Warning: isMounted(...) is deprecated',
   'Module RCTImageLoader',
 ]);
-const uiManager = global?.nativeFabricUIManager ? 'Fabric' : 'Paper';
-
-console.log('Running on',uiManager)
 
 export default function App() {
   return (
