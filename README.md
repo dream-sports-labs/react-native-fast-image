@@ -266,7 +266,7 @@ Thanks to [@mobinni](https://github.com/mobinni) for helping with the conceptual
 
 ## Licenses
 
--   FastImage - MIT © [Dream11](https://github.com/dream11)
+-   FastImage - MIT © [DreamSportsLabs](https://github.com/dream-sports-labs/)
 -   SDWebImage - `MIT`
 -   Glide - BSD, part MIT and Apache 2.0. See the [LICENSE](https://github.com/bumptech/glide/blob/master/LICENSE) file for details.
 
