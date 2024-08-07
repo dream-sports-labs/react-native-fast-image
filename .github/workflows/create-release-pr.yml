@@ -2,6 +2,7 @@ name: Create Release PR
 
 on:
   push:
+    types: [created]
     branches:
       - 'release-v*'
 
