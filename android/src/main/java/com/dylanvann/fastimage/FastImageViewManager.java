@@ -15,8 +15,6 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.dylanvann.fastimage.events.FastImageProgressEvent;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -40,7 +38,6 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
     static final String REACT_CLASS = "FastImageView";
     static final String REACT_ON_LOAD_START_EVENT = "onFastImageLoadStart";
     static final String REACT_ON_PROGRESS_EVENT = "onFastImageProgress";
-    private ThemedReactContext mContext;
     private static final Map<String, List<FastImageViewWithUrl>> VIEWS_FOR_URLS = new WeakHashMap<>();
 
     @Nullable
@@ -55,7 +52,6 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
     @NonNull
     @Override
     protected FastImageViewWithUrl createViewInstance(@NonNull ThemedReactContext reactContext) {
-        mContext = reactContext;
         if (isValidContextForGlide(reactContext)) {
             requestManager = Glide.with(reactContext);
         }
@@ -124,7 +120,8 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
         List<FastImageViewWithUrl> viewsForKey = VIEWS_FOR_URLS.get(key);
         if (viewsForKey != null) {
             for (FastImageViewWithUrl view : viewsForKey) {
-                EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(mContext, view.getId());
+                ThemedReactContext context = (ThemedReactContext) view.getContext();
+                EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.getId());
                 FastImageProgressEvent event = new FastImageProgressEvent(
                         ViewUtil.NO_SURFACE_ID,
                         view.getId(),
