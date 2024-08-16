@@ -40,6 +40,7 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
     static final String REACT_CLASS = "FastImageView";
     static final String REACT_ON_LOAD_START_EVENT = "onFastImageLoadStart";
     static final String REACT_ON_PROGRESS_EVENT = "onFastImageProgress";
+    private ThemedReactContext mContext;
     private static final Map<String, List<FastImageViewWithUrl>> VIEWS_FOR_URLS = new WeakHashMap<>();
 
     @Nullable
@@ -54,6 +55,7 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
     @NonNull
     @Override
     protected FastImageViewWithUrl createViewInstance(@NonNull ThemedReactContext reactContext) {
+        mContext = reactContext;
         if (isValidContextForGlide(reactContext)) {
             requestManager = Glide.with(reactContext);
         }
@@ -122,8 +124,7 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
         List<FastImageViewWithUrl> viewsForKey = VIEWS_FOR_URLS.get(key);
         if (viewsForKey != null) {
             for (FastImageViewWithUrl view : viewsForKey) {
-                ReactContext context = getReactApplicationContext();
-                EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.getId());
+                EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(mContext, view.getId());
                 FastImageProgressEvent event = new FastImageProgressEvent(
                         ViewUtil.NO_SURFACE_ID,
                         view.getId(),
