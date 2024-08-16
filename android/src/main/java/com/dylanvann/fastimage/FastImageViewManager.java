@@ -15,8 +15,6 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.dylanvann.fastimage.events.FastImageProgressEvent;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -122,7 +120,7 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
         List<FastImageViewWithUrl> viewsForKey = VIEWS_FOR_URLS.get(key);
         if (viewsForKey != null) {
             for (FastImageViewWithUrl view : viewsForKey) {
-                ReactContext context = getReactApplicationContext();
+                ThemedReactContext context = (ThemedReactContext) view.getContext();
                 EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.getId());
                 FastImageProgressEvent event = new FastImageProgressEvent(
                         ViewUtil.NO_SURFACE_ID,
