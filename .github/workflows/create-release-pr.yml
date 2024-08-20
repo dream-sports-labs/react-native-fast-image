@@ -1,0 +1,28 @@
+name: Create Release PR
+
+on:
+  push:
+    types: [created]
+    branches:
+      - 'release-v*'
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Common Setup
+        uses: ./.github/actions/setup
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Release v${{ github.ref_name }}"
+          branch: ${{ github.ref_name }}
+          base: main
+          title: "Release v${{ github.ref_name }}"
+          body: "This PR includes the version bump and changelog for v${{ github.ref_name }}."
+          draft: false
