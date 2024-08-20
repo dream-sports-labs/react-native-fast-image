@@ -6,7 +6,9 @@ on:
       - closed
       branches:
        - 'release-v*'
-
+concurrency:
+  group: release
+  cancel-in-progress: false
 jobs:
   publish:
     if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release-v')
