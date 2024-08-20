@@ -25,13 +25,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Read Version
+        id: read_version
+        run: echo "VERSION=$(cat .version)" >> $GITHUB_ENV
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
           commit-message: "Release v${{ github.ref_name }}"
-          branch: ${{ github.ref_name }}
+          branch: "release-v${{env.VERSION}}"
           base: main
-          title: "Release v${{ github.ref_name }}"
-          body: "This PR includes the version bump and changelog for v${{ github.ref_name }}."
+          title: "Release v${{env.VERSION}}"
+          body: "This PR includes the version bump and changelog for v${{env.VERSION}}."
           draft: false
