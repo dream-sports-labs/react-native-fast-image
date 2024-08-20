@@ -18,6 +18,6 @@ runs:
 
     - name: Set GitHub Config
       run: |
-         git config --global user.email "deepanshu.shukla@dream11.com"
-         git config --global user.name "deepanshushuklad11"
+         git config --global user.email "dreamsportslabs@dream11.com"
+         git config --global user.name "dreamsportslabs"
       shell: bash
