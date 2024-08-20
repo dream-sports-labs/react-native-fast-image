@@ -17,7 +17,7 @@
   "hooks": {
     "before:init": ["yarn lint", "yarn type-check", "yarn test", "yarn build"],
     "after:bump": [
-      "npx auto-changelog --output CHANGELOG.md --template keepachangelog --unreleased --commit-limit false",
+      "npx auto-changelog -p",
       "git add .",
       "git commit -m 'chore: update changelog and bump version to v${version}'",
       "git push origin HEAD:release-v${version}",
