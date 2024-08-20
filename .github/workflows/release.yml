@@ -36,6 +36,7 @@ jobs:
           commit-message: "Release v${{ github.ref_name }}"
           branch: "release-v${{env.VERSION}}"
           base: main
+          author: "Deepanshu Shukla <deepanshu.shukla@dream11.com>"
           title: "Release v${{env.VERSION}}"
           body: "This PR includes the version bump and changelog for v${{env.VERSION}}."
           draft: false
