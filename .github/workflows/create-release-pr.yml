@@ -1,13 +1,14 @@
 name: Create Release PR
 
 on:
-  create:
+  push:
     branches:
       - 'release-v*'
 
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
+    if: github.event.created
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
