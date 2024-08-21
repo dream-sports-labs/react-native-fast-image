@@ -5,7 +5,7 @@ on:
     types:
       - closed
     branches:
-      - 'release-v*'
+      - main
 
 concurrency:
   group: release
@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   publish:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release-v')
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release-v')
     runs-on: ubuntu-latest
 
     steps:
