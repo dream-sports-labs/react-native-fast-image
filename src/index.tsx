@@ -3,7 +3,6 @@ import {
     View,
     Image,
     NativeModules,
-    requireNativeComponent,
     StyleSheet,
     FlexStyle,
     LayoutChangeEvent,
@@ -15,7 +14,9 @@ import {
     AccessibilityProps,
     ViewProps,
     ColorValue,
+    ImageResolvedAssetSource,
 } from 'react-native'
+import FastImageView from './FastImageViewNativeComponent'
 
 export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center'
 
@@ -165,10 +166,9 @@ function FastImageBase({
     style,
     fallback,
     children,
-
+    // eslint-disable-next-line no-shadow
     resizeMode = 'cover',
     forwardedRef,
-    accessible = false,
     ...props
 }: FastImageProps & { forwardedRef: React.Ref<any> }) {
     if (fallback) {
@@ -177,11 +177,7 @@ function FastImageBase({
         const resolvedSource = Image.resolveAssetSource(cleanedSource)
 
         return (
-            <View
-                style={[styles.imageContainer, style]}
-                ref={forwardedRef}
-                accessible={accessible}
-            >
+            <View style={[styles.imageContainer, style]} ref={forwardedRef}>
                 <Image
                     {...props}
                     style={[StyleSheet.absoluteFill, { tintColor }]}
@@ -199,21 +195,36 @@ function FastImageBase({
         )
     }
 
-    const resolvedSource = Image.resolveAssetSource(source as any)
+    // @ts-ignore non-typed property
+    const FABRIC_ENABLED = !!global?.nativeFabricUIManager
+
+    // this type differs based on the `source` prop passed
+    const resolvedSource = Image.resolveAssetSource(
+        source as any,
+    ) as ImageResolvedAssetSource & { headers: any }
+    if (
+        resolvedSource?.headers &&
+        (FABRIC_ENABLED || Platform.OS === 'android')
+    ) {
+        // we do it like that to trick codegen
+        const headersArray: { name: string; value: string }[] = []
+        Object.keys(resolvedSource.headers).forEach((key) => {
+            headersArray.push({ name: key, value: resolvedSource.headers[key] })
+        })
+        resolvedSource.headers = headersArray
+    }
     const resolvedDefaultSource = resolveDefaultSource(defaultSource)
+    const resolvedDefaultSourceAsString =
+        resolvedDefaultSource !== null ? String(resolvedDefaultSource) : null
 
     return (
-        <View
-            style={[styles.imageContainer, style]}
-            ref={forwardedRef}
-            accessible={accessible}
-        >
+        <View style={[styles.imageContainer, style]} ref={forwardedRef}>
             <FastImageView
                 {...props}
                 tintColor={tintColor}
                 style={StyleSheet.absoluteFill}
                 source={resolvedSource}
-                defaultSource={resolvedDefaultSource}
+                defaultSource={resolvedDefaultSourceAsString}
                 onFastImageLoadStart={onLoadStart}
                 onFastImageProgress={onProgress}
                 onFastImageLoad={onLoad}
@@ -267,20 +278,5 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
 })
-
-// Types of requireNativeComponent are not correct.
-const FastImageView = (requireNativeComponent as any)(
-    'FastImageView',
-    FastImage,
-    {
-        nativeOnly: {
-            onFastImageLoadStart: true,
-            onFastImageProgress: true,
-            onFastImageLoad: true,
-            onFastImageError: true,
-            onFastImageLoadEnd: true,
-        },
-    },
-)
 
 export default FastImage
