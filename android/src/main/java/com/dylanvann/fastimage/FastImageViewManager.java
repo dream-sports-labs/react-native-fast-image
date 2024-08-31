@@ -40,7 +40,7 @@ import java.util.WeakHashMap;
 
 import javax.annotation.Nullable;
 
-class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> implements FastImageProgressListener, , FastImageViewManagerInterface<FastImageViewWithUrl> {
+class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> implements FastImageProgressListener, FastImageViewManagerInterface<FastImageViewWithUrl> {
 
     static final String REACT_CLASS = "FastImageView";
     static final String REACT_ON_LOAD_START_EVENT = "onFastImageLoadStart";
