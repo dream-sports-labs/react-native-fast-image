@@ -12,11 +12,14 @@ import com.dylanvann.fastimage.events.OnLoadEndEvent;
 import com.dylanvann.fastimage.events.OnLoadEvent;
 import com.dylanvann.fastimage.events.OnLoadStartEvent;
 import com.facebook.react.bridge.WritableMap;
+import com.dylanvann.fastimage.events.FastImageErrorEvent;
+import com.dylanvann.fastimage.events.FastImageLoadEndEvent;
+import com.dylanvann.fastimage.events.FastImageLoadEvent;
+import com.dylanvann.fastimage.events.FastImageProgressEvent;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIManagerHelper;
 import com.facebook.react.uimanager.events.EventDispatcher;
-import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 public class FastImageRequestListener implements RequestListener<Drawable> {
     static final String REACT_ON_ERROR_EVENT = "onFastImageError";
