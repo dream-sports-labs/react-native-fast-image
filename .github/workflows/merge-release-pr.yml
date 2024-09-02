@@ -1,0 +1,49 @@
+name: Merge Release PR and Publish
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release-v')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Common Setup
+        uses: ./.github/actions/setup
+
+      - name: Configure NPM authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          npm config set @d11:registry https://registry.npmjs.org/
+
+      - name: Check NPM config
+        run: npm config list
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --tag latest
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.pull_request.head.ref }}
+          release_name: ${{ github.event.pull_request.head.ref }}
+          draft: false
+          prerelease: false

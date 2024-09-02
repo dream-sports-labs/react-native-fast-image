@@ -1,32 +1,32 @@
 # Development
 
-For now this uses a modified cli to work around issues with symlinked packages.
-
 This is how to start the example app so you can test code with it.
 
 ```bash
+Make sure you’re running on node 18+ and Java 21 
+# This package Using Yarn 3.6.4
+corepack enable
+
+# Check (Should return 3.6.4)
+yarn -v 
+ 
+# If version listed is not 3.6.4  
+corepack prepare yarn@3.6.4 --activate
+
 # In the repo root folder.
 # Install dependencies.
 yarn
 
-# Link module.
-yarn link
+# Android
+yarn example android
 
-# Move to example folder.
-cd ReactNativeFastImageExampleOld
+# iOS
+# Install pod dependency
+cd ReactNativeFastImageExample/ios
+bundle install
+pod install
 
-# Install dependencies.
-yarn
-
-# Link module.
-yarn link react-native-fast-image
-
-# Start packager.
-yarn start
-
-# Start the iOS app.
-yarn react-native run-ios
-# Start the android app.
-yarn react-native run-android
-# You will need to re-run those commands to re-compile native code.
+# Go to root folder
+cd ../..
+yarn example ios
 ```
