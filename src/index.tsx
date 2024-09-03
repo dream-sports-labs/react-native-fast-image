@@ -15,8 +15,14 @@ import {
     ViewProps,
     ColorValue,
     ImageResolvedAssetSource,
+    requireNativeComponent,
 } from 'react-native'
-import FastImageView from './FastImageViewNativeComponent'
+
+const isFabricEnabled = global?.nativeFabricUIManager != null
+
+const FastImageView = isFabricEnabled
+    ? require('./FastImageViewNativeComponent').default
+    : requireNativeComponent('FastImageView')
 
 export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center'
 

@@ -46,9 +46,14 @@ android {
                     srcDir "src"
                     exclude "**/FastImageGlideModule.java"
                 }
-                 if (!isNewArchitectureEnabled()) {
+                 if (isNewArchitectureEnabled()) {
                 srcDirs += [
-                    "src/paper/java",
+                    "src/newarch",
+                    ]
+                }
+                else{
+                    srcDirs += [
+                    "src/oldarch",
                     ]
                 }
             }
