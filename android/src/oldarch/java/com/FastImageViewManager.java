@@ -14,6 +14,11 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.dylanvann.fastimage.events.OnLoadEndEvent;
+import com.dylanvann.fastimage.events.OnLoadEvent;
+import com.dylanvann.fastimage.events.OnLoadStartEvent;
+import com.dylanvann.fastimage.events.OnErrorEvent;
+import com.dylanvann.fastimage.events.OnProgressEvent;
 import com.dylanvann.fastimage.events.FastImageProgressEvent;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
@@ -107,12 +112,12 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
     @Override
     public Map<String, Object> getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.<String, Object>builder()
-                .put(REACT_ON_LOAD_START_EVENT, MapBuilder.of("registrationName", REACT_ON_LOAD_START_EVENT))
-                .put(REACT_ON_PROGRESS_EVENT, MapBuilder.of("registrationName", REACT_ON_PROGRESS_EVENT))
-                .put(REACT_ON_LOAD_EVENT, MapBuilder.of("registrationName", REACT_ON_LOAD_EVENT))
-                .put(REACT_ON_ERROR_EVENT, MapBuilder.of("registrationName", REACT_ON_ERROR_EVENT))
-                .put(REACT_ON_LOAD_END_EVENT, MapBuilder.of("registrationName", REACT_ON_LOAD_END_EVENT))
-                .build();
+            .put(OnLoadStartEvent.EVENT_NAME, MapBuilder.of("registrationName", REACT_ON_LOAD_START_EVENT))
+            .put(OnProgressEvent.EVENT_NAME, MapBuilder.of("registrationName", REACT_ON_PROGRESS_EVENT))
+            .put(OnLoadEvent.EVENT_NAME, MapBuilder.of("registrationName", REACT_ON_LOAD_EVENT))
+            .put(OnErrorEvent.EVENT_NAME, MapBuilder.of("registrationName", REACT_ON_ERROR_EVENT))
+            .put(OnLoadEndEvent.EVENT_NAME, MapBuilder.of("registrationName", REACT_ON_LOAD_END_EVENT))
+            .build();
     }
 
     @Override
@@ -121,16 +126,13 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
         if (viewsForKey != null) {
             for (FastImageViewWithUrl view : viewsForKey) {
                 ThemedReactContext context = (ThemedReactContext) view.getContext();
-                EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.getId());
-                FastImageProgressEvent event = new FastImageProgressEvent(
-                        ViewUtil.NO_SURFACE_ID,
-                        view.getId(),
-                        (int) bytesRead,
-                        (int) expectedLength);
-
-                if (dispatcher != null) {
-                    dispatcher.dispatchEvent(event);
+                int viewId = view.getId();
+                EventDispatcher eventDispatcher =
+                        UIManagerHelper.getEventDispatcherForReactTag(context, viewId);
+                if (eventDispatcher == null) {
+                    return;
                 }
+                eventDispatcher.dispatchEvent(new OnProgressEvent(viewId, bytesRead, expectedLength));
             }
         }
     }
