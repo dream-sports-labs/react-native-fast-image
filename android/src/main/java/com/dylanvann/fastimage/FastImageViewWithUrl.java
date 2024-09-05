@@ -74,7 +74,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
             // Clear the image.
             setImageDrawable(null);
-
+            
             ThemedReactContext context = (ThemedReactContext) getContext();
             EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
             int surfaceId = UIManagerHelper.getSurfaceId(this);
@@ -135,7 +135,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
             EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
             int surfaceId = UIManagerHelper.getSurfaceId(this);
             FastImageLoadStartEvent event = new FastImageLoadStartEvent(surfaceId, getId());
- 
+
             if (dispatcher != null) {
                 dispatcher.dispatchEvent(event);
             }

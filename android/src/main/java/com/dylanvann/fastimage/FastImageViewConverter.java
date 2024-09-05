@@ -73,7 +73,7 @@ class FastImageViewConverter {
 
                 builder.addHeader(header, value);
             }
-            
+
             headers = builder.build();
         }
 
