@@ -74,6 +74,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
             // Clear the image.
             setImageDrawable(null);
+
             ThemedReactContext context = (ThemedReactContext) getContext();
             EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
             int surfaceId = UIManagerHelper.getSurfaceId(this);
@@ -89,7 +90,6 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
         if (imageSource != null && imageSource.getUri().toString().length() == 0) {
             ThemedReactContext context = (ThemedReactContext) getContext();
-            int viewId = getId();
             EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
             int surfaceId = UIManagerHelper.getSurfaceId(this);
             FastImageErrorEvent event = new FastImageErrorEvent(surfaceId, getId(), mSource);
@@ -131,14 +131,14 @@ class FastImageViewWithUrl extends AppCompatImageView {
         ThemedReactContext context = (ThemedReactContext) getContext();
         if (imageSource != null) {
             // This is an orphan even without a load/loadend when only loading a placeholder
-             // This is an orphan event without a load/loadend when only loading a placeholder
-             EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
-             int surfaceId = UIManagerHelper.getSurfaceId(this);
-             FastImageLoadStartEvent event = new FastImageLoadStartEvent(surfaceId, getId());
+            // This is an orphan event without a load/loadend when only loading a placeholder
+            EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
+            int surfaceId = UIManagerHelper.getSurfaceId(this);
+            FastImageLoadStartEvent event = new FastImageLoadStartEvent(surfaceId, getId());
  
-             if (dispatcher != null) {
-                 dispatcher.dispatchEvent(event);
-             }
+            if (dispatcher != null) {
+                dispatcher.dispatchEvent(event);
+            }
         }
 
         if (requestManager != null) {
