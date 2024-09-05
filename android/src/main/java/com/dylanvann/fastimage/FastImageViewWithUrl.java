@@ -13,16 +13,12 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.request.Request;
-import com.dylanvann.fastimage.events.OnErrorEvent;
-import com.dylanvann.fastimage.events.OnLoadStartEvent;
-import com.dylanvann.fastimage.events.OnProgressEvent;
 import com.facebook.react.bridge.ReadableMap;
 import com.dylanvann.fastimage.events.FastImageErrorEvent;
 import com.dylanvann.fastimage.events.FastImageLoadStartEvent;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIManagerHelper;
 import com.facebook.react.uimanager.events.EventDispatcher;
-import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -78,6 +74,13 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
             // Clear the image.
             setImageDrawable(null);
+            ThemedReactContext context = (ThemedReactContext) getContext();
+            EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
+            int surfaceId = UIManagerHelper.getSurfaceId(this);
+            FastImageErrorEvent event = new FastImageErrorEvent(surfaceId, getId(), mSource);
+            if (dispatcher != null) {
+                dispatcher.dispatchEvent(event);
+            }
             return;
         }
 
@@ -87,12 +90,13 @@ class FastImageViewWithUrl extends AppCompatImageView {
         if (imageSource != null && imageSource.getUri().toString().length() == 0) {
             ThemedReactContext context = (ThemedReactContext) getContext();
             int viewId = getId();
-            EventDispatcher eventDispatcher =
-                    UIManagerHelper.getEventDispatcherForReactTag(context, viewId);
-            if (eventDispatcher == null) {
-                return;
+            EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
+            int surfaceId = UIManagerHelper.getSurfaceId(this);
+            FastImageErrorEvent event = new FastImageErrorEvent(surfaceId, getId(), mSource);
+
+            if (dispatcher != null) {
+                dispatcher.dispatchEvent(event);
             }
-            eventDispatcher.dispatchEvent(new OnErrorEvent(viewId));
             // Cancel existing requests.
             clearView(requestManager);
 
@@ -127,13 +131,14 @@ class FastImageViewWithUrl extends AppCompatImageView {
         ThemedReactContext context = (ThemedReactContext) getContext();
         if (imageSource != null) {
             // This is an orphan even without a load/loadend when only loading a placeholder
-            int viewId = getId();
-            EventDispatcher eventDispatcher =
-                    UIManagerHelper.getEventDispatcherForReactTag(context, viewId);
-            if (eventDispatcher == null) {
-                return;
-            }
-            eventDispatcher.dispatchEvent(new OnLoadStartEvent(viewId, 0, 0));
+             // This is an orphan event without a load/loadend when only loading a placeholder
+             EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
+             int surfaceId = UIManagerHelper.getSurfaceId(this);
+             FastImageLoadStartEvent event = new FastImageLoadStartEvent(surfaceId, getId());
+ 
+             if (dispatcher != null) {
+                 dispatcher.dispatchEvent(event);
+             }
         }
 
         if (requestManager != null) {

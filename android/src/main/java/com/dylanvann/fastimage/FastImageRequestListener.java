@@ -7,10 +7,6 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.Target;
-import com.dylanvann.fastimage.events.OnErrorEvent;
-import com.dylanvann.fastimage.events.OnLoadEndEvent;
-import com.dylanvann.fastimage.events.OnLoadEvent;
-import com.dylanvann.fastimage.events.OnLoadStartEvent;
 import com.facebook.react.bridge.WritableMap;
 import com.dylanvann.fastimage.events.FastImageErrorEvent;
 import com.dylanvann.fastimage.events.FastImageLoadEndEvent;
@@ -31,6 +27,13 @@ public class FastImageRequestListener implements RequestListener<Drawable> {
         this.key = key;
     }
 
+    private static WritableMap mapFromResource(Drawable resource) {
+        WritableMap resourceData = new WritableNativeMap();
+        resourceData.putInt("width", resource.getIntrinsicWidth());
+        resourceData.putInt("height", resource.getIntrinsicHeight());
+        return resourceData;
+    }
+
     @Override
     public boolean onLoadFailed(@androidx.annotation.Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
         FastImageOkHttpProgressGlideModule.forget(key);
@@ -39,14 +42,13 @@ public class FastImageRequestListener implements RequestListener<Drawable> {
         }
         FastImageViewWithUrl view = (FastImageViewWithUrl) ((ImageViewTarget) target).getView();
         ThemedReactContext context = (ThemedReactContext) view.getContext();
-        int viewId = view.getId();
-        EventDispatcher eventDispatcher =
-                UIManagerHelper.getEventDispatcherForReactTag(context, viewId);
-        if (eventDispatcher == null) {
-            return false;
+        EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.getId());
+        int surfaceId = UIManagerHelper.getSurfaceId(view);
+
+        if (dispatcher != null) {
+            dispatcher.dispatchEvent(new FastImageErrorEvent(surfaceId, view.getId(), null));
+            dispatcher.dispatchEvent(new FastImageLoadEndEvent(surfaceId, view.getId()));
         }
-        eventDispatcher.dispatchEvent(new OnErrorEvent(viewId));
-        eventDispatcher.dispatchEvent(new OnLoadEndEvent(viewId));
         return false;
     }
 
@@ -57,14 +59,13 @@ public class FastImageRequestListener implements RequestListener<Drawable> {
         }
         FastImageViewWithUrl view = (FastImageViewWithUrl) ((ImageViewTarget) target).getView();
         ThemedReactContext context = (ThemedReactContext) view.getContext();
-        int viewId = view.getId();
-        EventDispatcher eventDispatcher =
-                UIManagerHelper.getEventDispatcherForReactTag(context, viewId);
-        if (eventDispatcher == null) {
-            return false;
+        EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.getId());
+        int surfaceId = UIManagerHelper.getSurfaceId(view);
+
+        if (dispatcher != null) {
+            dispatcher.dispatchEvent(new FastImageLoadEvent(surfaceId, view.getId()));
+            dispatcher.dispatchEvent(new FastImageLoadEndEvent(surfaceId, view.getId()));
         }
-        eventDispatcher.dispatchEvent(new OnLoadEvent(viewId, resource.getIntrinsicWidth(), resource.getIntrinsicHeight()));
-        eventDispatcher.dispatchEvent(new OnLoadEndEvent(viewId));
         return false;
     }
 }

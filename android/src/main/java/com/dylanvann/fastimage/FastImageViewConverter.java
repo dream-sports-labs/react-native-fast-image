@@ -63,11 +63,15 @@ class FastImageViewConverter {
         Headers headers = Headers.DEFAULT;
 
         if (source.hasKey("headers")) {
+            ReadableMap headersMap = source.getMap("headers");
+            ReadableMapKeySetIterator iterator = headersMap.keySetIterator();
             LazyHeaders.Builder builder = new LazyHeaders.Builder();
-            ReadableArray headersArray = source.getArray("headers");
-            for (int i = 0; i < headersArray.size(); i++) {
-                ReadableMap header = headersArray.getMap(i);
-                builder.addHeader(header.getString("name"), header.getString("value"));
+
+            while (iterator.hasNextKey()) {
+                String header = iterator.nextKey();
+                String value = headersMap.getString(header);
+
+                builder.addHeader(header, value);
             }
             headers = builder.build();
         }
