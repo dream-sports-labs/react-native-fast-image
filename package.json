@@ -1,5 +1,5 @@
 {
-  "name": "@d11/react-native-fast-image",
+  "name": "@derekchan916/react-native-fast-image",
   "version": "8.6.10",
   "description": "🚩 FastImage, performant React Native image component.",
   "keywords": [
@@ -31,9 +31,6 @@
     "!ios/build",
     "dist",
     "RNFastImage.podspec"
-  ],
-  "workspaces": [
-    "ReactNativeFastImageExample"
   ],
   "scripts": {
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
