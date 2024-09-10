@@ -36,14 +36,16 @@
         "ReactNativeFastImageExample"
     ],
     "scripts": {
-        "build": "tsc && rollup -c && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
+        "clean": "rm -rf dist tsconfig.tsbuildinfo",
+        "build": "yarn clean && tsc && rollup -c && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
         "example": "yarn workspace reactnativefastimageexample",
         "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
         "prepack": "yarn build",
         "test": "jest",
         "type-check": "tsc --noEmit",
         "release:nightly": "./publish-nightly.sh",
-        "changelog": "auto-changelog -p"
+        "changelog": "auto-changelog -p",
+        "release": "release-it --config .release-it.json"
     },
     "prettier": {
         "semi": false,
