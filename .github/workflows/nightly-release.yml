@@ -25,12 +25,39 @@ jobs:
       - name: Check NPM config
         run: npm config list
 
+      - name: Get the current commit SHA
+        id: get_commit
+        run: echo "CURRENT_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Retrieve LAST_COMMIT_SHA from GitHub variable
+        id: get_last_sha
+        run: echo "LAST_COMMIT_SHA=${{ vars.LAST_COMMIT_SHA }}" >> $GITHUB_ENV
+
+      - name: Compare commit SHAs
+        id: check_shas
+        run: |
+          if [ "${{ env.LAST_COMMIT_SHA }}" = "${{ env.CURRENT_COMMIT_SHA }}" ]; then
+            echo "The latest commit is the same as the last nightly run. Skipping release."
+            echo "skip_release=true" >> $GITHUB_ENV
+          else
+             echo "skip_release=false" >> $GITHUB_ENV
+          fi
+
       - name: Make publish-nightly.sh executable
+        if: env.skip_release != 'true'
         run: chmod +x publish-nightly.sh
 
       - name: Run nightly release
-        if: github.ref == 'refs/heads/main'
+        if: env.skip_release != 'true' && github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: yarn release:nightly
+
+
+      - name: Update LAST_COMMIT_SHA GitHub variable
+        if: env.skip_release != 'true'
+        run: |
+          gh variable set LAST_COMMIT_SHA --body "$CURRENT_COMMIT_SHA"
+        env:
+          GH_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
