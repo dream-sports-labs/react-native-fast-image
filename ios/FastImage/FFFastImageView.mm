@@ -16,6 +16,87 @@
 
 @implementation FFFastImageView
 
+
+
+- (void)onLoadEventSend:(UIImage *)image {
+    NSDictionary* onLoadEvent = @{
+            @"width": [NSNumber numberWithDouble: image.size.width],
+            @"height": [NSNumber numberWithDouble: image.size.height]
+    };
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+                ->onFastImageLoad(facebook::react::FastImageViewEventEmitter::OnFastImageLoad{.width = image.size.width, .height = image.size.height});
+          }
+    #else
+    if (self.onFastImageLoad) {
+        self.onFastImageLoad(onLoadEvent);
+    }
+#endif
+}
+
+- (void)onLoadStartEvent {
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+            ->onFastImageLoadStart(facebook::react::FastImageViewEventEmitter::OnFastImageLoadStart{});
+        }
+    #else
+        if (self.onFastImageLoadStart) {
+            self.onFastImageLoadStart(@{});
+            self.hasSentOnLoadStart = YES;
+        } else {
+            self.hasSentOnLoadStart = NO;
+        }
+    #endif
+}
+
+- (void)onProgressEvent:(NSInteger)receivedSize expectedSize:(NSInteger)expectedSize {
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+            ->onFastImageProgress(facebook::react::FastImageViewEventEmitter::OnFastImageProgress{.loaded = static_cast<int>(receivedSize), .total = static_cast<int>(expectedSize)});
+        }
+    #else
+        if (self.onFastImageProgress) {
+            self.onFastImageProgress(@{
+                @"loaded": @(receivedSize),
+                @"total": @(expectedSize)
+            });
+        }
+    #endif
+}
+
+- (void)onLoadEndEvent {
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+            ->onFastImageLoadEnd(facebook::react::FastImageViewEventEmitter::OnFastImageLoadEnd{});
+        }
+    #else
+    if (self.onFastImageLoadEnd) {
+        self.onFastImageLoadEnd(@{});
+    }
+#endif
+}
+
+- (void)onErrorEvent {
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{});
+        }
+    #else
+        if (self.onFastImageError) {
+            self.onFastImageError(@{});
+        }
+    #endif
+}
+
+
+
+
+
 - (id) init {
     self = [super init];
     self.resizeMode = RCTResizeModeCover;
@@ -92,22 +173,7 @@
 }
 
 - (void) sendOnLoad: (UIImage*)image {
-    self.onLoadEvent = @{
-            @"width": [NSNumber numberWithDouble: image.size.width],
-            @"height": [NSNumber numberWithDouble: image.size.height]
-    };
-    // all the setters of RCTDirectEventBlock aren't called on Fabric so we don't
-// need the logic of checking if the values are there already etc
-    #ifdef RCT_NEW_ARCH_ENABLED
-            if (_eventEmitter != nullptr) {
-                std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
-                    ->onFastImageLoad(facebook::react::FastImageViewEventEmitter::OnFastImageLoad{.width = image.size.width, .height = image.size.height});
-              }
-    #else
-    if (self.onFastImageLoad) {
-        self.onFastImageLoad(self.onLoadEvent);
-    }
-    #endif
+    [self onLoadEventSend:image];
 }
 
 - (void) setSource: (FFFastImageSource*)source {
@@ -137,47 +203,14 @@
         // Load base64 images.
         NSString* url = [_source.url absoluteString];
         if (url && [url hasPrefix: @"data:image"]) {
-            #ifdef RCT_NEW_ARCH_ENABLED
-            if (_eventEmitter != nullptr) {
-                std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
-                    ->onFastImageLoadStart(facebook::react::FastImageViewEventEmitter::OnFastImageLoadStart{});
-              }
-            #else
-            if (self.onFastImageLoadStart) {
-                self.onFastImageLoadStart(@{});
-                self.hasSentOnLoadStart = YES;
-            } else {
-                self.hasSentOnLoadStart = NO;
-            }
-            #endif
+            [self onLoadStartEvent];
             // Use SDWebImage API to support external format like WebP images
             UIImage* image = [UIImage sd_imageWithData: [NSData dataWithContentsOfURL: _source.url]];
             [self setImage: image];
-            #ifdef RCT_NEW_ARCH_ENABLED
-            if (_eventEmitter != nullptr) {
-                std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
-                    ->onFastImageProgress(facebook::react::FastImageViewEventEmitter::OnFastImageProgress{.loaded = 1, .total = 1});
-              }
-            #else
-            if (self.onFastImageProgress) {
-                self.onFastImageProgress(@{
-                        @"loaded": @(1),
-                        @"total": @(1)
-                });
-            }
-            #endif
+            [self onProgressEvent:1 expectedSize:1];
             self.hasCompleted = YES;
             [self sendOnLoad: image];
-            #ifdef RCT_NEW_ARCH_ENABLED
-            if (_eventEmitter != nullptr) {
-                std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
-                    ->onFastImageLoadEnd(facebook::react::FastImageViewEventEmitter::OnFastImageLoadEnd{});
-              }
-            #else
-            if (self.onFastImageLoadEnd) {
-                self.onFastImageLoadEnd(@{});
-            }
-            #endif
+            [self onLoadEndEvent];
             return;
         }
 
@@ -217,20 +250,7 @@
             case FFFCacheControlImmutable:
                 break;
         }
-
-        #ifdef RCT_NEW_ARCH_ENABLED
-            if (_eventEmitter != nullptr) {
-                std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
-                    ->onFastImageLoadStart(facebook::react::FastImageViewEventEmitter::OnFastImageLoadStart{});
-              }
-        #else
-        if (self.onFastImageLoadStart) {
-            self.onFastImageLoadStart(@{});
-            self.hasSentOnLoadStart = YES;
-        } else {
-            self.hasSentOnLoadStart = NO;
-        }
-        #endif
+        [self onLoadStartEvent];
         self.hasCompleted = NO;
         self.hasErrored = NO;
 
@@ -247,59 +267,20 @@
                      options: options
                      context: context
                     progress: ^(NSInteger receivedSize, NSInteger expectedSize, NSURL* _Nullable targetURL) {
-                        #ifdef RCT_NEW_ARCH_ENABLED
-                        if (weakSelf.eventEmitter != nullptr) {
-                            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(weakSelf.eventEmitter)
-                            ->onFastImageProgress(facebook::react::FastImageViewEventEmitter::OnFastImageProgress{.loaded = static_cast<int>(receivedSize), .total = static_cast<int>(expectedSize)});
-                                }
-                        #else
-                        if (weakSelf.onFastImageProgress) {
-                            weakSelf.onFastImageProgress(@{
-                                    @"loaded": @(receivedSize),
-                                    @"total": @(expectedSize)
-                            });
-                        }
-                        #endif
+        [self onProgressEvent:receivedSize expectedSize:expectedSize];
                     } completed: ^(UIImage* _Nullable image,
                     NSError* _Nullable error,
                     SDImageCacheType cacheType,
                     NSURL* _Nullable imageURL) {
                 if (error) {
                     weakSelf.hasErrored = YES;
-                    #ifdef RCT_NEW_ARCH_ENABLED
-                         if (weakSelf.eventEmitter != nullptr) {
-                            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(weakSelf.eventEmitter)
-                            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{});
-                        }
-                    #else
-                    if (weakSelf.onFastImageError) {
-                        weakSelf.onFastImageError(@{});
-                    }
-                    #endif
+                    [weakSelf onErrorEvent];
 
-                #ifdef RCT_NEW_ARCH_ENABLED
-                if (weakSelf.eventEmitter != nullptr) {
-                    std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(weakSelf.eventEmitter)
-                    ->onFastImageLoadEnd(facebook::react::FastImageViewEventEmitter::OnFastImageLoadEnd{});
-                    }
-                #else
-                    if (weakSelf.onFastImageLoadEnd) {
-                        weakSelf.onFastImageLoadEnd(@{});
-                    }
-                #endif
+                    [weakSelf onLoadEndEvent];
                 } else {
                     weakSelf.hasCompleted = YES;
                     [weakSelf sendOnLoad: image];
-                    #ifdef RCT_NEW_ARCH_ENABLED
-                        if (weakSelf.eventEmitter != nullptr) {
-                            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(weakSelf.eventEmitter)
-                            ->onFastImageLoadEnd(facebook::react::FastImageViewEventEmitter::OnFastImageLoadEnd{});
-                            }
-                    #else
-                    if (weakSelf.onFastImageLoadEnd) {
-                        weakSelf.onFastImageLoadEnd(@{});
-                    }
-                    #endif
+                    [weakSelf onLoadEndEvent];
                 }
             }];
 }

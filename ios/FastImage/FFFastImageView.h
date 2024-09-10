@@ -27,5 +27,13 @@
 #endif
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps;
+- (void)onLoadEventSend:(UIImage *)image;
 
+- (void)onLoadStartEvent;
+
+- (void)onProgressEvent:(NSInteger)receivedSize expectedSize:(NSInteger)expectedSize;
+
+- (void)onLoadEndEvent;
+
+- (void)onErrorEvent;
 @end
