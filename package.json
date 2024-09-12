@@ -99,5 +99,8 @@
     "react": "*",
     "react-native": "*"
   },
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "yarn@3.6.4",
+  "dependencies": {
+    "@octokit/rest": "^21.0.2"
+  }
 }
