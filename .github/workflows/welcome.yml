@@ -1,0 +1,25 @@
+name: 'Welcome New Contributors'
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  welcome-new-contributor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Greet the contributor'
+        uses: garg3133/welcome-new-contributors@v1.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: |
+            👋 **Welcome to the community!**  
+            Thank you for opening your first issue. We appreciate your contribution and will review it as soon as possible.  
+            Feel free to ask questions, share ideas, or provide any additional details! We're here to help. 😄
+          pr-message: |
+            🚀 **Thanks for your first Pull Request!**  
+            Your contribution is greatly appreciated, and a maintainer will review it soon.  
+            Meanwhile, feel free to check out other issues or share your thoughts on the project.  
+            We’re excited to have you on board! 🎉  
