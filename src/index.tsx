@@ -18,7 +18,7 @@ import {
     requireNativeComponent,
 } from 'react-native'
 
-const isFabricEnabled = global?.nativeFabricUIManager != null
+const isFabricEnabled = (global as any)?.nativeFabricUIManager != null
 
 const FastImageView = isFabricEnabled
     ? require('./FastImageViewNativeComponent').default
