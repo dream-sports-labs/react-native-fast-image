@@ -26,7 +26,7 @@ jobs:
             We’re excited to have you on board! 🎉  
 
       - name: Add  labels
-        run: node add-labels.js
+        run: node .github/scripts/add-labels.js
         if: ${{ steps.greet.outcome == 'success' }}  # Runs only if the greeting was successful
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
