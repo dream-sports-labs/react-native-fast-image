@@ -10,6 +10,9 @@ jobs:
   welcome-new-contributor:
     runs-on: ubuntu-latest
     steps:
+      - name: Common Setup
+        uses: ./.github/actions/setup
+
       - name: 'Greet the contributor'
         id: greet
         uses: garg3133/welcome-new-contributors@v1.2
