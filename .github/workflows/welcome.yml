@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Greet the contributor'
+        id: greet
         uses: garg3133/welcome-new-contributors@v1.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -23,3 +24,14 @@ jobs:
             Your contribution is greatly appreciated, and a maintainer will review it soon.  
             Meanwhile, feel free to check out other issues or share your thoughts on the project.  
             We’re excited to have you on board! 🎉  
+
+      - name: Add  labels
+        run: node add-labels.js
+        if: ${{ steps.greet.outcome == 'success' }}  # Runs only if the greeting was successful
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+          LABELS_FOR_ISSUE: 'First Issue'  # Multiple labels for issues
+          LABELS_FOR_PR: 'First PR'   # Multiple labels
