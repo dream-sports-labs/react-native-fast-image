@@ -2,7 +2,6 @@
 
 exports[`FastImage (Android) renders a non-existing defaultSource 1`] = `
 <View
-  accessible={false}
   style={
     [
       {
@@ -33,7 +32,6 @@ exports[`FastImage (Android) renders a non-existing defaultSource 1`] = `
 
 exports[`FastImage (Android) renders a normal defaultSource 1`] = `
 <View
-  accessible={false}
   style={
     [
       {
@@ -64,7 +62,6 @@ exports[`FastImage (Android) renders a normal defaultSource 1`] = `
 
 exports[`FastImage (Android) renders a normal defaultSource when fails to load source 1`] = `
 <View
-  accessible={false}
   style={
     [
       {
@@ -95,7 +92,6 @@ exports[`FastImage (Android) renders a normal defaultSource when fails to load s
 
 exports[`FastImage (iOS) renders 1`] = `
 <View
-  accessible={false}
   style={
     [
       {
@@ -126,7 +122,6 @@ exports[`FastImage (iOS) renders 1`] = `
 
 exports[`FastImage (iOS) renders Image with fallback prop 1`] = `
 <View
-  accessible={false}
   style={
     [
       {
@@ -161,7 +156,6 @@ exports[`FastImage (iOS) renders Image with fallback prop 1`] = `
 
 exports[`FastImage (iOS) renders a normal Image when not passed a uri 1`] = `
 <View
-  accessible={false}
   style={
     [
       {
@@ -192,7 +186,6 @@ exports[`FastImage (iOS) renders a normal Image when not passed a uri 1`] = `
 
 exports[`FastImage (iOS) renders defaultSource 1`] = `
 <View
-  accessible={false}
   style={
     [
       {
@@ -206,11 +199,7 @@ exports[`FastImage (iOS) renders defaultSource 1`] = `
   }
 >
   <FastImageView
-    defaultSource={
-      {
-        "testUri": "../../../ReactNativeFastImageExampleServer/pictures/jellyfish.gif",
-      }
-    }
+    defaultSource="[object Object]"
     resizeMode="cover"
     style={
       {
