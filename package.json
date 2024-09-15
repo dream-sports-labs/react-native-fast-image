@@ -99,6 +99,14 @@
     "react": "*",
     "react-native": "*"
   },
+  "codegenConfig": {
+        "name": "rnfastimage",
+        "type": "all",
+        "jsSrcsDir": "./src",
+        "android": {
+            "javaPackageName": "com.dylanvann.fastimage"
+        }
+    },
   "packageManager": "yarn@3.6.4",
   "dependencies": {
     "@octokit/rest": "^21.0.2"
