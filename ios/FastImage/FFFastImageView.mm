@@ -16,6 +16,87 @@
 
 @implementation FFFastImageView
 
+
+
+- (void)onLoadEventSend:(UIImage *)image {
+    NSDictionary* onLoadEvent = @{
+            @"width": [NSNumber numberWithDouble: image.size.width],
+            @"height": [NSNumber numberWithDouble: image.size.height]
+    };
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+                ->onFastImageLoad(facebook::react::FastImageViewEventEmitter::OnFastImageLoad{.width = image.size.width, .height = image.size.height});
+          }
+    #else
+    if (self.onFastImageLoad) {
+        self.onFastImageLoad(onLoadEvent);
+    }
+#endif
+}
+
+- (void)onLoadStartEvent {
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+            ->onFastImageLoadStart(facebook::react::FastImageViewEventEmitter::OnFastImageLoadStart{});
+        }
+    #else
+        if (self.onFastImageLoadStart) {
+            self.onFastImageLoadStart(@{});
+            self.hasSentOnLoadStart = YES;
+        } else {
+            self.hasSentOnLoadStart = NO;
+        }
+    #endif
+}
+
+- (void)onProgressEvent:(NSInteger)receivedSize expectedSize:(NSInteger)expectedSize {
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+            ->onFastImageProgress(facebook::react::FastImageViewEventEmitter::OnFastImageProgress{.loaded = static_cast<int>(receivedSize), .total = static_cast<int>(expectedSize)});
+        }
+    #else
+        if (self.onFastImageProgress) {
+            self.onFastImageProgress(@{
+                @"loaded": @(receivedSize),
+                @"total": @(expectedSize)
+            });
+        }
+    #endif
+}
+
+- (void)onLoadEndEvent {
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+            ->onFastImageLoadEnd(facebook::react::FastImageViewEventEmitter::OnFastImageLoadEnd{});
+        }
+    #else
+    if (self.onFastImageLoadEnd) {
+        self.onFastImageLoadEnd(@{});
+    }
+#endif
+}
+
+- (void)onErrorEvent {
+    #ifdef RCT_NEW_ARCH_ENABLED
+        if (_eventEmitter != nullptr) {
+            std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
+            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{});
+        }
+    #else
+        if (self.onFastImageError) {
+            self.onFastImageError(@{});
+        }
+    #endif
+}
+
+
+
+
+
 - (id) init {
     self = [super init];
     self.resizeMode = RCTResizeModeCover;
@@ -92,13 +173,7 @@
 }
 
 - (void) sendOnLoad: (UIImage*)image {
-    self.onLoadEvent = @{
-            @"width": [NSNumber numberWithDouble: image.size.width],
-            @"height": [NSNumber numberWithDouble: image.size.height]
-    };
-    if (self.onFastImageLoad) {
-        self.onFastImageLoad(self.onLoadEvent);
-    }
+    [self onLoadEventSend:image];
 }
 
 - (void) setSource: (FFFastImageSource*)source {
@@ -128,27 +203,14 @@
         // Load base64 images.
         NSString* url = [_source.url absoluteString];
         if (url && [url hasPrefix: @"data:image"]) {
-            if (self.onFastImageLoadStart) {
-                self.onFastImageLoadStart(@{});
-                self.hasSentOnLoadStart = YES;
-            } else {
-                self.hasSentOnLoadStart = NO;
-            }
+            [self onLoadStartEvent];
             // Use SDWebImage API to support external format like WebP images
             UIImage* image = [UIImage sd_imageWithData: [NSData dataWithContentsOfURL: _source.url]];
             [self setImage: image];
-            if (self.onFastImageProgress) {
-                self.onFastImageProgress(@{
-                        @"loaded": @(1),
-                        @"total": @(1)
-                });
-            }
+            [self onProgressEvent:1 expectedSize:1];
             self.hasCompleted = YES;
             [self sendOnLoad: image];
-
-            if (self.onFastImageLoadEnd) {
-                self.onFastImageLoadEnd(@{});
-            }
+            [self onLoadEndEvent];
             return;
         }
 
@@ -188,13 +250,7 @@
             case FFFCacheControlImmutable:
                 break;
         }
-
-        if (self.onFastImageLoadStart) {
-            self.onFastImageLoadStart(@{});
-            self.hasSentOnLoadStart = YES;
-        } else {
-            self.hasSentOnLoadStart = NO;
-        }
+        [self onLoadStartEvent];
         self.hasCompleted = NO;
         self.hasErrored = NO;
 
@@ -205,36 +261,26 @@
 }
 
 - (void) downloadImage: (FFFastImageSource*)source options: (SDWebImageOptions)options context: (SDWebImageContext*)context {
-    __weak typeof(self) weakSelf = self; // Always use a weak reference to self in blocks
+    __weak FFFastImageView *weakSelf = self; // Always use a weak reference to self in blocks
     [self sd_setImageWithURL: _source.url
             placeholderImage: _defaultSource
                      options: options
                      context: context
                     progress: ^(NSInteger receivedSize, NSInteger expectedSize, NSURL* _Nullable targetURL) {
-                        if (weakSelf.onFastImageProgress) {
-                            weakSelf.onFastImageProgress(@{
-                                    @"loaded": @(receivedSize),
-                                    @"total": @(expectedSize)
-                            });
-                        }
+        [self onProgressEvent:receivedSize expectedSize:expectedSize];
                     } completed: ^(UIImage* _Nullable image,
                     NSError* _Nullable error,
                     SDImageCacheType cacheType,
                     NSURL* _Nullable imageURL) {
                 if (error) {
                     weakSelf.hasErrored = YES;
-                    if (weakSelf.onFastImageError) {
-                        weakSelf.onFastImageError(@{});
-                    }
-                    if (weakSelf.onFastImageLoadEnd) {
-                        weakSelf.onFastImageLoadEnd(@{});
-                    }
+                    [weakSelf onErrorEvent];
+
+                    [weakSelf onLoadEndEvent];
                 } else {
                     weakSelf.hasCompleted = YES;
                     [weakSelf sendOnLoad: image];
-                    if (weakSelf.onFastImageLoadEnd) {
-                        weakSelf.onFastImageLoadEnd(@{});
-                    }
+                    [weakSelf onLoadEndEvent];
                 }
             }];
 }

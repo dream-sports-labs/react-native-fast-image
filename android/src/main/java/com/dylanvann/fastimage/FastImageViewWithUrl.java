@@ -79,6 +79,9 @@ class FastImageViewWithUrl extends AppCompatImageView {
             EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
             int surfaceId = UIManagerHelper.getSurfaceId(this);
             FastImageErrorEvent event = new FastImageErrorEvent(surfaceId, getId(), mSource);
+            if (dispatcher != null) {
+                dispatcher.dispatchEvent(event);
+            }
             return;
         }
 
