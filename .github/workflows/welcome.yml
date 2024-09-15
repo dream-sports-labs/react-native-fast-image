@@ -1,46 +1,46 @@
 name: 'Welcome New Contributors'
 
 on:
-  issues:
-    types: [opened]
-  pull_request_target:
-    types: [opened]
+    issues:
+        types: [opened]
+    pull_request_target:
+        types: [opened]
 
 jobs:
-  welcome-new-contributor:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-            ref: main
+    welcome-new-contributor:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+              with:
+                  ref: main
 
-      - name: Common Setup
-        uses: ./.github/actions/setup
+            - name: Common Setup
+              uses: ./.github/actions/setup
 
-      - name: 'Greet the contributor'
-        id: greet
-        uses: garg3133/welcome-new-contributors@v1.2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: |
-            👋 **Welcome to the community!**  
-            Thank you for opening your first issue. We appreciate your contribution and will review it as soon as possible.  
-            Feel free to ask questions, share ideas, or provide any additional details! We're here to help. 😄
-          pr-message: |
-            🚀 **Thanks for your first Pull Request!**  
-            Your contribution is greatly appreciated, and a maintainer will review it soon.  
-            Meanwhile, feel free to check out other issues or share your thoughts on the project.  
-            We’re excited to have you on board! 🎉
+            - name: 'Greet the contributor'
+              id: greet
+              uses: garg3133/welcome-new-contributors@v1.2
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  issue-message: |
+                      👋 **Welcome to the community!**  
+                      Thank you for opening your first issue. We appreciate your contribution and will review it as soon as possible.  
+                      Feel free to ask questions, share ideas, or provide any additional details! We're here to help. 😄
+                  pr-message: |
+                      🚀 **Thanks for your first Pull Request!**  
+                      Your contribution is greatly appreciated, and a maintainer will review it soon.  
+                      Meanwhile, feel free to check out other issues or share your thoughts on the project.  
+                      We’re excited to have you on board! 🎉
 
-      - name: Add  labels
-        run: node .github/scripts/add-labels.mjs
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          GITHUB_EVENT_PATH: ${{ github.event_path }}
-          GITHUB_PR_NUMBER: ${{ github.event.pull_request && github.event.pull_request.number || '' }}
-          GITHUB_ISSUE_NUMBER: ${{ github.event.issue && github.event.issue.number || '' }}
-          LABELS_FOR_ISSUE: 'First Issue'  # Multiple labels for issues
-          LABELS_FOR_PR: 'First PR'   # Multiple labels
+            - name: Add  labels
+              run: node .github/scripts/add-labels.mjs
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_REPOSITORY: ${{ github.repository }}
+                  GITHUB_EVENT_NAME: ${{ github.event_name }}
+                  GITHUB_EVENT_PATH: ${{ github.event_path }}
+                  GITHUB_PR_NUMBER: ${{ github.event.pull_request && github.event.pull_request.number || '' }}
+                  GITHUB_ISSUE_NUMBER: ${{ github.event.issue && github.event.issue.number || '' }}
+                  LABELS_FOR_ISSUE: 'First Issue' # Multiple labels for issues
+                  LABELS_FOR_PR: 'First PR' # Multiple labels
