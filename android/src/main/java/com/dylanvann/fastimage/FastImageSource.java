@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.Headers;
+import com.facebook.react.views.imagehelper.ImageSource;
 
 import javax.annotation.Nullable;
 
@@ -16,11 +17,9 @@ public class FastImageSource {
     private static final String ANDROID_RESOURCE_SCHEME = "android.resource";
     private static final String ANDROID_CONTENT_SCHEME = "content";
     private static final String LOCAL_FILE_SCHEME = "file";
-    private final String mSource;
-    private final double mWidth;
-    private final double mHeight;
     private final Headers mHeaders;
     private Uri mUri;
+    private final ImageSource imageSource;
 
     public static boolean isBase64Uri(Uri uri) {
         return DATA_SCHEME.equals(uri.getScheme());
@@ -43,22 +42,20 @@ public class FastImageSource {
     }
 
     public FastImageSource(Context context, String source) {
-        this(context, source, null, 0.0d, 0.0d);
+        this(context, source, null);
     }
 
     public FastImageSource(Context context, String source, @Nullable Headers headers) {
-        this(context, source, headers, 0.0d, 0.0d);
+        this(context, source, 0.0d, 0.0d, headers);
     }
 
-    public FastImageSource(Context context, String source, @Nullable Headers headers, double width, double height) {
-        mSource = source;
-        mWidth = width;
-        mHeight = height;
+    public FastImageSource(Context context, String source, double width, double height, @Nullable Headers headers) {
+        imageSource = new ImageSource(context, source, width, height);
         mHeaders = headers == null ? Headers.DEFAULT : headers;
+        mUri = imageSource.getUri();
 
-        mUri = Uri.parse(source);
         if (isResource() && TextUtils.isEmpty(mUri.toString())) {
-                throw new Resources.NotFoundException("Local Resource Not Found. Resource: '" + source + "'.");
+            throw new Resources.NotFoundException("Local Resource Not Found. Resource: '" + getSource() + "'.");
         }
 
         if (isLocalResourceUri(mUri)) {
@@ -86,8 +83,11 @@ public class FastImageSource {
     }
 
     public Object getSourceForLoad() {
-        if (isContentUri() || isBase64Resource()) {
-            return mSource;
+        if (isContentUri()) {
+            return getSource();
+        }
+        if (isBase64Resource()) {
+            return getSource();
         }
         if (isResource()) {
             return getUri();
@@ -99,9 +99,6 @@ public class FastImageSource {
     }
 
     public Uri getUri() {
-        if (mUri == null) {
-                throw new IllegalStateException("URI is null for the source: " + mSource);
-        }
         return mUri;
     }
 
@@ -114,14 +111,6 @@ public class FastImageSource {
     }
 
     public String getSource() {
-        return mSource;
-    }
-
-    public double getWidth() {
-        return mWidth;
-    }
-
-    public double getHeight() {
-         return mHeight;
+            return imageSource.getSource(); // Delegate to ImageSource
     }
 }

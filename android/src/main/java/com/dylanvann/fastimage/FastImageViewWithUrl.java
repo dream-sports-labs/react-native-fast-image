@@ -1,116 +1,171 @@
 package com.dylanvann.fastimage;
 
+import static com.dylanvann.fastimage.FastImageRequestListener.REACT_ON_ERROR_EVENT;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.text.TextUtils;
+import android.graphics.drawable.Drawable;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.model.Headers;
-import com.facebook.react.views.imagehelper.ImageSource;
+import com.bumptech.glide.request.Request;
+import com.facebook.react.bridge.ReadableMap;
+import com.dylanvann.fastimage.events.FastImageErrorEvent;
+import com.dylanvann.fastimage.events.FastImageLoadStartEvent;
+import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.UIManagerHelper;
+import com.facebook.react.uimanager.events.EventDispatcher;
 
-import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-public class FastImageSource {
-    private static final String DATA_SCHEME = "data";
-    private static final String LOCAL_RESOURCE_SCHEME = "res";
-    private static final String ANDROID_RESOURCE_SCHEME = "android.resource";
-    private static final String ANDROID_CONTENT_SCHEME = "content";
-    private static final String LOCAL_FILE_SCHEME = "file";
-    private final Headers mHeaders;
-    private Uri mUri;
-    private final ImageSource imageSource;
+import javax.annotation.Nonnull;
 
-    public static boolean isBase64Uri(Uri uri) {
-        return DATA_SCHEME.equals(uri.getScheme());
+class FastImageViewWithUrl extends AppCompatImageView {
+    private boolean mNeedsReload = false;
+    private ReadableMap mSource = null;
+    private Drawable mDefaultSource = null;
+
+    public GlideUrl glideUrl;
+
+    public FastImageViewWithUrl(Context context) {
+        super(context);
     }
 
-    public static boolean isLocalResourceUri(Uri uri) {
-        return LOCAL_RESOURCE_SCHEME.equals(uri.getScheme());
+    public void setSource(@Nullable ReadableMap source) {
+        mNeedsReload = true;
+        mSource = source;
     }
 
-    public static boolean isResourceUri(Uri uri) {
-        return ANDROID_RESOURCE_SCHEME.equals(uri.getScheme());
+    public void setDefaultSource(@Nullable Drawable source) {
+        mNeedsReload = true;
+        mDefaultSource = source;
     }
 
-    public static boolean isContentUri(Uri uri) {
-        return ANDROID_CONTENT_SCHEME.equals(uri.getScheme());
+    private boolean isNullOrEmpty(final String url) {
+        return url == null || url.trim().isEmpty();
     }
 
-    public static boolean isLocalFileUri(Uri uri) {
-        return LOCAL_FILE_SCHEME.equals(uri.getScheme());
-    }
+    @SuppressLint("CheckResult")
+    public void onAfterUpdate(
+            @Nonnull FastImageViewManager manager,
+            @Nullable RequestManager requestManager,
+            @Nonnull Map<String, List<FastImageViewWithUrl>> viewsForUrlsMap) {
+        if (!mNeedsReload)
+            return;
 
-    public FastImageSource(Context context, String source) {
-        this(context, source, null);
-    }
+        if ((mSource == null ||
+                !mSource.hasKey("uri") ||
+                isNullOrEmpty(mSource.getString("uri"))) &&
+                mDefaultSource == null) {
 
-    public FastImageSource(Context context, String source, @Nullable Headers headers) {
-        this(context, source, 0.0d, 0.0d, headers);
-    }
+            // Cancel existing requests.
+            clearView(requestManager);
 
-    public FastImageSource(Context context, String source, double width, double height, @Nullable Headers headers) {
-        imageSource = new ImageSource(context, source, width, height);
-        mHeaders = headers == null ? Headers.DEFAULT : headers;
-        mUri = imageSource.getUri();
+            if (glideUrl != null) {
+                FastImageOkHttpProgressGlideModule.forget(glideUrl.toStringUrl());
+            }
 
-        if (isResource() && TextUtils.isEmpty(mUri.toString())) {
-            throw new Resources.NotFoundException("Local Resource Not Found. Resource: '" + getSource() + "'.");
+            // Clear the image.
+            setImageDrawable(null);
+
+            ThemedReactContext context = (ThemedReactContext) getContext();
+            EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
+            int surfaceId = UIManagerHelper.getSurfaceId(this);
+            FastImageErrorEvent event = new FastImageErrorEvent(surfaceId, getId(), mSource);
+            if (dispatcher != null) {
+                dispatcher.dispatchEvent(event);
+            }
+            return;
         }
 
-        if (isLocalResourceUri(mUri)) {
-            // Convert res:/ scheme to android.resource:// so
-            // glide can understand the uri.
-            mUri = Uri.parse(mUri.toString().replace("res:/", ANDROID_RESOURCE_SCHEME + "://" + context.getPackageName() + "/"));
+        //final GlideUrl glideUrl = FastImageViewConverter.getGlideUrl(view.getContext(), mSource);
+        final FastImageSource imageSource = FastImageViewConverter.getImageSource(getContext(), mSource);
+
+        if (imageSource != null && imageSource.getUri().toString().length() == 0) {
+            ThemedReactContext context = (ThemedReactContext) getContext();
+            EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
+            int surfaceId = UIManagerHelper.getSurfaceId(this);
+            FastImageErrorEvent event = new FastImageErrorEvent(surfaceId, getId(), mSource);
+
+            if (dispatcher != null) {
+                dispatcher.dispatchEvent(event);
+            }
+            // Cancel existing requests.
+            clearView(requestManager);
+
+            if (glideUrl != null) {
+                FastImageOkHttpProgressGlideModule.forget(glideUrl.toStringUrl());
+            }
+            // Clear the image.
+            setImageDrawable(null);
+            return;
+        }
+
+        // `imageSource` may be null and we still continue, if `defaultSource` is not null
+        final GlideUrl glideUrl = imageSource == null ? null : imageSource.getGlideUrl();
+
+        // Cancel existing request.
+        this.glideUrl = glideUrl;
+        clearView(requestManager);
+
+        String key = glideUrl == null ? null : glideUrl.toStringUrl();
+
+        if (glideUrl != null) {
+            FastImageOkHttpProgressGlideModule.expect(key, manager);
+            List<FastImageViewWithUrl> viewsForKey = viewsForUrlsMap.get(key);
+            if (viewsForKey != null && !viewsForKey.contains(this)) {
+                viewsForKey.add(this);
+            } else if (viewsForKey == null) {
+                List<FastImageViewWithUrl> newViewsForKeys = new ArrayList<>(Collections.singletonList(this));
+                viewsForUrlsMap.put(key, newViewsForKeys);
+            }
+        }
+
+        ThemedReactContext context = (ThemedReactContext) getContext();
+        if (imageSource != null) {
+            // This is an orphan even without a load/loadend when only loading a placeholder
+            // This is an orphan event without a load/loadend when only loading a placeholder
+            EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, getId());
+            int surfaceId = UIManagerHelper.getSurfaceId(this);
+            FastImageLoadStartEvent event = new FastImageLoadStartEvent(surfaceId, getId());
+
+            if (dispatcher != null) {
+                dispatcher.dispatchEvent(event);
+            }
+        }
+
+        if (requestManager != null) {
+            RequestBuilder<Drawable> builder =
+                    requestManager
+                            // This will make this work for remote and local images. e.g.
+                            //    - file:///
+                            //    - content://
+                            //    - res:/
+                            //    - android.resource://
+                            //    - data:image/png;base64
+                            .load(imageSource == null ? null : imageSource.getSourceForLoad())
+                            .apply(FastImageViewConverter
+                                    .getOptions(context, imageSource, mSource)
+                                    .placeholder(mDefaultSource) // show until loaded
+                                    .fallback(mDefaultSource)); // null will not be treated as error
+
+            if (key != null)
+                builder.listener(new FastImageRequestListener(key));
+
+            builder.into(this);
         }
     }
 
-
-    public boolean isBase64Resource() {
-        return mUri != null && FastImageSource.isBase64Uri(mUri);
-    }
-
-    public boolean isResource() {
-        return mUri != null && FastImageSource.isResourceUri(mUri);
-    }
-
-    public boolean isLocalFile() {
-        return mUri != null && FastImageSource.isLocalFileUri(mUri);
-    }
-
-    public boolean isContentUri() {
-        return mUri != null && FastImageSource.isContentUri(mUri);
-    }
-
-    public Object getSourceForLoad() {
-        if (isContentUri()) {
-            return getSource();
+    public void clearView(@Nullable RequestManager requestManager) {
+        if (requestManager != null && getTag() != null && getTag() instanceof Request) {
+            requestManager.clear(this);
         }
-        if (isBase64Resource()) {
-            return getSource();
-        }
-        if (isResource()) {
-            return getUri();
-        }
-        if (isLocalFile()) {
-            return getUri().toString();
-        }
-        return getGlideUrl();
-    }
-
-    public Uri getUri() {
-        return mUri;
-    }
-
-    public Headers getHeaders() {
-        return mHeaders;
-    }
-
-    public GlideUrl getGlideUrl() {
-        return new GlideUrl(getUri().toString(), getHeaders());
-    }
-
-    public String getSource() {
-            return imageSource.getSource(); // Delegate to ImageSource
     }
 }
