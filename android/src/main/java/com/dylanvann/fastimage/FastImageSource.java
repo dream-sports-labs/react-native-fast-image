@@ -51,7 +51,7 @@ public class FastImageSource {
 
     public FastImageSource(Context context, String source, double width, double height, @Nullable Headers headers) {
         ImageSource imageSource = new ImageSource(context, source, width, height);
-        mSource = imageSource.getSource()
+        mSource = imageSource.getSource();
         mHeaders = headers == null ? Headers.DEFAULT : headers;
         mUri = imageSource.getUri();
 
@@ -108,6 +108,6 @@ public class FastImageSource {
     }
 
     public String getSource() {
-            return mSource // Delegate to ImageSource
+            return mSource; // Delegate to ImageSource
     }
 }
