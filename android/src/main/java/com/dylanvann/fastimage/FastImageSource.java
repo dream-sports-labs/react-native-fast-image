@@ -87,15 +87,11 @@ public class FastImageSource {
         if (isContentUri() || isBase64Resource()) {
             return getSource();
         }
-        if (isBase64Resource()) {
-            return getSource();
-        }
+
         if (isResource() || isLocalFile()) {
             return getUri();
         }
-        if (isLocalFile()) {
-            return getUri().toString();
-        }
+
         return getGlideUrl();
     }
 
