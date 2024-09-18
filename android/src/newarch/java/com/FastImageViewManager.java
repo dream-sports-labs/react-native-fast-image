@@ -28,6 +28,7 @@ import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
 import com.facebook.react.uimanager.ViewManagerDelegate;
 import com.facebook.react.viewmanagers.FastImageViewManagerDelegate;
 import com.facebook.react.viewmanagers.FastImageViewManagerInterface;
+import com.facebook.react.uimanager.common.ViewUtil;
 
 import java.util.List;
 import java.util.Map;
