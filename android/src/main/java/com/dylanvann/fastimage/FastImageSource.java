@@ -19,7 +19,7 @@ public class FastImageSource {
     private static final String LOCAL_FILE_SCHEME = "file";
     private final Headers mHeaders;
     private Uri mUri;
-    private final ImageSource mImageSource;
+    private String mSource;
 
     public static boolean isBase64Uri(Uri uri) {
         return DATA_SCHEME.equals(uri.getScheme());
@@ -50,9 +50,10 @@ public class FastImageSource {
     }
 
     public FastImageSource(Context context, String source, double width, double height, @Nullable Headers headers) {
-        mImageSource = new ImageSource(context, source, width, height);
+        ImageSource imageSource = new ImageSource(context, source, width, height);
+        mSource = imageSource.getSource()
         mHeaders = headers == null ? Headers.DEFAULT : headers;
-        mUri = mImageSource.getUri();
+        mUri = imageSource.getUri();
 
         if (isResource() && TextUtils.isEmpty(mUri.toString())) {
             throw new Resources.NotFoundException("Local Resource Not Found. Resource: '" + getSource() + "'.");
@@ -83,13 +84,13 @@ public class FastImageSource {
     }
 
     public Object getSourceForLoad() {
-        if (isContentUri()) {
+        if (isContentUri() || isBase64Resource()) {
             return getSource();
         }
         if (isBase64Resource()) {
             return getSource();
         }
-        if (isResource()) {
+        if (isResource() || isLocalFile()) {
             return getUri();
         }
         if (isLocalFile()) {
@@ -111,6 +112,6 @@ public class FastImageSource {
     }
 
     public String getSource() {
-            return mImageSource.getSource(); // Delegate to ImageSource
+            return mSource // Delegate to ImageSource
     }
 }
