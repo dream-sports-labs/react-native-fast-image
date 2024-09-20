@@ -3,7 +3,8 @@ package com.dylanvann.fastimage.events;
 import androidx.annotation.NonNull;
 
 import com.facebook.react.uimanager.events.Event;
-
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 public class FastImageLoadEndEvent extends Event<FastImageLoadEndEvent> {
 
     public FastImageLoadEndEvent(int surfaceId, int viewTag) {
@@ -16,4 +17,8 @@ public class FastImageLoadEndEvent extends Event<FastImageLoadEndEvent> {
         return "onFastImageLoadEnd";
     }
 
+    @Override
+    protected WritableMap getEventData() {
+        return Arguments.createMap();
+    }
 }
