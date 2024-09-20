@@ -122,8 +122,9 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
             for (FastImageViewWithUrl view : viewsForKey) {
                 ThemedReactContext context = (ThemedReactContext) view.getContext();
                 EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.getId());
+                int surfaceId = UIManagerHelper.getSurfaceId(context);
                 FastImageProgressEvent event = new FastImageProgressEvent(
-                        ViewUtil.NO_SURFACE_ID,
+                        surfaceId,
                         view.getId(),
                         (int) bytesRead,
                         (int) expectedLength);
