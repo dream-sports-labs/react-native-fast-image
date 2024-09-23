@@ -37,7 +37,7 @@
     ],
     "scripts": {
         "clean": "rm -rf dist tsconfig.tsbuildinfo",
-        "build": "yarn clean && tsc && rollup -c && cp src/index.js.flow dist/index.js.flow && cp src/index.js.flow dist/index.cjs.js.flow",
+        "build": "yarn clean && tsc",
         "example": "yarn workspace reactnativefastimageexample",
         "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
         "prepack": "yarn build",
@@ -69,10 +69,6 @@
         "@react-native/eslint-config": "0.74.84",
         "@react-native/metro-config": "0.74.84",
         "@react-native/typescript-config": "0.74.84",
-        "@rollup/plugin-commonjs": "^26.0.1",
-        "@rollup/plugin-json": "^6.1.0",
-        "@rollup/plugin-node-resolve": "^15.2.3",
-        "@rollup/plugin-typescript": "^11.1.6",
         "@testing-library/jest-native": "^5.4.3",
         "@testing-library/react-native": "^12.5.1",
         "@types/jest": "^26.0.24",
@@ -91,8 +87,6 @@
         "react-native": "0.74.2",
         "react-test-renderer": "^18.3.1",
         "release-it": "^17.6.0",
-        "rollup": "^4.19.0",
-        "rollup-plugin-terser": "^7.0.2",
         "typescript": "^5.5.4"
     },
     "peerDependencies": {
