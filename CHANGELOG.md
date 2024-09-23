@@ -1,3 +1,20 @@
+
+
+## [8.7.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.6.12...v8.7.0) (2024-09-23)
+
+
+### Features
+
+* add fabric support ([#37](https://github.com/dream-sports-labs/react-native-fast-image/issues/37)) ([ce07e8a](https://github.com/dream-sports-labs/react-native-fast-image/commit/ce07e8aca336d6fab9894e56a2279285b6b8691e))
+
+
+### Bug Fixes
+
+* local image loading issue  in debug and release app ([#77](https://github.com/dream-sports-labs/react-native-fast-image/issues/77)) ([cbbc806](https://github.com/dream-sports-labs/react-native-fast-image/commit/cbbc80606e4e7941a058277c0e4e8a3950bafb44))
+* new arch import ([#78](https://github.com/dream-sports-labs/react-native-fast-image/issues/78)) ([d36e230](https://github.com/dream-sports-labs/react-native-fast-image/commit/d36e230c5adcc8dbc0abe76d0530b0c4319d1226))
+* semicolon issue ([9d413ee](https://github.com/dream-sports-labs/react-native-fast-image/commit/9d413ee9fa15831833bb928ca02d1567fb5727ee))
+* view util bug ([#79](https://github.com/dream-sports-labs/react-native-fast-image/issues/79)) ([4561e6f](https://github.com/dream-sports-labs/react-native-fast-image/commit/4561e6f0bb3788017e6809d56d769d9875be5402))
+
 ### Changelog
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
