@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Common Setup
         uses: ./.github/actions/setup
@@ -20,7 +22,7 @@ jobs:
           npm config set @d11:registry https://registry.npmjs.org/
 
       - name: Release to prod
-        run: yarn release
+        run: yarn release --verbose
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
