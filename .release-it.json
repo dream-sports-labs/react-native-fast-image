@@ -15,7 +15,7 @@
     "release": false
   },
   "hooks": {
-    "before:init": ["yarn lint", "yarn type-check", "yarn test", "yarn build"],
+    "before:init": ["yarn lint", "yarn type-check", "yarn test"],
     "after:bump": [
       "npx auto-changelog -p",
       "git add .",
