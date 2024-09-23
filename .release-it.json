@@ -14,10 +14,14 @@
   "github": {
     "release": false
   },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular"
+    }
+  },
   "hooks": {
     "before:init": ["yarn lint", "yarn type-check", "yarn test"],
     "after:bump": [
-      "npx auto-changelog -p",
       "git add .",
       "git commit -m 'chore: update changelog and bump version to v${version}'",
       "git push origin HEAD:release-v${version}",
