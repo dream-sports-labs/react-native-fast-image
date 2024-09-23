@@ -1,3 +1,7 @@
+
+
+### 8.6.13 (2024-09-23)
+
 ### Changelog
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
