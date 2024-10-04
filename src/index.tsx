@@ -19,9 +19,10 @@ import {
 } from 'react-native'
 
 const isFabricEnabled = (global as any)?.nativeFabricUIManager != null
-const isTurboModuleEnabled = (global as any).__turboModuleProxy != null;
-console.log('isTurboModuleEnabled,isFabricEnabled',isTurboModuleEnabled,isFabricEnabled)
-const FastImageViewModule = isTurboModuleEnabled ? require('./NativeFastImageView').default : NativeModules.FastImageView;
+const isTurboModuleEnabled = (global as any).__turboModuleProxy != null
+const FastImageViewModule = isTurboModuleEnabled
+    ? require('./NativeFastImageView').default
+    : NativeModules.FastImageView
 
 const FastImageView = isFabricEnabled
     ? require('./FastImageViewNativeComponent').default
@@ -175,7 +176,7 @@ function FastImageBase({
     style,
     fallback,
     children,
-    // eslint-disable-next-line no-shadow
+
     resizeMode = 'cover',
     forwardedRef,
     ...props
@@ -274,11 +275,9 @@ FastImage.cacheControl = cacheControl
 
 FastImage.priority = priority
 
-FastImage.preload = (sources: Source[]) =>
-    FastImageViewModule.preload(sources)
+FastImage.preload = (sources: Source[]) => FastImageViewModule.preload(sources)
 
-FastImage.clearMemoryCache = () =>
-    FastImageViewModule.clearMemoryCache()
+FastImage.clearMemoryCache = () => FastImageViewModule.clearMemoryCache()
 
 FastImage.clearDiskCache = () => FastImageViewModule.clearDiskCache()
 
