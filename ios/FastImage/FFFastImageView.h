@@ -8,7 +8,7 @@
 
 #import "FFFastImageSource.h"
 #ifdef RCT_NEW_ARCH_ENABLED
-#import <react/renderer/components/rnfastimage/EventEmitters.h>
+#import <react/renderer/components/RNFastImageSpec/EventEmitters.h>
 #endif
 
 @interface FFFastImageView : SDAnimatedImageView

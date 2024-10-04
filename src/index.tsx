@@ -19,6 +19,9 @@ import {
 } from 'react-native'
 
 const isFabricEnabled = (global as any)?.nativeFabricUIManager != null
+const isTurboModuleEnabled = (global as any).__turboModuleProxy != null;
+console.log('isTurboModuleEnabled,isFabricEnabled',isTurboModuleEnabled,isFabricEnabled)
+const FastImageViewModule = isTurboModuleEnabled ? require('./NativeFastImageView').default : NativeModules.FastImageView;
 
 const FastImageView = isFabricEnabled
     ? require('./FastImageViewNativeComponent').default
@@ -272,12 +275,12 @@ FastImage.cacheControl = cacheControl
 FastImage.priority = priority
 
 FastImage.preload = (sources: Source[]) =>
-    NativeModules.FastImageView.preload(sources)
+    FastImageViewModule.preload(sources)
 
 FastImage.clearMemoryCache = () =>
-    NativeModules.FastImageView.clearMemoryCache()
+    FastImageViewModule.clearMemoryCache()
 
-FastImage.clearDiskCache = () => NativeModules.FastImageView.clearDiskCache()
+FastImage.clearDiskCache = () => FastImageViewModule.clearDiskCache()
 
 const styles = StyleSheet.create({
     imageContainer: {

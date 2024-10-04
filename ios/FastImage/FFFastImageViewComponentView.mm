@@ -6,9 +6,9 @@
 
 #import <React/RCTConversions.h>
 #import <React/RCTFabricComponentsPlugins.h>
-#import <react/renderer/components/rnfastimage/ComponentDescriptors.h>
-#import <react/renderer/components/rnfastimage/Props.h>
-#import <react/renderer/components/rnfastimage/EventEmitters.h>
+#import <react/renderer/components/RNFastImageSpec/ComponentDescriptors.h>
+#import <react/renderer/components/RNFastImageSpec/Props.h>
+#import <react/renderer/components/RNFastImageSpec/EventEmitters.h>
 
 using namespace facebook::react;
 

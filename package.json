@@ -95,7 +95,7 @@
         "react-native": "*"
     },
     "codegenConfig": {
-        "name": "rnfastimage",
+        "name": "RNFastImageSpec",
         "type": "all",
         "jsSrcsDir": "./src",
         "android": {
