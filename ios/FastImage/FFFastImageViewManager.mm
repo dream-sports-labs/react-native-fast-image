@@ -3,7 +3,9 @@
 
 #import <SDWebImage/SDImageCache.h>
 #import <SDWebImage/SDWebImagePrefetcher.h>
-
+#ifdef RCT_NEW_ARCH_ENABLED
+#import <RNFastImageSpec/RNFastImageSpec.h>
+#endif
 @implementation FFFastImageViewManager
 
 RCT_EXPORT_MODULE(FastImageView)
@@ -48,5 +50,12 @@ RCT_EXPORT_METHOD(clearDiskCache:(RCTPromiseResolveBlock)resolve reject:(RCTProm
         resolve(NULL);
     }];
 }
+#ifdef RCT_NEW_ARCH_ENABLED
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+    (const facebook::react::ObjCTurboModule::InitParams &)params
+{
+    return std::make_shared<facebook::react::NativeFastImageViewSpecJSI>(params);
+}
+#endif
 
 @end
