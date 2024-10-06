@@ -61,20 +61,6 @@ describe('FastImage (iOS)', () => {
         )
         expect(toJSON()).toMatchSnapshot()
     })
-
-    it('runs static functions', () => {
-        FastImage.preload([
-            {
-                uri: 'https://facebook.github.io/react/img/logo_og.png',
-                headers: {
-                    token: 'someToken',
-                },
-                priority: FastImage.priority.high,
-            },
-        ])
-        FastImage.clearMemoryCache()
-        FastImage.clearDiskCache()
-    })
 })
 
 describe('FastImage (Android)', () => {

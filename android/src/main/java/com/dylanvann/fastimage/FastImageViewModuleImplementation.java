@@ -7,28 +7,24 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.views.imagehelper.ImageSource;
+import com.facebook.react.bridge.ReactApplicationContext;
 
-class FastImageViewModule extends ReactContextBaseJavaModule {
+class FastImageViewModuleImplementation {
+    ReactApplicationContext reactContext;
+    FastImageViewModuleImplementation(ReactApplicationContext reactContext){
 
-    private static final String REACT_CLASS = "FastImageView";
-
-    FastImageViewModule(ReactApplicationContext reactContext) {
-        super(reactContext);
+    this.reactContext = reactContext;
     }
 
-    @NonNull
-    @Override
-    public String getName() {
-        return REACT_CLASS;
+    public static final String REACT_CLASS = "FastImageView";
+
+    private Activity getCurrentActivity(){
+        return reactContext.getCurrentActivity();
     }
 
-    @ReactMethod
     public void preload(final ReadableArray sources) {
         final Activity activity = getCurrentActivity();
         if (activity == null) return;
@@ -61,7 +57,6 @@ class FastImageViewModule extends ReactContextBaseJavaModule {
         });
     }
 
-    @ReactMethod
     public void clearMemoryCache(final Promise promise) {
         final Activity activity = getCurrentActivity();
         if (activity == null) {
@@ -77,8 +72,6 @@ class FastImageViewModule extends ReactContextBaseJavaModule {
             }
         });
     }
-
-    @ReactMethod
     public void clearDiskCache(Promise promise) {
         final Activity activity = getCurrentActivity();
         if (activity == null) {
