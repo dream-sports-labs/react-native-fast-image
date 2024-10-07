@@ -39,8 +39,6 @@ async function isFirstPull(
     curPullNumber,
     page
 ) {
-  // Provide console output if we loop for a while.
-  console.log('Checking...');
   const {status, data: pulls} = await octokit.rest.pulls.list({
     owner: owner,
     repo: repo,
@@ -65,7 +63,7 @@ async function isFirstPull(
   }
 
   return await isFirstPull(
-      client,
+      octokit,
       owner,
       repo,
       sender,
