@@ -65,6 +65,7 @@
         "@babel/plugin-transform-private-methods": "^7.24.7",
         "@babel/preset-env": "^7.20.0",
         "@babel/runtime": "^7.24.7",
+        "@octokit/rest": "^21.0.2",
         "@react-native/babel-preset": "0.74.84",
         "@react-native/eslint-config": "0.74.84",
         "@react-native/metro-config": "0.74.84",
@@ -102,8 +103,5 @@
             "javaPackageName": "com.dylanvann.fastimage"
         }
     },
-    "packageManager": "yarn@3.6.4",
-    "dependencies": {
-        "@octokit/rest": "^21.0.2"
-    }
+    "packageManager": "yarn@3.6.4"
 }
