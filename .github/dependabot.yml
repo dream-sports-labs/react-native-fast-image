@@ -3,5 +3,5 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"           # Location of your package files, typically root ("/")
     schedule:
-      interval: "daily"      # Frequency of updates ("daily", "weekly", "monthly")
+      interval: "weekly"      # Frequency of updates ("daily", "weekly", "monthly")
     open-pull-requests-limit: 10 # Max open PRs by Dependabot
