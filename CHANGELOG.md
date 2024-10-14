@@ -1,5 +1,17 @@
 
 
+## [8.8.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.7.0...v8.8.0) (2024-10-14)
+
+
+### Features
+
+* added turbo module support ([#93](https://github.com/dream-sports-labs/react-native-fast-image/issues/93)) ([8227a7f](https://github.com/dream-sports-labs/react-native-fast-image/commit/8227a7faf6f76d98d043d60cc3cc5b17965f30bb))
+
+
+### Bug Fixes
+
+* first pull octakit instance ([46c025e](https://github.com/dream-sports-labs/react-native-fast-image/commit/46c025e60a19bd9decdbe0f3a27917bf33adb03f))
+
 ## [8.7.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.6.12...v8.7.0) (2024-09-23)
 
 
