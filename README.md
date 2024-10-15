@@ -61,6 +61,8 @@ Even so, many people have noticed:
 - [x] Preload images.
 - [x] GIF support.
 - [x] Border radius.
+- [x] Support Fabric Renderer (from v8.7.0 )
+- [x] Support Turbo Modules (from v8.8.0).
 
 ## Usage
 
