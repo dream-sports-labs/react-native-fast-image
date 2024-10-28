@@ -12,6 +12,7 @@ import {ResizeModeExample} from './ResizeModeExample';
 import {TintColorExample} from './TintColorExample';
 import {LocalImagesExample} from './LocalImagesExample';
 import {AutoSizeExample} from './AutoSizeExample';
+import {AvifExample} from './AvifExample';
 
 const FastImageExample = () => (
   <View style={styles.container}>
@@ -37,6 +38,7 @@ const FastImageExample = () => (
         <TintColorExample />
         <LocalImagesExample />
         <AutoSizeExample />
+        <AvifExample />
       </View>
     </ScrollView>
     <StatusBarUnderlay />
