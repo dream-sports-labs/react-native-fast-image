@@ -7,8 +7,13 @@ import com.facebook.react.uimanager.events.Event;
 
 public class FastImageLoadEvent extends Event<FastImageLoadEvent> {
 
-    public FastImageLoadEvent(int surfaceId, int viewTag) {
+    private final int width;
+    private final int height;
+
+    public FastImageLoadEvent(int surfaceId, int viewTag, int width, int height) {
         super(surfaceId, viewTag);
+        this.width = width;
+        this.height = height;
     }
 
     @NonNull
@@ -19,6 +24,10 @@ public class FastImageLoadEvent extends Event<FastImageLoadEvent> {
 
     @Override
     protected WritableMap getEventData() {
-        return Arguments.createMap();
+        WritableMap eventData = Arguments.createMap();
+        eventData.putInt("width", width);
+        eventData.putInt("height", height);
+
+        return eventData;
     }
 }
