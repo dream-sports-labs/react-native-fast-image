@@ -1,18 +1,33 @@
-### ⚠️ This is a fork of [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image). All credit goes to the original author.
+###### ⚠️ This is a fork of [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image). All credit goes to the original author.
 
-<h1 align="center">
-  🚀 FastImage
-</h1>
+# FastImage
+A high-performance image component for React Native, now fully optimized for the New React Native Architecture! 🎉
 
+## 🚀 What’s New?
+
+**FastImage** now includes:
+- **TurboModules** and **Fabric Renderer** compatibility for enhanced performance.
+- **AVIF Image Support** for next-gen image formats.
+- Numerous bug fixes and performance improvements over the original repository.
+
+## 🔥 Why Choose FastImage?
+
+FastImage is a drop-in replacement for React Native’s `Image` component, offering solutions for common image loading challenges like:
+- Flickering during loading
+- Cache inconsistencies
+- Slow loading from cache
+- Overall suboptimal performance
+
+FastImage leverages **[SDWebImage (iOS)](https://github.com/rs/SDWebImage)** and **[Glide (Android)](https://github.com/bumptech/glide)** for native caching and high efficiency.
+
+
+<br>
 <div align="center">
-
-A high-performance, React Native image component packed with **TurboModules** and **Fabric Renderer** support!
 
 [![Version][version-badge]][package]
 [![Downloads][downloads-badge]][npmtrends]
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
-
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
@@ -35,25 +50,8 @@ A high-performance, React Native image component packed with **TurboModules** an
     >
   </kbd>
   <br>
-  <em>Experience blazing-fast images with the latest React Native technology.</em>
+  Experience blazing-fast images with the latest React Native technology.
 </p>
-
-## 🚀 What’s New?
-
-**FastImage** now supports **TurboModules** and **Fabric Renderer**, making it one of the first high-performance image components fully compatible with the **new React Native architecture**! 🎉
-
-Key upgrades:
-- **TurboModules** and **Fabric Renderer** for ultimate speed and responsiveness.
-- **AVIF Image Support** for next-gen image formats.
-- Multiple issue fixes from the original repository for smoother performance.
-
-FastImage is the ultimate drop-in replacement for React Native’s `Image` component, solving common issues such as:
-- Flickering during loading,
-- Cache inconsistencies,
-- Sluggish loading from cache, and
-- Overall subpar image performance.
-
-This component leverages [SDWebImage (iOS)](https://github.com/rs/SDWebImage) and [Glide (Android)](https://github.com/bumptech/glide) for native caching and optimal performance.
 
 ## ⚙️ Features
 
@@ -122,7 +120,7 @@ If using [ProGuard](https://www.guardsquare.com/proguard), add these rules to `a
 }
 ```
 
-## API Documentation
+## 📖 API Documentation
 
 ### Properties
 
@@ -142,7 +140,7 @@ If using [ProGuard](https://www.guardsquare.com/proguard), add these rules to `a
 | `onLoadEnd`            | `function`                 | Callback when the image finishes loading, regardless of success or failure.                                                                                                                                       |
 | `style`                | `ViewStyle`                | Style for the image component, supports `borderRadius`.                                                                                                                                                          |
 | `fallback`             | `boolean`                  | If `true`, it will fall back to using `Image`. This still applies styles and layout as with `FastImage`.                                                                                                         |
-| `tintColor`            | `number | string`          | Color tint for all non-transparent pixels in the image.                                                                                                                                                          |
+| `tintColor`            | `number` | `string`          | Color tint for all non-transparent pixels in the image.                                                                                                                                                          |
 | `testID`               | `string`                   | Optional ID for testing, such as with [`react-test-renderer`](https://www.npmjs.com/package/react-test-renderer).                                                                                                |
 
 ### Static Methods
