@@ -1,12 +1,28 @@
-### ⚠️ This is a fork of [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image). All credit goes to the original author.
+###### ⚠️ This is a fork of [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image). All credit goes to the original author.
 
-<h1 align="center">
-  🚩 FastImage
-</h1>
+# FastImage
+A high-performance image component for React Native, now fully optimized for the **New React Native Architecture**! 🎉
 
+## 🚀 What’s New?
+
+**FastImage** now includes:
+- **TurboModules** and **Fabric Renderer** compatibility for enhanced performance.
+- **AVIF Image Support** for next-gen image formats.
+- Numerous bug fixes and performance improvements over the original repository.
+
+## 🔥 Why Choose FastImage?
+
+FastImage is a drop-in replacement for React Native’s `Image` component, offering solutions for common image loading challenges like:
+- Flickering during loading
+- Cache inconsistencies
+- Slow loading from cache
+- Overall suboptimal performance
+
+FastImage leverages **[SDWebImage (iOS)](https://github.com/rs/SDWebImage)** and **[Glide (Android)](https://github.com/bumptech/glide)** for native caching and high efficiency.
+
+
+<br>
 <div align="center">
-
-Performant React Native image component.
 
 [![Version][version-badge]][package]
 [![Downloads][downloads-badge]][npmtrends]
@@ -19,84 +35,80 @@ Performant React Native image component.
 
 </div>
 
-<p align="center" >
+<p align="center">
   <kbd>
     <img
       src="https://github.com/dream-sports-labs/react-native-fast-image/blob/main/docs/assets/scroll.gif?raw=true"
       title="Scroll Demo"
-      float="left"
+      width="250"
     >
   </kbd>
   <kbd>
     <img
       src="https://github.com/dream-sports-labs/react-native-fast-image/blob/main/docs/assets/priority.gif?raw=true"
       title="Priority Demo"
-      float="left"
+      width="250"
     >
   </kbd>
   <br>
-  <em>FastImage example app.</em>
+  Experience blazing-fast images with the latest React Native technology.
 </p>
 
-React Native’s `Image` component handles image caching like browsers for the most part.
+## ⚙️ Features
 
-If the server is returning proper cache control headers for images you’ll generally get the sort of built in caching behavior you’d have in a browser.
+- ✅ Aggressive caching for high speed.
+- ✅ Customizable authorization headers.
+- ✅ Priority-based image loading.
+- ✅ Preloading for instant display.
+- ✅ Full GIF and **AVIF support**.
+- ✅ Support for `borderRadius`.
+- ✅ Support for Fabric Renderer (v8.7.0+).
+- ✅ Support for TurboModules (v8.8.0+).
 
-Even so, many people have noticed:
+## 📦 Installation
 
-- flickering,
-- cache misses,
-- low performance loading from cache, and
-- low performance in general.
+To install FastImage in your project, run:
 
-`FastImage` is an `Image` replacement that solves these issues.
-
-`FastImage` is a wrapper around [SDWebImage (iOS)](https://github.com/rs/SDWebImage) and [Glide (Android)](https://github.com/bumptech/glide).
-
-## Features
-
-- [x] Aggressively cache images.
-- [x] Add authorization headers.
-- [x] Prioritize images.
-- [x] Preload images.
-- [x] GIF support.
-- [x] Border radius.
-- [x] Support Fabric Renderer (from v8.7.0 )
-- [x] Support Turbo Modules (from v8.8.0).
-
-## Usage
-
-**Note: You must be using React Native 0.60.0 or higher to use the most recent version of `@d11/react-native-fast-image`.**
-
+Using `yarn`:
 ```bash
 yarn add @d11/react-native-fast-image
 cd ios && pod install
 ```
 
+Or using `npm`:
+```bash
+npm install @d11/react-native-fast-image
+cd ios && pod install
+```
+
+> **Note**: You must be using React Native 0.60.0 or higher to use the most recent version of `@d11/react-native-fast-image`.
+
+### Usage Example
+
 ```jsx
 import FastImage from "@d11/react-native-fast-image";
 import * as React from "react";
 
-const YourImage = (): React.ReactNode => (
+const YourImage = () => (
   <FastImage
-    resizeMode={FastImage.resizeMode.contain}
-    style={{ height: 200, width: 200 }}
+    style={{ width: 200, height: 200 }}
     source={{
+      uri: "https://unsplash.it/400/400?image=1",
       headers: { Authorization: "someAuthToken" },
       priority: FastImage.priority.normal,
-      uri: "https://unsplash.it/400/400?image=1",
     }}
+    resizeMode={FastImage.resizeMode.contain}
   />
 );
 ```
 
-## Are you using Glide already using an `AppGlideModule`?
+## 🌐 Already Using Glide with an `AppGlideModule`?
 
-- [Are you using Glide already using an `AppGlideModule`?](docs/app-glide-module.md) (you might have problems if you don'’t read this)
+If you're already using Glide and an `AppGlideModule`, [read this guide](docs/app-glide-module.md) to ensure smooth integration.
 
-## Are you using ProGuard?
+## 🛡️ ProGuard Config
 
-If you use [ProGuard](https://www.guardsquare.com/proguard) you’ll need to add these lines to `android/app/proguard-rules.pro`:
+If using [ProGuard](https://www.guardsquare.com/proguard), add these rules to `android/app/proguard-rules.pro`:
 
 ```pro
 -keep public class com.dylanvann.fastimage.* {*;}
@@ -109,168 +121,58 @@ If you use [ProGuard](https://www.guardsquare.com/proguard) you’ll need to add
 }
 ```
 
-## Properties
+## 📖 API Documentation
 
-### `source?: object`
+### Properties
 
-Source for the remote image to load.
+| Property               | Type                       | Description                                                                                                                                                                                                                                             |
+|------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `source`               | `object`                   | Source for the remote image. Accepts an object with sub-properties like `uri`, `headers`, `priority`, and `cache`.                                                                                                                                      |
+| `source.uri`           | `string`                   | The URL to load the image from. e.g., `"https://unsplash.it/400/400?image=1"`.                                                                                                                                                                          |
+| `source.headers`       | `object`                   | Headers to load the image with, e.g., `{ Authorization: "someAuthToken" }`.                                                                                                                                                                             |
+| `source.priority`      | `FastImage.priority`       | Load priority: <br> - `FastImage.priority.low` <br> - `FastImage.priority.normal` **(Default)** <br> - `FastImage.priority.high`                                                                                                                        |
+| `source.cache`         | `FastImage.cacheControl`   | Cache control: <br> - `FastImage.cacheControl.immutable` **(Default)** <br> - `FastImage.cacheControl.web` <br> - `FastImage.cacheControl.cacheOnly`                                                                                                     |
+| `defaultSource`        | `number`                   | An asset loaded with `require()` or `import`. Note: on Android, `defaultSource` does not work in debug mode.                                                                                                                                            |
+| `resizeMode`           | `FastImage.resizeMode`     | Resize mode: <br> - `FastImage.resizeMode.contain` <br> - `FastImage.resizeMode.cover` **(Default)** <br> - `FastImage.resizeMode.stretch` <br> - `FastImage.resizeMode.center`                                  |
+| `onLoadStart`          | `function`                 | Callback when the image starts to load.                                                                                                                                                                                                                 |
+| `onProgress`           | `(event: OnProgressEvent) => void` | Callback when the image is loading, with `event.nativeEvent.loaded` and `event.nativeEvent.total` bytes.                                                                                                         |
+| `onLoad`               | `(event: OnLoadEvent) => void` | Callback when the image is successfully loaded, with `event.nativeEvent.width` and `event.nativeEvent.height` values.                                                                                           |
+| `onError`              | `function`                 | Callback when an error occurs in loading the image or the source is malformed (empty or `null`).                                                                                                                 |
+| `onLoadEnd`            | `function`                 | Callback when the image finishes loading, regardless of success or failure.                                                                                                                                       |
+| `style`                | `ViewStyle`                | Style for the image component, supports `borderRadius`.                                                                                                                                                          |
+| `fallback`             | `boolean`                  | If `true`, it will fall back to using `Image`. This still applies styles and layout as with `FastImage`.                                                                                                         |
+| `tintColor`            | `number` or `string`          | Color tint for all non-transparent pixels in the image.                                                                                                                                                          |
+| `testID`               | `string`                   | Optional ID for testing, such as with [`react-test-renderer`](https://www.npmjs.com/package/react-test-renderer).                                                                                                |
 
----
+### Static Methods
 
-### `source.uri?: string`
+| Method                           | Description                                                                                              |
+|----------------------------------|----------------------------------------------------------------------------------------------------------|
+| `FastImage.preload(sources: object[])`   | Preloads images for faster display when they are rendered. <br> Example: `FastImage.preload([{ uri: "https://unsplash.it/400/400?image=1" }])`. |
+| `FastImage.clearMemoryCache(): Promise<void>`   | Clears all images from the memory cache.                                                                 |
+| `FastImage.clearDiskCache(): Promise<void>`     | Clears all images from the disk cache.                                                                   |
 
-Remote url to load the image from, e.g. `"https://unsplash.it/400/400?image=1"`.
+## 🛠️ Troubleshooting
 
----
+If you run into issues while using this library, try the solutions in our [troubleshooting guide](docs/troubleshooting.md).
 
-### `source.headers?: Object`
+## 🧪 Supported React Native Versions
 
-Headers to load the image with, e.g. `{ Authorization: "someAuthToken" }`.
+This project aims to support the latest version of React Native, simplifying development and testing. For older versions, consider forking the repository if you require specific features or bug fixes.
 
----
+## 👏 Credits
 
-### `source.priority?: Priorities`
+The original idea for this module came from [@vovkasm](https://github.com/vovkasm)’s [react-native-web-image](https://github.com/vovkasm/react-native-web-image) package.
 
--   `FastImage.priority.low` – Low Priority.
--   `FastImage.priority.normal` **(Default)** – Normal Priority.
--   `FastImage.priority.high` – High Priority.
+Special thanks to:
+- **@mobinni** for help with conceptualization.
+- [SDWebImage](https://github.com/rs/SDWebImage) (iOS) and [Glide](https://github.com/bumptech/glide) (Android) for powerful image caching.
 
----
+## ⚖️ License
 
-### `source.cache?: CacheControls`
-
--   `FastImage.cacheControl.immutable` – **(Default)** - Only updates if url changes.
--   `FastImage.cacheControl.web` – Use headers and follow normal caching procedures.
--   `FastImage.cacheControl.cacheOnly` – Only show images from cache, do not make any network requests.
-
----
-
-### `defaultSource?: number`
-
--   An asset loaded with `require()` or `import`.
--   Note that like the built-in `Image` implementation, on Android `defaultSource` does not work in debug mode. This is due to the fact that assets are sent from the dev server, but RN’s functions only know how to load it from `res`.
-
----
-
-### `resizeMode?: ResizeModes`
-
--   `FastImage.resizeMode.contain` – Scale the image uniformly (maintain the image's aspect ratio) so that both dimensions (width and height) of the image will be equal to or less than the corresponding dimension of the view (minus padding).
--   `FastImage.resizeMode.cover` **(Default)** – Scale the image uniformly (maintain the image's aspect ratio) so that both dimensions (width and height) of the image will be equal to or larger than the corresponding dimension of the view (minus padding).
--   `FastImage.resizeMode.stretch` – Scale width and height independently, This may change the aspect ratio of the src.
--   `FastImage.resizeMode.center` – Do not scale the image, keep centered.
-
----
-
-### `onLoadStart?: () => void`
-
-Called when the image starts to load.
-
----
-
-### `onProgress?: (event: OnProgressEvent) => void`
-
-Called when the image is loading.
-
-```tsx
-onProgress={event => console.log(event.nativeEvent.loaded, event.nativeEvent.total)}
-```
-
----
-
-### `onLoad?: (event: OnLoadEvent) => void`
-
-Called on a successful image fetch. Called with the width and height of the loaded image.
-
-```jsx
-onLoad={event => console.log(event.nativeEvent.width, event.nativeEvent.height)}
-```
-
----
-
-### `onError?: () => void`
-
-Called on an image fetching error or when source is malformed, i.e., empty or `null`.
-
----
-
-### `onLoadEnd?: () => void`
-
-Called when the image finishes loading, whether it was successful or an error.
-
----
-
-### `style?: ViewStyle`
-
-A React Native style. Supports using `borderRadius`.
-
----
-
-### `fallback?: boolean`
-
-If `true` it will fallback to using `Image`. The image will still be styled and laid out the same way as `FastImage`.
-
----
-
-### `tintColor?: number | string`
-
-If supplied, changes the color of all the non-transparent pixels to the given color.
-
----
-
-### `testID?: string`
-
-Optional ID for testing, e.g., via [`react-test-renderer`](https://www.npmjs.com/package/react-test-renderer).
-
-## Static Methods
-
-### `FastImage.preload: (source[]) => void`
-
-Preload images to display later.
-
-```tsx
-FastImage.preload([
-  {
-    uri: "https://unsplash.it/400/400?image=1",
-    headers: { Authorization: "someAuthToken" },
-  },
-])
-```
-
-### `FastImage.clearMemoryCache: () => Promise<void>`
-
-Clear all images from memory cache.
-
-### `FastImage.clearDiskCache: () => Promise<void>`
-
-Clear all images from disk cache.
-
-## Troubleshooting
-
-If you have any problems using this library try the steps in [troubleshooting](docs/troubleshooting.md) and see if they fix it.
-
-## Development
-
-[Follow these instructions to get the example app running.](docs/development.md)
-
-## Supported React Native Versions
-
-This project only aims to support the latest version of React Native. This simplifies the development and the testing of the project.
-
-If you require new features or bug fixes for older versions you can fork this project.
-
-## Credits
-
-The idea for this modules came from [vovkasm’s](https://github.com/vovkasm) [react-native-web-image](https://github.com/vovkasm/react-native-web-image) package.
-
-It also uses Glide and SDWebImage, but didn’t have some features I needed (priority, headers).
-
-Thanks to [@mobinni](https://github.com/mobinni) for helping with the conceptualization.
-
-## Licenses
-
-- FastImage – MIT © [DreamSportsLabs](https://github.com/dream-sports-labs/)
-- SDWebImage – MIT
-- Glide – BSD, part MIT and Apache 2.0. See the [LICENSE](https://github.com/bumptech/glide/blob/master/LICENSE) file for details.
+- **FastImage** – MIT © [DreamSportsLabs](https://github.com/dream-sports-labs)
+- **SDWebImage** – MIT
+- **Glide** – BSD, part MIT, Apache 2.0. See [LICENSE](https://github.com/bumptech/glide/blob/master/LICENSE) for details.
 
 [build-badge]: https://github.com/dream-sports-labs/react-native-fast-image/workflows/CI/badge.svg
 [build]: https://github.com/dream-sports-labs/react-native-fast-image/actions?query=workflow%3ACI
