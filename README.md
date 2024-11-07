@@ -1,7 +1,7 @@
 ###### ⚠️ This is a fork of [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image). All credit goes to the original author.
 
 # FastImage
-A high-performance image component for React Native, now fully optimized for the New React Native Architecture! 🎉
+A high-performance image component for React Native, now fully optimized for the **New React Native Architecture**! 🎉
 
 ## 🚀 What’s New?
 
@@ -28,6 +28,7 @@ FastImage leverages **[SDWebImage (iOS)](https://github.com/rs/SDWebImage)** and
 [![Downloads][downloads-badge]][npmtrends]
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
+
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
@@ -140,7 +141,7 @@ If using [ProGuard](https://www.guardsquare.com/proguard), add these rules to `a
 | `onLoadEnd`            | `function`                 | Callback when the image finishes loading, regardless of success or failure.                                                                                                                                       |
 | `style`                | `ViewStyle`                | Style for the image component, supports `borderRadius`.                                                                                                                                                          |
 | `fallback`             | `boolean`                  | If `true`, it will fall back to using `Image`. This still applies styles and layout as with `FastImage`.                                                                                                         |
-| `tintColor`            | `number` | `string`          | Color tint for all non-transparent pixels in the image.                                                                                                                                                          |
+| `tintColor`            | `number` or `string`          | Color tint for all non-transparent pixels in the image.                                                                                                                                                          |
 | `testID`               | `string`                   | Optional ID for testing, such as with [`react-test-renderer`](https://www.npmjs.com/package/react-test-renderer).                                                                                                |
 
 ### Static Methods
