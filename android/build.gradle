@@ -45,12 +45,8 @@ android {
     sourceSets {
         main {
             java {
-                if (safeExtGet('excludeAppGlideModule', false)) {
-                    srcDir "src"
-                    exclude "**/FastImageGlideModule.java"
-                }
-                 if (isNewArchitectureEnabled()) {
-                srcDirs += [
+                if (isNewArchitectureEnabled()) {
+                    srcDirs += [
                     "src/newarch",
                     ]
                 }
@@ -58,6 +54,9 @@ android {
                     srcDirs += [
                     "src/oldarch",
                     ]
+                }
+                if (safeExtGet('excludeAppGlideModule', false)) {
+                    exclude "**/FastImageGlideModule.java"
                 }
             }
         }
