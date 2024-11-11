@@ -1,5 +1,14 @@
 
 
+### [8.8.1](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.8.0...v8.8.1) (2024-11-11)
+
+
+### Bug Fixes
+
+* added example for remote avif image ([d928f14](https://github.com/dream-sports-labs/react-native-fast-image/commit/d928f14eadc3b1c081e5d777235f08234b67203d))
+* added missing onLoad event details in android ([d203b5f](https://github.com/dream-sports-labs/react-native-fast-image/commit/d203b5f237b78407738791f35c8ef6d2c2e2ee57))
+* bumped up glide version to support transparent avif ([1a5585c](https://github.com/dream-sports-labs/react-native-fast-image/commit/1a5585c8e237461215b4a79b1ef642867493636e))
+
 ## [8.8.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.7.0...v8.8.0) (2024-10-14)
 
 
