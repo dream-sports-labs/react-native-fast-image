@@ -140,17 +140,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
             }
         }
 
-        Transformation<Bitmap> transformation = new BitmapTransformation() {
-            @Override
-            protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
-                return toTransform;
-            }
-
-            @Override
-            public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-            }
-        };
-
+     
         if (requestManager != null) {
             RequestBuilder<Drawable> builder =
                     requestManager
