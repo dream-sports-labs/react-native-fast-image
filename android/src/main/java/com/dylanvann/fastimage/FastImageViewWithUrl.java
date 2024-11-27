@@ -145,8 +145,6 @@ class FastImageViewWithUrl extends AppCompatImageView {
             RequestBuilder<Drawable> builder =
                     requestManager
                             .load(imageSource == null ? null : imageSource.getSourceForLoad())
-                            .optionalTransform(transformation) // Apply identity transformation
-                            .optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(transformation))
                             .apply(FastImageViewConverter
                                     .getOptions(context, imageSource, mSource)
                                     .placeholder(mDefaultSource) // show until loaded
