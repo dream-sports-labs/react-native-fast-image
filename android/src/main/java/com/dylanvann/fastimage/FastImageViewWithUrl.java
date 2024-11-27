@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bumptech.glide.RequestBuilder;
@@ -25,13 +26,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 class FastImageViewWithUrl extends AppCompatImageView {
     private boolean mNeedsReload = false;
     private ReadableMap mSource = null;
     private Drawable mDefaultSource = null;
-
     public GlideUrl glideUrl;
 
     public FastImageViewWithUrl(Context context) {
@@ -54,9 +52,9 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
     @SuppressLint("CheckResult")
     public void onAfterUpdate(
-            @Nonnull FastImageViewManager manager,
+            @NonNull FastImageViewManager manager, 
             @Nullable RequestManager requestManager,
-            @Nonnull Map<String, List<FastImageViewWithUrl>> viewsForUrlsMap) {
+            @NonNull Map<String, List<FastImageViewWithUrl>> viewsForUrlsMap) {
         if (!mNeedsReload)
             return;
 
@@ -144,12 +142,6 @@ class FastImageViewWithUrl extends AppCompatImageView {
         if (requestManager != null) {
             RequestBuilder<Drawable> builder =
                     requestManager
-                            // This will make this work for remote and local images. e.g.
-                            //    - file:///
-                            //    - content://
-                            //    - res:/
-                            //    - android.resource://
-                            //    - data:image/png;base64
                             .load(imageSource == null ? null : imageSource.getSourceForLoad())
                             .apply(FastImageViewConverter
                                     .getOptions(context, imageSource, mSource)
