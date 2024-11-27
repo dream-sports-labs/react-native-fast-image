@@ -52,7 +52,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
     @SuppressLint("CheckResult")
     public void onAfterUpdate(
-            @NonNull FastImageViewManager manager,  // Corrected to @NonNull
+            @NonNull FastImageViewManager manager, 
             @Nullable RequestManager requestManager,
             @NonNull Map<String, List<FastImageViewWithUrl>> viewsForUrlsMap) {
         if (!mNeedsReload)
