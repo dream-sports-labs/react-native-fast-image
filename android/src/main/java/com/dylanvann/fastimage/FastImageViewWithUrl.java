@@ -139,7 +139,6 @@ class FastImageViewWithUrl extends AppCompatImageView {
             }
         }
 
-     
         if (requestManager != null) {
             RequestBuilder<Drawable> builder =
                     requestManager
