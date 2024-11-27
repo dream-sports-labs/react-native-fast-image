@@ -4,7 +4,6 @@ import static com.dylanvann.fastimage.FastImageRequestListener.REACT_ON_ERROR_EV
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.Nullable;
