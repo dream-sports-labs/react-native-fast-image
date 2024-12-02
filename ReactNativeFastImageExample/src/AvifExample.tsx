@@ -6,20 +6,37 @@ import Section from './Section';
 import SectionFlex from './SectionFlex';
 import {useCacheBust} from './useCacheBust';
 
-const AVIF_URL = 'https://raw.githubusercontent.com/dream-sports-labs/react-native-fast-image/248b099e54a382f58c2549796cf17ee2bd0e369a/ReactNativeFastImageExampleServer/pictures/shade.avif';
+const TRANSPARENT_AVIF_URL =
+  'https://raw.githubusercontent.com/dream-sports-labs/react-native-fast-image/248b099e54a382f58c2549796cf17ee2bd0e369a/ReactNativeFastImageExampleServer/pictures/shade.avif';
+
+const ANIMATED_AVIF_URL =
+  'https://raw.githubusercontent.com/dream-sports-labs/react-native-fast-image/d1b67604d520c585025bac257a2c815fd676a2c6/ReactNativeFastImageExampleServer/pictures/animated.avif';
 
 export const AvifExample = () => {
-  const {url, bust} = useCacheBust(AVIF_URL);
+  const {url: transparentUrl, bust: bustTransparentUrl} =
+    useCacheBust(TRANSPARENT_AVIF_URL);
+  const {url: animatedUrl, bust: bustAnimatedUrl} =
+    useCacheBust(ANIMATED_AVIF_URL);
 
   return (
-    <View>
-      <Section>
-        <FeatureText text="• Remote AVIF with transparent background." />
-      </Section>
-      <SectionFlex onPress={bust}>
-        <FastImage style={styles.image} source={{uri: url}} />
-      </SectionFlex>
-    </View>
+    <>
+      <View>
+        <Section>
+          <FeatureText text="• Remote AVIF with transparent background." />
+        </Section>
+        <SectionFlex onPress={bustTransparentUrl}>
+          <FastImage style={styles.image} source={{uri: transparentUrl}} />
+        </SectionFlex>
+      </View>
+      <View>
+        <Section>
+          <FeatureText text="• Remote Animated AVIF (iOS)" />
+        </Section>
+        <SectionFlex onPress={bustAnimatedUrl}>
+          <FastImage style={styles.image} source={{uri: animatedUrl}} />
+        </SectionFlex>
+      </View>
+    </>
   );
 };
 
