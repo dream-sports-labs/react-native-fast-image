@@ -1,6 +1,7 @@
 #import "FFFastImageView.h"
 #import <SDWebImage/UIImage+MultiFormat.h>
 #import <SDWebImage/UIView+WebCache.h>
+#import <SDWebImageAVIFCoder/SDImageAVIFCoder.h>
 
 @interface FFFastImageView ()
 
@@ -101,6 +102,9 @@
     self = [super init];
     self.resizeMode = RCTResizeModeCover;
     self.clipsToBounds = YES;
+    if (self) {
+       [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
+    }
     return self;
 }
 
