@@ -1,5 +1,18 @@
 
 
+## [8.9.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.8.1...v8.9.0) (2024-12-04)
+
+
+### Features
+
+* support for animated avif on iOS ([d4a4deb](https://github.com/dream-sports-labs/react-native-fast-image/commit/d4a4deba0ab04ca2d0a1104a99a1147432cb98b4))
+* support webp animated image android ([9076a88](https://github.com/dream-sports-labs/react-native-fast-image/commit/9076a88b24479ac7d6b3b5d7e38b626ce893d123))
+
+
+### Bug Fixes
+
+* remove avif integration causing gif rendering issue ([50395a6](https://github.com/dream-sports-labs/react-native-fast-image/commit/50395a6dfdb856c07de9d76eac13608804cad50f))
+
 ### [8.8.1](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.8.0...v8.8.1) (2024-11-11)
 
 
