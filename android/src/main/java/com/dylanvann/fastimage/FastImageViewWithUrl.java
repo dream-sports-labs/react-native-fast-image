@@ -172,7 +172,8 @@ class FastImageViewWithUrl extends AppCompatImageView {
 
                 builder.into(this);
             } catch (Exception e) {
-                Log.e(TAG, "Error detecting image type.", e);
+                Log.e(TAG, String.format("Error detecting image type for URI: %s. Exception: %s",
+                imageSource != null ? imageSource.getUri().toString() : "null", e.getMessage()), e);
             }
         }
     }
