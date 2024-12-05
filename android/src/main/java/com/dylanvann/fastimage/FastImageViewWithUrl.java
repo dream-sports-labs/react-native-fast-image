@@ -14,6 +14,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.request.Request;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.facebook.react.bridge.ReadableMap;
 import com.dylanvann.fastimage.events.FastImageErrorEvent;
 import com.dylanvann.fastimage.events.FastImageLoadStartEvent;
@@ -25,8 +26,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import android.util.Log;
 
 class FastImageViewWithUrl extends AppCompatImageView {
+    private static final String TAG = "FastImageViewWithUrl";
     private boolean mNeedsReload = false;
     private ReadableMap mSource = null;
     private Drawable mDefaultSource = null;
@@ -140,18 +143,37 @@ class FastImageViewWithUrl extends AppCompatImageView {
         }
 
         if (requestManager != null) {
-            RequestBuilder<Drawable> builder =
-                    requestManager
+            RequestBuilder<? extends Drawable> builder;
+
+            try {
+                String extension = FastImageUrlUtils.getFileExtensionFromUrl(imageSource.getUri().toString());
+
+                if ("gif".equals(extension)) {
+                    builder = requestManager
+                            .asGif()
+                            .load(imageSource == null ? null : imageSource.getSourceForLoad())
+                            .apply(FastImageViewConverter
+                                    .getOptions(context, imageSource, mSource)
+                                    .placeholder(mDefaultSource)
+                                    .fallback(mDefaultSource))
+                            .listener(new FastImageRequestListener<GifDrawable>(key));
+                } else {
+                    builder = requestManager
                             .load(imageSource == null ? null : imageSource.getSourceForLoad())
                             .apply(FastImageViewConverter
                                     .getOptions(context, imageSource, mSource)
                                     .placeholder(mDefaultSource) // show until loaded
                                     .fallback(mDefaultSource)); // null will not be treated as error
+                }
 
-            if (key != null)
-                builder.listener(new FastImageRequestListener(key));
+                if (key != null) {
+                    builder.listener(new FastImageRequestListener(key));
+                }
 
-            builder.into(this);
+                builder.into(this);
+            } catch (Exception e) {
+                Log.e(TAG, "Error detecting image type.", e);
+            }
         }
     }
 
