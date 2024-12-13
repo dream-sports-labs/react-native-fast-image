@@ -2,11 +2,12 @@ name: Monitor Open Issues
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs every hour, adjust as needed
-  workflow_dispatch:
+    # This cron expression runs the action at midnight UTC every day
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Manual trigger
 
 jobs:
-  monitor-issues:
+  monitor:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,12 +17,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install axios --legacy-peer-deps
 
-      - name: Run issue monitor script
+      - name: Run script
         run: node monitor-issues.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
