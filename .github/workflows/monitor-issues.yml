@@ -1,10 +1,9 @@
 name: Monitor Open Issues
 
 on:
-  pull_request:
-    types: [opened, synchronize]  # Trigger on PR creation and updates
   schedule:
     - cron: '0 * * * *'  # Runs every hour, adjust as needed
+  workflow_dispatch:
 
 jobs:
   monitor-issues:
