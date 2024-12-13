@@ -1,10 +1,10 @@
 name: Monitor Open Issues
 
 on:
+  workflow_dispatch:
   schedule:
     # This cron expression runs the action at midnight UTC every day
     - cron: '0 0 * * *'
-  workflow_dispatch:  # Manual trigger
 
 jobs:
   monitor:
