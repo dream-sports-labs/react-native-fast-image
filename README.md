@@ -188,3 +188,5 @@ Special thanks to:
 [github-watch]: https://github.com/dream-sports-labs/react-native-fast-image/watchers
 [github-star-badge]: https://img.shields.io/github/stars/dream-sports-labs/react-native-fast-image.svg?style=social
 [github-star]: https://github.com/dream-sports-labs/react-native-fast-image/stargazers
+
+
