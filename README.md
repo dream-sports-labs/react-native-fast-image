@@ -1,6 +1,6 @@
 ###### ⚠️ This is a fork of [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image). All credit goes to the original author.
 
-# FastImage
+# FastImage Test
 A high-performance image component for React Native, now fully optimized for the **New React Native Architecture**! 🎉
 
 ## 🚀 What’s New?
