@@ -18,6 +18,7 @@ import com.bumptech.glide.signature.ApplicationVersionSignature;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.NoSuchKeyException;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 
 import java.util.HashMap;
@@ -59,9 +60,11 @@ class FastImageViewConverter {
     }
 
     static Headers getHeaders(ReadableMap source) {
-        Headers headers = Headers.DEFAULT;
+    Headers headers = Headers.DEFAULT;
 
-        if (source.hasKey("headers")) {
+    if (source.hasKey("headers")) {
+        try {
+            // First, try to get headers as a ReadableMap
             ReadableMap headersMap = source.getMap("headers");
             ReadableMapKeySetIterator iterator = headersMap.keySetIterator();
             LazyHeaders.Builder builder = new LazyHeaders.Builder();
@@ -74,10 +77,24 @@ class FastImageViewConverter {
             }
 
             headers = builder.build();
-        }
+        } catch (Exception e) {
+            // If headers are passed as an array, convert them to a map
+            ReadableArray headersArray = source.getArray("headers");
+            LazyHeaders.Builder builder = new LazyHeaders.Builder();
 
-        return headers;
+            for (int i = 0; i < headersArray.size(); i++) {
+                ReadableMap headerMap = headersArray.getMap(i);
+                String header = headerMap.getString("name");
+                String value = headerMap.getString("value");
+                builder.addHeader(header, value);
+            }
+
+            headers = builder.build();
+        }
     }
+
+    return headers;
+}
 
     static RequestOptions getOptions(Context context, FastImageSource imageSource, ReadableMap source) {
         // Get priority.
