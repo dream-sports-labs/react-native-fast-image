@@ -2,6 +2,7 @@
 #import <SDWebImage/UIImage+MultiFormat.h>
 #import <SDWebImage/UIView+WebCache.h>
 #import <SDWebImageAVIFCoder/SDImageAVIFCoder.h>
+#import <SDWebImageWebPCoder/SDImageWebPCoder.h>
 
 @interface FFFastImageView ()
 
@@ -104,6 +105,7 @@
     self.clipsToBounds = YES;
     if (self) {
        [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
+       [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]];
     }
     return self;
 }
