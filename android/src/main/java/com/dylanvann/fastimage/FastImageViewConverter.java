@@ -60,9 +60,9 @@ class FastImageViewConverter {
     }
 
     static Headers getHeaders(ReadableMap source) {
-         Headers headers = Headers.DEFAULT;
+        Headers headers = Headers.DEFAULT;
 
-    if (source.hasKey("headers")) {
+        if (source.hasKey("headers")) {
             ReadableArray headersArray = source.getArray("headers");
             LazyHeaders.Builder builder = new LazyHeaders.Builder();
 
@@ -74,10 +74,10 @@ class FastImageViewConverter {
             }
 
             headers = builder.build();
-    }
+        }
 
-    return headers;
-}
+        return headers;
+    }
 
     static RequestOptions getOptions(Context context, FastImageSource imageSource, ReadableMap source) {
         // Get priority.
