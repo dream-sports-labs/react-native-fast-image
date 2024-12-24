@@ -60,7 +60,7 @@ class FastImageViewConverter {
     }
 
     static Headers getHeaders(ReadableMap source) {
-    Headers headers = Headers.DEFAULT;
+         Headers headers = Headers.DEFAULT;
 
     if (source.hasKey("headers")) {
             ReadableArray headersArray = source.getArray("headers");
