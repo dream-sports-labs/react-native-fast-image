@@ -18,6 +18,7 @@ import com.bumptech.glide.signature.ApplicationVersionSignature;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.NoSuchKeyException;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 
 import java.util.HashMap;
@@ -62,14 +63,13 @@ class FastImageViewConverter {
         Headers headers = Headers.DEFAULT;
 
         if (source.hasKey("headers")) {
-            ReadableMap headersMap = source.getMap("headers");
-            ReadableMapKeySetIterator iterator = headersMap.keySetIterator();
+            ReadableArray headersArray = source.getArray("headers");
             LazyHeaders.Builder builder = new LazyHeaders.Builder();
 
-            while (iterator.hasNextKey()) {
-                String header = iterator.nextKey();
-                String value = headersMap.getString(header);
-
+            for (int i = 0; i < headersArray.size(); i++) {
+                ReadableMap headerMap = headersArray.getMap(i);
+                String header = headerMap.getString("name");
+                String value = headerMap.getString("value");
                 builder.addHeader(header, value);
             }
 
