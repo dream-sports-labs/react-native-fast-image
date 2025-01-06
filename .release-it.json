@@ -1,12 +1,13 @@
 {
   "npm": {
     "publish": false,
-    "tag": "latest"
+    "tag": "latest",
+    "version": true
   },
   "git": {
     "requireCleanWorkingDir": true,
     "requireBranch": "main",
-    "commitMessage": "Release v${version}",
+    "commitMessage": "chore: update changelog and bump version to v${version}",
     "tagName": "v${version}",
     "tagAnnotation": "Release v${version}",
     "push": false
@@ -17,14 +18,21 @@
   "plugins": {
     "@release-it/conventional-changelog": {
       "preset": "conventionalcommits",
-       "infile": "CHANGELOG.md"
+      "infile": "CHANGELOG.md"
     }
   },
   "hooks": {
-    "before:init": ["yarn lint", "yarn type-check", "yarn test"],
+    "before:init": [
+      "yarn lint",
+      "yarn type-check",
+      "yarn test"
+    ],
+    "before:bump": [
+      "git fetch origin main",
+      "git checkout -b release-v${version} origin/main"
+    ],
     "after:bump": [
-      "git add .",
-      "git commit -m 'chore: update changelog and bump version to v${version}'",
+      "git commit --allow-empty -m 'Release v${version}'",
       "git push origin HEAD:release-v${version}",
       "echo ${version} > .version"
     ]
