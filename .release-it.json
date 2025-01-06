@@ -17,14 +17,16 @@
   "plugins": {
     "@release-it/conventional-changelog": {
       "preset": "conventionalcommits",
-       "infile": "CHANGELOG.md"
+      "infile": "CHANGELOG.md"
     }
   },
   "hooks": {
     "before:init": ["yarn lint", "yarn type-check", "yarn test"],
     "after:bump": [
+      "git fetch origin main",
+      "git checkout -b release-v${version} origin/main",
       "git add .",
-      "git commit -m 'chore: update changelog and bump version to v${version}'",
+      "git commit -m 'chore: update changelog and bump version to v${version}' || echo 'No changes to commit'",
       "git push origin HEAD:release-v${version}",
       "echo ${version} > .version"
     ]
