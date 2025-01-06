@@ -1,5 +1,14 @@
 
 
+### [8.9.1](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.9.0...v8.9.1) (2025-01-06)
+
+
+### Bug Fixes
+
+* animated webp support ios ([cdf3c78](https://github.com/dream-sports-labs/react-native-fast-image/commit/cdf3c783e83f521ed1122ba87a924eca34ecb38b))
+* avif support ([a6e086f](https://github.com/dream-sports-labs/react-native-fast-image/commit/a6e086fff4244554858d8e1c0dd603f4ff533e35))
+* avoid double-including src when excludeAppGlideModule = true ([fb8cb0d](https://github.com/dream-sports-labs/react-native-fast-image/commit/fb8cb0d710b840f7de2a6fbcde92020cc20bf6dc))
+
 ## [8.9.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.8.1...v8.9.0) (2024-12-04)
 
 
