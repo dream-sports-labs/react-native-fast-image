@@ -1,8 +1,7 @@
 {
   "npm": {
     "publish": false,
-    "tag": "latest",
-    "version": true
+    "tag": "latest"
   },
   "git": {
     "requireCleanWorkingDir": true,
