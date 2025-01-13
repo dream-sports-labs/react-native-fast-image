@@ -14816,18 +14816,16 @@ __metadata:
   linkType: hard
 
 "react-native-gesture-handler@npm:^2.16.2":
-  version: 2.16.2
-  resolution: "react-native-gesture-handler@npm:2.16.2"
+  version: 2.22.0
+  resolution: "react-native-gesture-handler@npm:2.22.0"
   dependencies:
     "@egjs/hammerjs": ^2.0.17
     hoist-non-react-statics: ^3.3.0
     invariant: ^2.2.4
-    lodash: ^4.17.21
-    prop-types: ^15.7.2
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 3f3309de471b8de654624c54793f6d72236869156ee61c1adc8bba0f4aca6ffc8ed02035eb85820473091d33eb5ec8b42a0e387a21ec25dc30ee345dff0c1142
+  checksum: ad4ada2221d16ce56ecff0c5ab1d4a0220937e9e408c85729d9150b2eb3fdc0c5a92597bd4068a9b3e1b951380c28691f5e401071cc257c69008d39c9269f0d4
   languageName: node
   linkType: hard
 
