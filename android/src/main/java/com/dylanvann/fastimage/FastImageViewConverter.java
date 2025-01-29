@@ -20,6 +20,7 @@ import com.facebook.react.bridge.NoSuchKeyException;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.ReadableType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +64,25 @@ class FastImageViewConverter {
         Headers headers = Headers.DEFAULT;
 
         if (!source.hasKey("headers")) {
+            return headers;
+        }
+
+        // this will be true in case of Expo projects
+        if (source.getType("headers") == ReadableType.Map) {
+            ReadableMap headersMap = source.getMap("headers");
+            ReadableMapKeySetIterator iterator = headersMap.keySetIterator();
+            LazyHeaders.Builder builder = new LazyHeaders.Builder();
+
+            while (iterator.hasNextKey()) {
+                String header = iterator.nextKey();
+                String value = headersMap.getString(header);
+
+                if (value != null) {
+                    builder.addHeader(header, value);
+                }
+            }
+
+            headers = builder.build();
             return headers;
         }
 
