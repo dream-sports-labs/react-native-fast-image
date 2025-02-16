@@ -1,5 +1,13 @@
 
 
+### [8.9.2](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.9.1...v8.9.2) (2025-02-16)
+
+
+### Bug Fixes
+
+* headers handled as readable array ([8637965](https://github.com/dream-sports-labs/react-native-fast-image/commit/8637965446408c533dbf743068126d1ec1350535))
+* image header for expo ([f1ef489](https://github.com/dream-sports-labs/react-native-fast-image/commit/f1ef489c807fddc6b1de4067fc615e5737663ea9))
+
 ### [8.9.1](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.9.0...v8.9.1) (2025-01-06)
 
 
