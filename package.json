@@ -1,6 +1,6 @@
 {
-    "name": "@d11/react-native-fast-image",
-    "version": "8.9.2",
+    "name": "@liixing/react-native-fast-image",
+    "version": "1.0.0",
     "description": "🚩 FastImage, performant React Native image component.",
     "keywords": [
         "cache",
@@ -9,16 +9,16 @@
         "image",
         "priority"
     ],
-    "homepage": "https://github.com/dream-sports-labs/react-native-fast-image#readme",
+    "homepage": "https://github.com/liixing/react-native-fast-image#readme",
     "bugs": {
-        "url": "https://github.com/dream-sports-labs/react-native-fast-image/issues"
+        "url": "https://github.com/liixing/react-native-fast-image/issues"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-sports-labs/react-native-fast-image.git"
+        "url": "https://github.com/liixing/react-native-fast-image.git"
     },
     "license": "(MIT AND Apache-2.0)",
-    "author": "Dream Sports Labs <dreamsportslabs@dream11.com> (https://github.com/dream-sports-labs)",
+    "author": "liixing <liixing@liixing.com> (https://github.com/liixing)",
     "main": "src/index",
     "module": "src/index",
     "source": "src/index",

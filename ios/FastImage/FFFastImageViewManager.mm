@@ -50,6 +50,31 @@ RCT_EXPORT_METHOD(clearDiskCache:(RCTPromiseResolveBlock)resolve reject:(RCTProm
         resolve(NULL);
     }];
 }
+
+RCT_EXPORT_METHOD(getCachePath:(nonnull FFFastImageSource *)source
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                   andRejecter:(RCTPromiseRejectBlock)reject)
+{
+    SDWebImageManager *imageManager = [SDWebImageManager sharedManager];
+    NSString *key = [imageManager cacheKeyForURL:source.url];
+    BOOL isCached = [[SDImageCache sharedImageCache] diskImageDataExistsWithKey:key];
+
+    if (isCached) {
+        NSString *cachePath = [[SDImageCache sharedImageCache] cachePathForKey:key];
+        resolve(cachePath);
+    } else {
+        resolve([NSNull null]);
+    }
+}
+
+RCT_EXPORT_METHOD(getCacheSize:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[SDImageCache sharedImageCache] calculateSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize) {
+        resolve(@(totalSize));
+    }];
+}
+
 #ifdef RCT_NEW_ARCH_ENABLED
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params

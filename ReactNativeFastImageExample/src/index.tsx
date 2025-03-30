@@ -6,6 +6,7 @@ import {Icon} from './Icon';
 import FastImageExamples from './FastImageExamples';
 import FastImageGrid from './FastImageGrid';
 import DefaultImageGrid from './DefaultImageGrid';
+import CacheTest from './CacheTest';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,13 @@ export default function App() {
           component={FastImageGrid}
           options={{
             tabBarIcon: props => <Icon name="images-outline" {...props} />,
+          }}
+        />
+        <Tab.Screen
+          name="Cache Test"
+          component={CacheTest}
+          options={{
+            tabBarIcon: props => <Icon name="server-outline" {...props} />,
           }}
         />
       </Tab.Navigator>
