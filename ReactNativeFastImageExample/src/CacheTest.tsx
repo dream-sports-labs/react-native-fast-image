@@ -5,15 +5,25 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import FastImage from '@d11/react-native-fast-image';
 
+// 使用随机参数确保不受CDN缓存影响
+const getRandomImageUrl = () =>
+  `https://picsum.photos/400/400?rand=${Math.random()}`;
 const TEST_IMAGE_URL = 'https://picsum.photos/400/400';
 
 export default function CacheTest() {
   const [cacheSize, setCacheSize] = useState<number>(0);
   const [cachePath, setCachePath] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // CacheKey测试状态
+  const [testImageUrl, setTestImageUrl] = useState(getRandomImageUrl());
+  const [isLoading1, setIsLoading1] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading3, setIsLoading3] = useState(false);
 
   // 获取缓存大小
   const getCacheSize = async () => {
@@ -73,6 +83,14 @@ export default function CacheTest() {
     setLoading(false);
   };
 
+  // 重新加载测试cacheKey的图片
+  const reloadCacheKeyTestImages = () => {
+    setIsLoading1(true);
+    setIsLoading2(true);
+    setIsLoading3(true);
+    setTestImageUrl(getRandomImageUrl());
+  };
+
   useEffect(() => {
     getCacheSize();
   }, []);
@@ -117,6 +135,100 @@ export default function CacheTest() {
           <Text style={styles.buttonText}>清除磁盘缓存</Text>
         </TouchableOpacity>
       </View>
+
+      {/* 添加 CacheKey 测试部分 */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>CacheKey 测试</Text>
+        <Text style={styles.info}>
+          相同URL不同cacheKey的图片会分别缓存。可观察三张图片在刷新时的加载情况。
+        </Text>
+
+        <TouchableOpacity
+          style={[styles.button, styles.reloadButton]}
+          onPress={reloadCacheKeyTestImages}>
+          <Text style={styles.buttonText}>重新加载测试图片</Text>
+        </TouchableOpacity>
+
+        <View style={styles.imageRow}>
+          <View style={styles.imageContainer}>
+            <Text style={styles.imageLabel}>默认缓存键(URI)</Text>
+            <View style={styles.imageWrapper}>
+              {isLoading1 && (
+                <ActivityIndicator
+                  style={styles.loader}
+                  size="large"
+                  color="#2196F3"
+                />
+              )}
+              <FastImage
+                style={styles.cacheKeyTestImage}
+                source={{
+                  uri: testImageUrl,
+                  // 未指定cacheKey，默认使用URI作为缓存键
+                }}
+                onLoadStart={() => setIsLoading1(true)}
+                onLoad={() => setIsLoading1(false)}
+                onLoadEnd={() => setIsLoading1(false)}
+              />
+            </View>
+          </View>
+
+          <View style={styles.imageContainer}>
+            <Text style={styles.imageLabel}>自定义缓存键1</Text>
+            <View style={styles.imageWrapper}>
+              {isLoading2 && (
+                <ActivityIndicator
+                  style={styles.loader}
+                  size="large"
+                  color="#2196F3"
+                />
+              )}
+              <FastImage
+                style={styles.cacheKeyTestImage}
+                source={{
+                  uri: testImageUrl,
+                  cacheKey: 'custom-cache-key-1',
+                }}
+                onLoadStart={() => setIsLoading2(true)}
+                onLoad={() => setIsLoading2(false)}
+                onLoadEnd={() => setIsLoading2(false)}
+              />
+            </View>
+          </View>
+
+          <View style={styles.imageContainer}>
+            <Text style={styles.imageLabel}>自定义缓存键2</Text>
+            <View style={styles.imageWrapper}>
+              {isLoading3 && (
+                <ActivityIndicator
+                  style={styles.loader}
+                  size="large"
+                  color="#2196F3"
+                />
+              )}
+              <FastImage
+                style={styles.cacheKeyTestImage}
+                source={{
+                  uri: testImageUrl,
+                  cacheKey: 'custom-cache-key-2',
+                }}
+                onLoadStart={() => setIsLoading3(true)}
+                onLoad={() => setIsLoading3(false)}
+                onLoadEnd={() => setIsLoading3(false)}
+              />
+            </View>
+          </View>
+        </View>
+
+        <Text style={styles.description}>
+          验证方法：{'\n'}
+          1. 点击"重新加载测试图片"，三张图片会同时加载{'\n'}
+          2. 所有图片加载完成后，点击"清除磁盘缓存"{'\n'}
+          3. 再次点击"重新加载测试图片"{'\n'}
+          4.
+          观察三张图片是否同时显示加载状态，若使用不同的缓存键，则应该同时显示加载状态
+        </Text>
+      </View>
     </ScrollView>
   );
 }
@@ -145,7 +257,7 @@ const styles = StyleSheet.create({
   },
   info: {
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 10,
   },
   testImage: {
     width: 200,
@@ -166,5 +278,49 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  reloadButton: {
+    backgroundColor: '#4CAF50',
+  },
+  imageRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginVertical: 10,
+    width: '30%',
+  },
+  imageLabel: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginBottom: 5,
+  },
+  imageWrapper: {
+    position: 'relative',
+    width: 100,
+    height: 100,
+  },
+  cacheKeyTestImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    backgroundColor: '#e1e4e8',
+  },
+  loader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+  },
+  description: {
+    marginTop: 10,
+    fontSize: 12,
+    lineHeight: 18,
+    color: '#666',
   },
 });
