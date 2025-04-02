@@ -61,6 +61,7 @@ export type Source = {
     headers?: { [key: string]: string }
     priority?: Priority
     cache?: Cache
+    cacheKey?: string // The cache key used to query and store this specific image. If not provided, the uri is used also as the cache key.
 }
 
 export interface OnLoadEvent {

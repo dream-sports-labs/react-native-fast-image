@@ -55,9 +55,18 @@ class FastImageViewConverter {
     // Resolve the source uri to a file path that android understands.
     static @Nullable
     FastImageSource getImageSource(Context context, @Nullable ReadableMap source) {
-        return source == null
-                ? null
-                : new FastImageSource(context, source.getString("uri"), getHeaders(source));
+        if (source == null) {
+            return null;
+        }
+        
+        String cacheKey = null;
+        try {
+            cacheKey = source.hasKey("cacheKey") ? source.getString("cacheKey") : null;
+        } catch (NoSuchKeyException e) {
+            // cacheKey is optional
+        }
+        
+        return new FastImageSource(context, source.getString("uri"), getHeaders(source), cacheKey);
     }
 
     static Headers getHeaders(ReadableMap source) {
