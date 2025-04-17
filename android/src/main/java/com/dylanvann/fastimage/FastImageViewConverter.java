@@ -96,7 +96,7 @@ class FastImageViewConverter {
         for (int i = 0; i < headersArray.size(); i++) {
             ReadableMap headerEntry = headersArray.getMap(i);
 
-            String header = headerEntry.hasKey("header") ? headerEntry.getString("header") : null;
+            String header = headerEntry.hasKey("name") ? headerEntry.getString("name") : null;
             String value = headerEntry.hasKey("value") ? headerEntry.getString("value") : null;
 
             if (header != null && value != null) {
