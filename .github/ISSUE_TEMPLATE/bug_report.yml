@@ -1,8 +1,6 @@
 name: Bug report
-about: Create a report to help us improve
-title: ''
+description: Create a report to help us improve
 labels: bug
-assignees: ''
 body:
   - type: textarea
     id: description
@@ -31,7 +29,7 @@ body:
     validations:
       required: true
   - type: input
-    id: version
+    id: react-native-version
     attributes:
       label: React Native Version
       description: The version of react-native that this issue reproduces on.
@@ -39,7 +37,7 @@ body:
     validations:
       required: true
   - type: input
-    id: version
+    id: react-version
     attributes:
       label: React Version
       description: The version of react that this issue reproduces on.
@@ -47,7 +45,7 @@ body:
     validations:
       required: true
   - type: input
-    id: version
+    id: fast-image-version
     attributes:
       label: React Native Fast Image version
       description: The version of react-native-fast-image that this issue reproduces on.
