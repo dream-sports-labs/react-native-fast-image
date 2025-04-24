@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community Discussions
+    url: https://discord.gg/NyenAm9T
+    about: Please ask and answer questions, share ideas, or discuss features in our Discord community.
+  - name: Documentation
+    url: https://github.com/dream-sports-labs/react-native-fast-image#readme
+    about: Check out the documentation for usage instructions and API details. 
