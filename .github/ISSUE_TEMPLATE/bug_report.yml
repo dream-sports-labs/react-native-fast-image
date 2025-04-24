@@ -1,0 +1,88 @@
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: bug
+assignees: ''
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: The list of steps that reproduce the issue.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behaviour
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: React Native Version
+      description: The version of react-native that this issue reproduces on.
+      placeholder: "0.79.0"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: React Version
+      description: The version of react that this issue reproduces on.
+      placeholder: "19.0.0"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: React Native Fast Image version
+      description: The version of react-native-fast-image that this issue reproduces on.
+      placeholder: "8.9.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Affected Platforms
+      description: Please select which platform you're developing to, and which OS you're using for building.
+      multiple: true
+      options:
+        - Runtime - Android
+        - Runtime - iOS
+        - Runtime - Web
+        - Runtime - Desktop
+        - Build - MacOS
+        - Build - Windows
+        - Build - Linux
+        - Other (please specify)
+    validations:
+      required: true
+  - type: input
+    id: reproducer
+    attributes:
+      label: Reproducer
+      description: A link to either a failing RNTesterPlayground.js file, an Expo Snack or a public repository from [this template](https://github.com/react-native-community/reproducer-react-native) that reproduces this bug.
+      placeholder: "https://github.com/<myuser>/<myreproducer>"
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots and Videos
+      description: |
+        Please provide screenshot or a video of your bug if relevant.
+        Issues with videos and screenshots are more likely to **get prioritized**.
