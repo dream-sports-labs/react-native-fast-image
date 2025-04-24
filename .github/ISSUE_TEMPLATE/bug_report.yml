@@ -28,6 +28,17 @@ body:
       description: A clear and concise description of what you expected to happen.
     validations:
       required: true
+  - type: textarea
+    id: stacktrace
+    attributes:
+      label: Stacktrace or Logs
+      description: Please provide a stacktrace or a log of your crash or failure
+      render: text
+      placeholder: |
+        Paste your stacktraces and logs here.
+    validations:
+      required: false
+
   - type: input
     id: react-native-version
     attributes:
@@ -50,6 +61,17 @@ body:
       label: React Native Fast Image version
       description: The version of react-native-fast-image that this issue reproduces on.
       placeholder: "8.9.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Affected React-Native Architecture
+      description: Please select which architecture you're developing to.
+      multiple: true
+      options:
+        - old arch
+        - new arch
     validations:
       required: true
   - type: dropdown
