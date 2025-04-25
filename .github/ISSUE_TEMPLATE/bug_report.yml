@@ -39,28 +39,26 @@ body:
     validations:
       required: false
 
-  - type: input
-    id: react-native-version
+  - type: textarea
+    id: react-native-info
     attributes:
-      label: React Native Version
-      description: The version of react-native that this issue reproduces on.
-      placeholder: "0.79.0"
-    validations:
-      required: true
-  - type: input
-    id: react-version
-    attributes:
-      label: React Version
-      description: The version of react that this issue reproduces on.
-      placeholder: "19.0.0"
-    validations:
-      required: true
-  - type: input
-    id: fast-image-version
-    attributes:
-      label: React Native Fast Image version
-      description: The version of react-native-fast-image that this issue reproduces on.
-      placeholder: "8.9.2"
+      label: Output of `npx react-native info`
+      description: Run `npx react-native info` in your terminal, copy and paste the results here.
+      placeholder: |
+        Paste the output of `npx react-native info` here. The output looks like:
+        ...
+        System:
+          OS: macOS 14.1.1
+          CPU: (10) arm64 Apple M1 Max
+          Memory: 417.81 MB / 64.00 GB
+          Shell:
+            version: "5.9"
+            path: /bin/zsh
+        Binaries:
+          Node: ...
+            version: 18.14.0
+        ...
+      render: text
     validations:
       required: true
   - type: dropdown
