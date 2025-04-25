@@ -152,6 +152,10 @@ If using [ProGuard](https://www.guardsquare.com/proguard), add these rules to `a
 | `FastImage.clearMemoryCache(): Promise<void>`   | Clears all images from the memory cache.                                                                 |
 | `FastImage.clearDiskCache(): Promise<void>`     | Clears all images from the disk cache.                                                                   |
 
+## 👥 Contributing
+
+We welcome contributions to improve FastImage! Please check out our [contributing guide](CONTRIBUTING.md) for guidelines on how to proceed.
+
 ## 🛠️ Troubleshooting
 
 If you run into issues while using this library, try the solutions in our [troubleshooting guide](docs/troubleshooting.md).
