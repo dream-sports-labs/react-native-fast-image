@@ -90,4 +90,6 @@ dependencies {
     implementation "com.github.bumptech.glide:avif-integration:${glideVersion}"
     implementation "com.github.zjupure:webpdecoder:2.6.${glideVersion}"
     annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
+
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
 }

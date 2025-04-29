@@ -27,8 +27,11 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
 class FastImageViewConverter {
     private static final Drawable TRANSPARENT_DRAWABLE = new ColorDrawable(Color.TRANSPARENT);
+    private static final int BLUR_SAMPLING = 3;
 
     private static final Map<String, FastImageCacheControl> FAST_IMAGE_CACHE_CONTROL_MAP =
             new HashMap<String, FastImageCacheControl>() {{
@@ -108,7 +111,12 @@ class FastImageViewConverter {
         return headers;
     }
 
-    static RequestOptions getOptions(Context context, FastImageSource imageSource, ReadableMap source) {
+    static RequestOptions getOptions(
+            Context context,
+            FastImageSource imageSource,
+            ReadableMap source,
+            @Nullable Map<String, Object> imageOptions
+    ) {
         // Get priority.
         final Priority priority = FastImageViewConverter.getPriority(source);
         // Get cache control method.
@@ -136,6 +144,18 @@ class FastImageViewConverter {
                 .skipMemoryCache(skipMemoryCache)
                 .priority(priority)
                 .placeholder(TRANSPARENT_DRAWABLE);
+
+        int blurRadius = 0;
+        if (imageOptions != null) {
+            Object value = imageOptions.get("blurRadius");
+            if (value instanceof Number) {
+                blurRadius = ((Number) value).intValue();
+            }
+        }
+
+        if (blurRadius > 0) {
+            options = options.transform(new BlurTransformation(blurRadius, BLUR_SAMPLING));
+        }
 
         if (imageSource.isResource()) {
             // Every local resource (drawable) in Android has its own unique numeric id, which are

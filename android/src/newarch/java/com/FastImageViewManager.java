@@ -99,6 +99,11 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
         final FastImageViewWithUrl.ScaleType scaleType = FastImageViewConverter.getScaleType(resizeMode);
         view.setScaleType(scaleType);
     }
+    @Override
+    @ReactProp(name = "blurRadius")
+    public void setBlurRadius(FastImageViewWithUrl view, int blurRadius) {
+        view.setBlurRadius(blurRadius);
+    }
 
     @Override
     public void onDropViewInstance(@NonNull FastImageViewWithUrl view) {
