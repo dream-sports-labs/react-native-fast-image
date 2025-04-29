@@ -172,23 +172,23 @@ const resolveDefaultSource = (
 }
 
 function FastImageBase({
-                           source,
-                           defaultSource,
-                           tintColor,
-                           blurRadius,
-                           onLoadStart,
-                           onProgress,
-                           onLoad,
-                           onError,
-                           onLoadEnd,
-                           style,
-                           fallback,
-                           children,
+    source,
+    defaultSource,
+    tintColor,
+    blurRadius,
+    onLoadStart,
+    onProgress,
+    onLoad,
+    onError,
+    onLoadEnd,
+    style,
+    fallback,
+    children,
 
-                           resizeMode = 'cover',
-                           forwardedRef,
-                           ...props
-                       }: FastImageProps & { forwardedRef: React.Ref<any> }) {
+    resizeMode = 'cover',
+    forwardedRef,
+    ...props
+}: FastImageProps & { forwardedRef: React.Ref<any> }) {
     if (fallback) {
         const cleanedSource = { ...(source as any) }
         delete cleanedSource.cache
