@@ -60,16 +60,17 @@ export type FastImageProps = $ReadOnly<{|
     defaultSource?: ?number,
 
     tintColor?: number | string,
+    blurRadius?: number,
     resizeMode?: ?ResizeModes,
     fallback?: ?boolean,
     testID?: ?string,
 |}>
 
 declare export default class FastImage extends React$Component<FastImageProps> {
-    static resizeMode: ResizeMode;
-    static priority: Priority;
-    static cacheControl: CacheControl;
-    static preload: PreloadFn;
-    static clearMemoryCache: () => Promise<void>;
-    static clearDiskCache: () => Promise<void>;
+static resizeMode: ResizeMode;
+static priority: Priority;
+static cacheControl: CacheControl;
+static preload: PreloadFn;
+static clearMemoryCache: () => Promise<void>;
+static clearDiskCache: () => Promise<void>;
 }
