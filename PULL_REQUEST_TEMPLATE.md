@@ -4,6 +4,8 @@
 
 <!-- Explain the **motivation** for making this change. What existing problem does the pull request solve? -->
 
+Example: This PR improves cache handling for FastImage by implementing proper invalidation when source URLs change with the same cache key. This solves the issue where stale images would continue to display after content updates.
+
 ## Changelog:
 
 <!-- Help reviewers and the release process by writing your own changelog entry.
@@ -14,6 +16,16 @@ Pick one each for the category and type tags:
 
 -->
 
+Example: [ANDROID] [FIXED] - Fixed memory leak when rapidly changing FastImage sources
+Example: [IOS] [ADDED] - Added support for progressive JPEG loading
+Example: [GENERAL] [CHANGED] - Improved cache invalidation strategy for more consistent image loading
+
 ## Test Plan:
 
 <!-- Demonstrate the code is solid. Example: The exact commands you ran and their output, screenshots / videos if the pull request changes the user interface. -->
+
+Examples:
+- Tested image loading with PNG, JPEG, GIF formats
+- Verified cache behavior with `FastImage.preload()` 
+- Tested on iOS 14 and Android 10
+- Command: `cd example && yarn ios/android`

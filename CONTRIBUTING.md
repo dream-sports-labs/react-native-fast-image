@@ -34,21 +34,7 @@ yarn -v
 
 The repository includes an example app and a server to test your changes:
 
-#### 1. Start the Example Server:
-```bash
-# Navigate to the server directory
-cd ReactNativeFastImageExampleServer
-
-# Install server dependencies
-yarn
-
-# Start the server
-yarn start
-```
-
-#### 2. Run the Example App:
-
-In a new terminal:
+#### Run the Example App:
 
 ```bash
 # Navigate to the example app directory
@@ -68,6 +54,18 @@ cd ..
 yarn ios
 ```
 
+#### Start the Example Server (optional):
+```bash
+# Navigate to the server directory
+cd ReactNativeFastImageExampleServer
+
+# Install server dependencies
+yarn
+
+# Start the server
+yarn start
+```
+
 ## Making Changes
 
 1. Create a new branch from the main branch:
@@ -84,23 +82,18 @@ yarn test
 
 ## Submitting Changes
 
-1. Commit your changes with a descriptive commit message:
-```bash
-git commit -m "Add feature: description of your changes"
-```
+When your changes are ready to submit:
 
-2. Push your branch to your fork:
-```bash
-git push origin feature/your-feature-name
-```
+1. Ensure your code is well-documented and passes all tests
+2. Push your changes to your forked repository 
+3. Create a pull request to the main repository
 
-3. Create a pull request from your fork to the original repository:
-   - Go to the [original repository](https://github.com/dream-sports-labs/react-native-fast-image)
-   - Click "Pull Requests" and then "New Pull Request"
-   - Click "compare across forks" and select your fork and branch
-   - Click "Create Pull Request"
+For a step-by-step demonstration on the pull request process, check out this helpful video: [GitHub Pull Request in 100 Seconds](https://www.youtube.com/watch?v=8lGpZkjnkt4)
 
-4. Fill in the pull request template with details about your changes.
+Fill in the pull request template with details about your changes, including:
+- What problem your PR solves
+- How you tested your changes
+- Any screenshots for UI changes
 
 ## Signing the CLA (Contributor License Agreement)
 
