@@ -19,7 +19,7 @@ body:
     attributes:
       label: Proposed Solution
       description: Describe the solution you'd like
-      placeholder: A clear and concise description of what you want to happen.
+      placeholder: A clear and concise description of what you want to happen. Ex. Add a 'fadeIn' prop that would allow images to fade in smoothly when they load. This could be implemented using the existing onLoad event combined with React Native's Animated API.
     validations:
       required: true
   - type: textarea
@@ -27,7 +27,7 @@ body:
     attributes:
       label: Alternatives Considered
       description: Describe alternatives you've considered
-      placeholder: A clear and concise description of any alternative solutions or features you've considered.
+      placeholder: A clear and concise description of any alternative solutions or features you've considered. Ex. I tried using a wrapper component with opacity animation, but this doesn't integrate well with the existing caching system and creates extra rendering work.
     validations:
       required: false
   - type: textarea
