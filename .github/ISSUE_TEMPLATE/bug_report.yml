@@ -87,7 +87,6 @@ body:
       options:
         - Runtime - Android
         - Runtime - iOS
-        - Runtime - Web
         - Other (please specify)
     validations:
       required: true
