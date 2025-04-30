@@ -49,7 +49,7 @@ body:
     id: react-native-info
     attributes:
       label: Output of `npx react-native info`
-      description: Run `npx react-native info` in your terminal, copy and paste the results here.
+      description: Run `npx react-native info` in your terminal at root of the project, copy and paste the results here.
       placeholder: |
         Paste the output of `npx react-native info` here. The output looks like:
         ...
