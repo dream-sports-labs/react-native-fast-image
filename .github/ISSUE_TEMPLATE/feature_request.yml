@@ -35,6 +35,7 @@ body:
     attributes:
       label: Additional context
       description: Add any other context or screenshots about the feature request here.
+      placeholder: "Example: Similar implementations exist in other libraries such as https://github.com/username/image-library which implements this feature with good performance. There's also a detailed blog post about this technique at https://example.com/blog/image-caching-techniques that explains the benefits and implementation details."
     validations:
       required: false
   - type: dropdown
@@ -47,7 +48,6 @@ body:
         - Android
         - iOS
         - Web
-        - Desktop
     validations:
       required: true
   - type: dropdown
