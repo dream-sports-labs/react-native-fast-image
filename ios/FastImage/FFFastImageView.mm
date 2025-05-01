@@ -268,10 +268,21 @@
 
 - (void) downloadImage: (FFFastImageSource*)source options: (SDWebImageOptions)options context: (SDWebImageContext*)context {
     __weak FFFastImageView *weakSelf = self; // Always use a weak reference to self in blocks
+    
+    // Create mutable context dictionary if needed
+    NSMutableDictionary *mutableContext = context ? [context mutableCopy] : [NSMutableDictionary dictionary];
+    
+    // If cacheKey is provided, add it to the context
+    if (source.cacheKey.length > 0) {
+        mutableContext[SDWebImageContextImageCacheKeyFilter] = [SDWebImageCacheKeyFilter cacheKeyFilterWithBlock:^NSString * _Nullable(NSURL * _Nonnull url) {
+            return source.cacheKey;
+        }];
+    }
+    
     [self sd_setImageWithURL: _source.url
             placeholderImage: _defaultSource
                      options: options
-                     context: context
+                     context: [mutableContext copy]
                     progress: ^(NSInteger receivedSize, NSInteger expectedSize, NSURL* _Nullable targetURL) {
         [self onProgressEvent:receivedSize expectedSize:expectedSize];
                     } completed: ^(UIImage* _Nullable image,

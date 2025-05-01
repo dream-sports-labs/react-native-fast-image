@@ -61,6 +61,7 @@ export type Source = {
     headers?: { [key: string]: string }
     priority?: Priority
     cache?: Cache
+    cacheKey?: string // The cache key used to query and store this specific image. If not provided, the uri is used also as the cache key.
 }
 
 export interface OnLoadEvent {
@@ -209,9 +210,9 @@ function FastImageBase({
     const FABRIC_ENABLED = !!global?.nativeFabricUIManager
 
     // this type differs based on the `source` prop passed
-    const resolvedSource = Image.resolveAssetSource(
-        source as any,
-    ) as ImageResolvedAssetSource & { headers: any }
+    const resolvedSource = {
+        ...Image.resolveAssetSource(source as any),
+    } as ImageResolvedAssetSource & { headers: any }
     if (
         resolvedSource?.headers &&
         (FABRIC_ENABLED || Platform.OS === 'android')
@@ -264,6 +265,8 @@ export interface FastImageStaticProperties {
     preload: (sources: Source[]) => void
     clearMemoryCache: () => Promise<void>
     clearDiskCache: () => Promise<void>
+    getCachePath: (source: Source) => Promise<string>
+    getCacheSize: () => Promise<number>
 }
 
 const FastImage: React.ComponentType<FastImageProps> &
@@ -276,6 +279,11 @@ FastImage.cacheControl = cacheControl
 FastImage.priority = priority
 
 FastImage.preload = (sources: Source[]) => FastImageViewModule.preload(sources)
+
+FastImage.getCachePath = (source: Source) =>
+    FastImageViewModule.getCachePath(source)
+
+FastImage.getCacheSize = () => FastImageViewModule.getCacheSize()
 
 FastImage.clearMemoryCache = () => FastImageViewModule.clearMemoryCache()
 

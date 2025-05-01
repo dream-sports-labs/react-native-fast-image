@@ -1,6 +1,7 @@
 package com.dylanvann.fastimage;
 
 import android.app.Activity;
+import java.io.File;
 
 import androidx.annotation.NonNull;
 
@@ -81,5 +82,74 @@ class FastImageViewModuleImplementation {
 
         Glide.get(activity.getApplicationContext()).clearDiskCache();
         promise.resolve(null);
+    }
+
+    public void getCachePath(final ReadableMap source, final Promise promise) {
+        final Activity activity = getCurrentActivity();
+        if (activity == null) {
+            promise.resolve(null);
+            return;
+        }
+
+        final FastImageSource imageSource = FastImageViewConverter.getImageSource(activity, source);
+        if (imageSource == null || imageSource.getUri() == null) {
+            promise.resolve(null);
+            return;
+        }
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GlideUrl glideUrl = imageSource.getGlideUrl();
+                    String key = glideUrl.toStringUrl();
+                    File cacheFile = Glide.get(activity.getApplicationContext())
+                            .getDiskCache()
+                            .get(key);
+                    
+                    if (cacheFile != null && cacheFile.exists()) {
+                        promise.resolve(cacheFile.getAbsolutePath());
+                    } else {
+                        promise.resolve(null);
+                    }
+                } catch (Exception e) {
+                    promise.resolve(null);
+                }
+            }
+        });
+    }
+
+    public void getCacheSize(final Promise promise) {
+        final Activity activity = getCurrentActivity();
+        if (activity == null) {
+            promise.resolve(0);
+            return;
+        }
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    File cacheDir = Glide.get(activity.getApplicationContext())
+                            .getDiskCache()
+                            .getDirectory();
+                    
+                    long totalSize = 0;
+                    if (cacheDir != null && cacheDir.exists()) {
+                        File[] files = cacheDir.listFiles();
+                        if (files != null) {
+                            for (File file : files) {
+                                if (file.isFile()) {
+                                    totalSize += file.length();
+                                }
+                            }
+                        }
+                    }
+                    promise.resolve(totalSize);
+                } catch (Exception e) {
+                    promise.resolve(0);
+                }
+            }
+        });
     }
 }
