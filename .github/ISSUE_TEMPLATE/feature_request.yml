@@ -47,7 +47,7 @@ body:
       options:
         - Android
         - iOS
-        - Other
+        - Other (tvOS, web, visionOS, etc)
     validations:
       required: true
   - type: dropdown
