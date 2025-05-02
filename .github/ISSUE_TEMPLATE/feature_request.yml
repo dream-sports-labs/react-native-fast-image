@@ -47,6 +47,7 @@ body:
       options:
         - Android
         - iOS
+        - Other
     validations:
       required: true
   - type: dropdown
