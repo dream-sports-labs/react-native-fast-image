@@ -2,7 +2,6 @@
     "name": "@d11/react-native-fast-image",
     "version": "8.9.2",
     "description": "🚩 FastImage, performant React Native image component.",
-    "type": "module",
     "keywords": [
         "cache",
         "cached",
@@ -66,8 +65,6 @@
         "@babel/plugin-transform-private-methods": "^7.24.7",
         "@babel/preset-env": "^7.20.0",
         "@babel/runtime": "^7.24.7",
-        "@eslint/eslintrc": "^3.3.1",
-        "@eslint/js": "^9.25.1",
         "@octokit/rest": "^21.0.2",
         "@react-native/babel-preset": "0.74.84",
         "@react-native/eslint-config": "0.74.84",
@@ -80,13 +77,11 @@
         "@types/react": "^18.3.3",
         "@types/react-native": "^0.69.5",
         "@types/react-test-renderer": "^18.0.0",
-        "@typescript-eslint/eslint-plugin": "^8.31.1",
-        "@typescript-eslint/parser": "^8.31.1",
         "auto-changelog": "^2.4.0",
         "babel-jest": "^29.6.3",
         "babel-plugin-module-resolver": "^5.0.0",
         "dv-scripts": "^1.6.0",
-        "eslint": "^9.24.0",
+        "eslint": "8.19.0",
         "jest": "^29.6.3",
         "metro-react-native-babel-preset": "^0.66.1",
         "prettier": "^2.3.2",
@@ -94,8 +89,7 @@
         "react-native": "0.74.2",
         "react-test-renderer": "^18.3.1",
         "release-it": "^18.0.0",
-        "typescript": "^5.5.4",
-        "typescript-eslint": "^8.31.1"
+        "typescript": "^5.5.4"
     },
     "peerDependencies": {
         "react": "*",
