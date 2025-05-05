@@ -7,13 +7,13 @@ import FeatureText from './FeatureText';
 import {useCacheBust} from './useCacheBust';
 
 const getImageUrl = (id: string, width: number, height: number) =>
-  `https://source.unsplash.com/${id}/${width}x${height}`;
+  `https://unsplash.it/${width}/${height}?image=${id}`;
 const IMAGE_SIZE = 1024;
 const IMAGE_SIZE_PX = PixelRatio.getPixelSizeForLayoutSize(IMAGE_SIZE);
 const IMAGE_URLS = [
-  getImageUrl('x58soEovG_M', IMAGE_SIZE_PX, IMAGE_SIZE_PX),
-  getImageUrl('yPI7myL5eWY', IMAGE_SIZE_PX, IMAGE_SIZE_PX),
-  getImageUrl('S7VCcp6KCKE', IMAGE_SIZE, IMAGE_SIZE),
+  getImageUrl('0', IMAGE_SIZE_PX, IMAGE_SIZE_PX),
+  getImageUrl('1', IMAGE_SIZE_PX, IMAGE_SIZE_PX),
+  getImageUrl('2', IMAGE_SIZE_PX, IMAGE_SIZE_PX),
 ];
 
 export const PriorityExample = () => {
@@ -27,21 +27,21 @@ export const PriorityExample = () => {
         <FastImage
           style={styles.image}
           source={{
-            uri: IMAGE_URLS[0] + query,
+            uri: IMAGE_URLS[0] + query.replace('?', '&'),
             priority: FastImage.priority.low,
           }}
         />
         <FastImage
           style={styles.image}
           source={{
-            uri: IMAGE_URLS[1] + query,
+            uri: IMAGE_URLS[1] + query.replace('?', '&'),
             priority: FastImage.priority.normal,
           }}
         />
         <FastImage
           style={styles.image}
           source={{
-            uri: IMAGE_URLS[2] + query,
+            uri: IMAGE_URLS[2] + query.replace('?', '&'),
             priority: FastImage.priority.high,
           }}
         />
