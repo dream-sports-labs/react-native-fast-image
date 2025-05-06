@@ -96,17 +96,19 @@
 }
 
 
-
++ (void)initialize {
+    if (self == [FFFastImageView class]) {
+       [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
+       [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]];
+    }
+}
 
 
 - (id) init {
     self = [super init];
     self.resizeMode = RCTResizeModeCover;
     self.clipsToBounds = YES;
-    if (self) {
-       [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
-       [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]];
-    }
+
     return self;
 }
 
