@@ -77,6 +77,11 @@ export interface OnProgressEvent {
     }
 }
 
+
+export interface DiskCacheSize {
+    diskCacheSizeBytes: number
+    diskCacheSizeMB: number
+}
 export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
     backfaceVisibility?: 'visible' | 'hidden'
     borderBottomLeftRadius?: number
@@ -264,6 +269,7 @@ export interface FastImageStaticProperties {
     preload: (sources: Source[]) => void
     clearMemoryCache: () => Promise<void>
     clearDiskCache: () => Promise<void>
+    getDiskCacheSize: () => Promise<DiskCacheSize>
 }
 
 const FastImage: React.ComponentType<FastImageProps> &
@@ -280,6 +286,8 @@ FastImage.preload = (sources: Source[]) => FastImageViewModule.preload(sources)
 FastImage.clearMemoryCache = () => FastImageViewModule.clearMemoryCache()
 
 FastImage.clearDiskCache = () => FastImageViewModule.clearDiskCache()
+
+FastImage.getDiskCacheSize = () => FastImageViewModule.getDiskCacheSize()
 
 const styles = StyleSheet.create({
     imageContainer: {
