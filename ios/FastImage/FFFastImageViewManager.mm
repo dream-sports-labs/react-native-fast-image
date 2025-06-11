@@ -1,6 +1,5 @@
 #import "FFFastImageViewManager.h"
 #import "FFFastImageView.h"
-#import "RCTConvert+FFFastImage.h"
 
 #import <SDWebImage/SDImageCache.h>
 #import <SDWebImage/SDWebImagePrefetcher.h>
@@ -84,7 +83,7 @@ RCT_EXPORT_METHOD(getDiskCacheSize:(RCTPromiseResolveBlock)resolve
             NSDirectoryEnumerator *enumerator = [
                                                  fileManager enumeratorAtURL:cacheURL
                                                  includingPropertiesForKeys:keys
-                                                 ptions:NSDirectoryEnumerationSkipsHiddenFiles
+                                                 options:NSDirectoryEnumerationSkipsHiddenFiles
                                                  errorHandler:nil
                                                 ];
 
@@ -109,7 +108,7 @@ RCT_EXPORT_METHOD(getDiskCacheSize:(RCTPromiseResolveBlock)resolve
             dispatch_async(dispatch_get_main_queue(), ^{
                 resolve(@{
                     @"diskCacheSizeBytes": @(totalSize),
-                    @"diskCacheSizeMB": @(sizeInMB),
+                    @"diskCacheSizeMB": @(sizeInMB)
                 });
             });
 
