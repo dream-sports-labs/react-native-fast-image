@@ -43,4 +43,9 @@ class FastImageViewModule extends NativeFastImageViewSpec {
     public void clearDiskCache(Promise promise) {
         impl.clearDiskCache(promise);
     }
+
+    @ReactMethod
+    public void getDiskCacheSize(Promise promise) {
+        impl.getDiskCacheSize(promise);
+    }
 }
