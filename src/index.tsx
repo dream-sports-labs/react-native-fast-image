@@ -209,9 +209,9 @@ function FastImageBase({
     const FABRIC_ENABLED = !!global?.nativeFabricUIManager
 
     // this type differs based on the `source` prop passed
-    const resolvedSource = Image.resolveAssetSource(
-        source as any,
-    ) as ImageResolvedAssetSource & { headers: any }
+    const resolvedSource = {
+        ...Image.resolveAssetSource(source as any),
+    } as ImageResolvedAssetSource & { headers: any }
     if (
         resolvedSource?.headers &&
         (FABRIC_ENABLED || Platform.OS === 'android')
