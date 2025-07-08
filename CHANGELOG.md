@@ -1,5 +1,39 @@
 
 
+## [8.10.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.9.2...v8.10.0) (2025-07-08)
+
+
+### Features
+
+* added code of conduct and contribution doc ([9c5fa94](https://github.com/dream-sports-labs/react-native-fast-image/commit/9c5fa94bbe2ca80906f133e8cdd67faba1076965))
+* added issue template for feature request and discussions ([a61548a](https://github.com/dream-sports-labs/react-native-fast-image/commit/a61548a0cb638ace1fbfdf010eb6990d34637f4b))
+* added pull request template ([f177cca](https://github.com/dream-sports-labs/react-native-fast-image/commit/f177ccaa45901ad47180fb8862e539fbc0ae80d1))
+* updated issue template ([dd66a5a](https://github.com/dream-sports-labs/react-native-fast-image/commit/dd66a5a08126bdb1494f33a113e5daa35b1f84af))
+
+
+### Bug Fixes
+
+* added discord server ([f7944a3](https://github.com/dream-sports-labs/react-native-fast-image/commit/f7944a3df1a20a655b7f522ddd21ea4443be6223))
+* added examples ([c89869d](https://github.com/dream-sports-labs/react-native-fast-image/commit/c89869dd6ca1a9b7a333807e0f10dcd8f8281e4a))
+* added rn arch ([7ae2578](https://github.com/dream-sports-labs/react-native-fast-image/commit/7ae2578c2b1be04c217af7ba495ec331129d3193))
+* affected platform ([0f43c2c](https://github.com/dream-sports-labs/react-native-fast-image/commit/0f43c2cb6e049febdd9fb9e892e30bb1a1391cfb))
+* bug report ([773cebd](https://github.com/dream-sports-labs/react-native-fast-image/commit/773cebd89393a1140afe7f93ab04093a2fa44737))
+* enhancements ([7fa564a](https://github.com/dream-sports-labs/react-native-fast-image/commit/7fa564aed237f17b451b31d7751ae52fb7cdf0df))
+* errors ([bbf5403](https://github.com/dream-sports-labs/react-native-fast-image/commit/bbf5403442ab02703598c87675eb6df1d5cf2cb7))
+* errors ([97f223f](https://github.com/dream-sports-labs/react-native-fast-image/commit/97f223f24e025a79f78a9d35cd8a91d0e0e2c0c5))
+* eslint ([73d121a](https://github.com/dream-sports-labs/react-native-fast-image/commit/73d121a24aeababa8ac905f17021a258aeedc089))
+* failing unit test cases ([9eb73d6](https://github.com/dream-sports-labs/react-native-fast-image/commit/9eb73d69bcc7129963de5fdc7b22250a659140e3))
+* images ([ce86484](https://github.com/dream-sports-labs/react-native-fast-image/commit/ce864849157ea5a064be73dbd37020ecdcd26087))
+* lint changes ([fc7c2e7](https://github.com/dream-sports-labs/react-native-fast-image/commit/fc7c2e791db6a9430d3a1e1d10d0206b98397bf8))
+* pr template ([e197287](https://github.com/dream-sports-labs/react-native-fast-image/commit/e197287163276c84dbe86b46b54cede91f51eaa1))
+* proposed solution validation ([4a398ed](https://github.com/dream-sports-labs/react-native-fast-image/commit/4a398ed1470c057f4034dd17ec12f0e1aec5da30))
+* react-native info ([a9542a9](https://github.com/dream-sports-labs/react-native-fast-image/commit/a9542a91fc3d92c8c17f964a9479015e1f28e382))
+* react-native-gesture-handler version ([1af094a](https://github.com/dream-sports-labs/react-native-fast-image/commit/1af094a077e99c18523e1c28479e6d6120fa28a6))
+* remove web from affected platforms ([083a9ef](https://github.com/dream-sports-labs/react-native-fast-image/commit/083a9eff280a3c71da945cfafa60eaf287f9d3ce))
+* undo lint changes ([56e0956](https://github.com/dream-sports-labs/react-native-fast-image/commit/56e09561b24fa0681e1ba87a90ca7f1ff65a9906))
+* update readme ([f1e4e8e](https://github.com/dream-sports-labs/react-native-fast-image/commit/f1e4e8eeb1079117cae05683b7085b3c79db3bd0))
+* yarn.lock ([978ae6f](https://github.com/dream-sports-labs/react-native-fast-image/commit/978ae6f1b4871f2a20da98063881dad1869efff1))
+
 ### [8.9.2](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.9.1...v8.9.2) (2025-02-16)
 
 
