@@ -209,10 +209,11 @@ function FastImageBase({
     const FABRIC_ENABLED = !!global?.nativeFabricUIManager
 
     // this type differs based on the `source` prop passed
-    // spread because the returned object is frozen
-    const resolvedSource = {
-        ...Image.resolveAssetSource(source as any),
-    } as ImageResolvedAssetSource & { headers: any }
+    const resolvedSource = Image.resolveAssetSource(
+        source as any,
+    ) as ImageResolvedAssetSource & { headers: any }
+    // resolvedSource would be frozen, we can't modify it
+    let modifiedSource = resolvedSource
     if (
         resolvedSource?.headers &&
         (FABRIC_ENABLED || Platform.OS === 'android')
@@ -222,7 +223,7 @@ function FastImageBase({
         Object.keys(resolvedSource.headers).forEach((key) => {
             headersArray.push({ name: key, value: resolvedSource.headers[key] })
         })
-        resolvedSource.headers = headersArray
+        modifiedSource = { ...resolvedSource, headers: headersArray }
     }
     const resolvedDefaultSource = resolveDefaultSource(defaultSource)
     const resolvedDefaultSourceAsString =
@@ -234,7 +235,7 @@ function FastImageBase({
                 {...props}
                 tintColor={tintColor}
                 style={StyleSheet.absoluteFill}
-                source={resolvedSource}
+                source={modifiedSource}
                 defaultSource={resolvedDefaultSourceAsString}
                 onFastImageLoadStart={onLoadStart}
                 onFastImageProgress={onProgress}
