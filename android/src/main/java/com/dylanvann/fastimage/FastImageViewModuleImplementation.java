@@ -1,22 +1,36 @@
 package com.dylanvann.fastimage;
 
 import android.app.Activity;
-
-import androidx.annotation.NonNull;
+import android.content.Context;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.views.imagehelper.ImageSource;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
+
+import java.io.File;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class FastImageViewModuleImplementation {
     ReactApplicationContext reactContext;
+    private ExecutorService cacheExecutor;
+    
     FastImageViewModuleImplementation(ReactApplicationContext reactContext){
+        this.reactContext = reactContext;
+    }
 
-    this.reactContext = reactContext;
+    private synchronized ExecutorService getCacheExecutor() {
+        if (cacheExecutor == null) {
+            cacheExecutor = Executors.newSingleThreadExecutor();
+        }
+        return cacheExecutor;
     }
 
     public static final String REACT_CLASS = "FastImageView";
@@ -72,6 +86,7 @@ class FastImageViewModuleImplementation {
             }
         });
     }
+
     public void clearDiskCache(Promise promise) {
         final Activity activity = getCurrentActivity();
         if (activity == null) {
@@ -82,4 +97,57 @@ class FastImageViewModuleImplementation {
         Glide.get(activity.getApplicationContext()).clearDiskCache();
         promise.resolve(null);
     }
+
+    public void getDiskCacheSize(Promise promise) {
+        final Activity activity = getCurrentActivity();
+        if (activity == null) {
+            promise.reject("GET_DISK_CACHE_SIZE_ERROR", "Activity is null");
+            return;
+        }
+
+        getCacheExecutor().execute(() -> {
+            try {
+                Context context = activity.getApplicationContext();
+                File cacheDir = new File(context.getCacheDir(), DiskCache.Factory.DEFAULT_DISK_CACHE_DIR);
+
+                long totalSize = cacheDir.exists() ? calculateDirectorySize(cacheDir) : 0;
+                double sizeInMB = totalSize / (1024.0 * 1024.0);
+
+                WritableMap result = Arguments.createMap();
+                result.putDouble("diskCacheSizeBytes", totalSize);
+                result.putDouble("diskCacheSizeMB", sizeInMB);
+                
+                promise.resolve(result);
+            } catch (Exception e) {
+                promise.reject("GET_DISK_CACHE_SIZE_ERROR", "Failed to get disk cache size: " + e.getMessage(), e);
+            }
+        });
+    }
+
+    // Helper method to calculate directory size
+    private long calculateDirectorySize(File directory) {
+        long totalSize = 0;
+        if (directory == null || !directory.exists()) return 0;
+
+        Deque<File> stack = new ArrayDeque<>();
+        stack.push(directory);
+
+        while (!stack.isEmpty()) {
+            File current = stack.pop();
+
+            if (current.isFile()) {
+                totalSize += current.length();
+            } else {
+                File[] files = current.listFiles();
+                if (files != null) {
+                    for (File file : files) {
+                        stack.push(file);
+                    }
+                }
+            }
+        }
+
+        return totalSize;
+    }
+
 }
