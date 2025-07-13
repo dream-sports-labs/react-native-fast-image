@@ -1,6 +1,8 @@
 require 'json'
 
 fabric_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
+disable_webp = ENV['ENABLE_GLIDE_WEBP'] == '1'
+disable_avif = ENV['ENABLE_GLIDE_AVIF'] == '1'
 
 Pod::Spec.new do |s|
   package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
@@ -32,8 +34,12 @@ Pod::Spec.new do |s|
     s.dependency 'React-Core'
   end
   s.dependency 'SDWebImage', '>= 5.19.1'
-  s.dependency 'SDWebImageWebPCoder', '~> 0.14'
-  s.dependency 'SDWebImageAVIFCoder', '~> 0.11.0'
-  s.dependency 'libavif/libdav1d', '~> 0.11.1'
-  s.dependency 'libavif/core', '~> 0.11.1'
+  unless disable_webp
+    s.dependency 'SDWebImageWebPCoder', '~> 0.14'
+  end
+  unless disable_avif
+    s.dependency 'SDWebImageAVIFCoder', '~> 0.11.0'
+    s.dependency 'libavif/libdav1d', '~> 0.11.1'
+    s.dependency 'libavif/core', '~> 0.11.1'
+  end
 end

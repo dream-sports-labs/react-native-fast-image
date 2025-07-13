@@ -1,0 +1,28 @@
+
+
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+def glideVersion = safeExtGet('glideVersion', '4.14.2')
+def isGlideOkHttpDisabled = project.hasProperty('disableGlideOkHTTP') && project.disableGlideOkHTTP.toBoolean()
+def isGlideAvifDisabled = project.hasProperty('disableGlideAvif') && project.disableGlideAvif.toBoolean()
+def isGlideWebpDisabled = project.hasProperty('disableGlideWebP') && project.disableGlideWebP.toBoolean()
+def isGlideAnimatedPNGDisabled = project.hasProperty('disableGlideAnimatedPng') && project.disableGlideAnimatedPng.toBoolean()
+
+dependencies {
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
+
+    if (!isGlideOkHttpDisabled) {
+        implementation "com.github.bumptech.glide:okhttp3-integration:$glideVersion"
+    }
+    if (!isGlideAvifDisabled) {
+        implementation "com.github.bumptech.glide:avif-integration:$glideVersion"
+    }
+    if (!isGlideWebpDisabled) {
+        implementation "com.github.zjupure:webpdecoder:2.6.$glideVersion"
+    }
+    if (!isGlideAnimatedPNGDisabled) {
+        implementation "com.github.penfeizhou.android.animation:glide-plugin:2.24.0"
+    }
+}
