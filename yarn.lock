@@ -2597,7 +2597,7 @@ __metadata:
     "@testing-library/react-native": ^12.5.1
     "@types/jest": ^29.5.14
     "@types/react": ^18.3.3
-    "@types/react-native": ^0.69.5
+    "@types/react-native": 0.73.0
     "@types/react-test-renderer": ^18.0.0
     auto-changelog: ^2.4.0
     babel-jest: ^29.6.3
@@ -5390,12 +5390,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-native@npm:^0.69.5":
-  version: 0.69.26
-  resolution: "@types/react-native@npm:0.69.26"
+"@types/react-native@npm:0.73.0, @types/react-native@npm:^0.73.0":
+  version: 0.73.0
+  resolution: "@types/react-native@npm:0.73.0"
   dependencies:
-    "@types/react": "*"
-  checksum: e71b4599919310e38e6ed0e351b3908c25bc00cbf335080f8c1892b2ad71797acda1fd910f56cb39d9c60384230617a3b67ef683cb99358e1fcb961b42b258f5
+    react-native: "*"
+  checksum: a764ca5d876dae3c109da449f736c44271b3b236d0d6e836c078247af1419f6d851600c56bb0c26f3e0d1b4be6eaac56b65c1f74ad0f0d05baf8b65dd1d5c597
   languageName: node
   linkType: hard
 
@@ -5405,15 +5405,6 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 79b504fa56340631079e7c20ea0d9412ec14147b76d0ce189f4403936f529ef1e6fd031383afab117846c5ae039123bcf3afc948bae4432269c6780282726f71
-  languageName: node
-  linkType: hard
-
-"@types/react-native@npm:^0.73.0":
-  version: 0.73.0
-  resolution: "@types/react-native@npm:0.73.0"
-  dependencies:
-    react-native: "*"
-  checksum: a764ca5d876dae3c109da449f736c44271b3b236d0d6e836c078247af1419f6d851600c56bb0c26f3e0d1b4be6eaac56b65c1f74ad0f0d05baf8b65dd1d5c597
   languageName: node
   linkType: hard
 
