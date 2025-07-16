@@ -21,6 +21,7 @@ Pod::Spec.new do |s|
       "OTHER_CPLUSPLUSFLAGS" => "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1",
       "CLANG_CXX_LANGUAGE_STANDARD" => "c++17",
     }
+    s.dependency "RCT-Folly"
     s.platforms       = { ios: '11.0', tvos: '11.0' }
     s.compiler_flags  = folly_compiler_flags + ' -DRCT_NEW_ARCH_ENABLED'
     s.source_files    = 'ios/**/*.{h,m,mm,cpp}'
