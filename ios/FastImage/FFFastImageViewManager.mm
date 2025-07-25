@@ -6,6 +6,9 @@
 #ifdef RCT_NEW_ARCH_ENABLED
 #import <RNFastImageSpec/RNFastImageSpec.h>
 #endif
+
+#if !defined(RCT_NEW_ARCH_ENABLED) || RCT_NEW_ARCH_ENABLED == 0
+
 @implementation FFFastImageViewManager
 
 RCT_EXPORT_MODULE(FastImageView)
@@ -59,3 +62,5 @@ RCT_EXPORT_METHOD(clearDiskCache:(RCTPromiseResolveBlock)resolve reject:(RCTProm
 #endif
 
 @end
+
+#endif
