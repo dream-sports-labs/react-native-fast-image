@@ -80,14 +80,17 @@ repositories {
     mavenCentral()
 }
 
-def glideVersion = safeExtGet('glideVersion', '4.14.2')
+def glideVersion = safeExtGet('glideVersion', '4.16.0')
 
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
     implementation "com.github.bumptech.glide:okhttp3-integration:${glideVersion}"
-    implementation "com.github.bumptech.glide:avif-integration:${glideVersion}"
-    implementation "com.github.zjupure:webpdecoder:2.6.${glideVersion}"
+    implementation 'org.aomedia.avif.android:avif:1.1.1.14d8e3c4'
+    implementation ("com.github.bumptech.glide:avif-integration:4.16.0") {
+        exclude group: 'org.aomedia.avif.android', module: 'avif'
+    }
+    implementation "com.github.zjupure:webpdecoder:2.7.${glideVersion}"
     annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
 }
