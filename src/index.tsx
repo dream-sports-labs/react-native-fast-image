@@ -16,6 +16,8 @@ import {
     ColorValue,
     ImageResolvedAssetSource,
     requireNativeComponent,
+    ImageURISource,
+    ImageSourcePropType,
 } from 'react-native'
 
 const isFabricEnabled = (global as any)?.nativeFabricUIManager != null
@@ -93,6 +95,53 @@ export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
 
 export interface FastImageProps extends AccessibilityProps, ViewProps {
     source?: Source | ImageRequireSource
+
+    /**
+     * A string representing the resource identifier for the image. Similar to
+     * src from HTML.
+     *
+     * See https://reactnative.dev/docs/image#src
+     */
+    src?: string
+
+    /**
+     * A string indicating which referrer to use when fetching the resource.
+     * Similar to referrerpolicy from HTML.
+     *
+     * See https://reactnative.dev/docs/image#referrerpolicy
+     */
+    referrerPolicy?:
+        | 'no-referrer'
+        | 'no-referrer-when-downgrade'
+        | 'origin'
+        | 'origin-when-cross-origin'
+        | 'same-origin'
+        | 'strict-origin'
+        | 'strict-origin-when-cross-origin'
+        | 'unsafe-url'
+
+    /**
+     * Adds the CORS related header to the request.
+     * Similar to crossorigin from HTML.
+     *
+     * See https://reactnative.dev/docs/image#crossorigin
+     */
+    crossOrigin?: 'anonymous' | 'use-credentials'
+
+    /**
+     * Height of the image component.
+     *
+     * See https://reactnative.dev/docs/image#height
+     */
+    height?: number
+
+    /**
+     * Width of the image component.
+     *
+     * See https://reactnative.dev/docs/image#width
+     */
+    width?: number
+
     defaultSource?: ImageRequireSource
     resizeMode?: ResizeMode
     fallback?: boolean
@@ -141,6 +190,39 @@ export interface FastImageProps extends AccessibilityProps, ViewProps {
     children?: React.ReactNode
 }
 
+// Based on: https://github.com/facebook/react-native/blob/4718b35259135b3503033a0061ae84e15d4eb450/packages/react-native/Libraries/Image/ImageSourceUtils.js#L22
+function getImageSourceFromImageProps(
+    props: FastImageProps,
+): Omit<ImageURISource, 'cache'> | undefined {
+    const { crossOrigin, referrerPolicy, source, src, width, height } = props
+
+    const headers: Record<string, string> = {}
+    if (crossOrigin === 'use-credentials') {
+        headers['Access-Control-Allow-Credentials'] = 'true'
+    }
+    if (referrerPolicy != null) {
+        headers['Referrer-Policy'] = referrerPolicy
+    }
+
+    if (src != null) {
+        return { uri: src, headers, width, height }
+    }
+
+    if (source == null) {
+        return undefined
+    }
+
+    const resolvedSource = Image.resolveAssetSource(
+        source as ImageSourcePropType,
+    )
+
+    if (resolvedSource?.uri && Object.keys(headers).length > 0) {
+        return { ...resolvedSource, headers }
+    }
+
+    return resolvedSource
+}
+
 const resolveDefaultSource = (
     defaultSource?: ImageRequireSource,
 ): string | number | null => {
@@ -166,6 +248,7 @@ const resolveDefaultSource = (
 
 function FastImageBase({
     source,
+    src,
     defaultSource,
     tintColor,
     onLoadStart,
@@ -176,11 +259,19 @@ function FastImageBase({
     style,
     fallback,
     children,
-
     resizeMode = 'cover',
     forwardedRef,
+    crossOrigin,
+    referrerPolicy,
+    height,
+    width,
     ...props
 }: FastImageProps & { forwardedRef: React.Ref<any> }) {
+    const sizeProps = {
+        ...(width != null && { width }),
+        ...(height != null && { height }),
+    }
+
     if (fallback) {
         const cleanedSource = { ...(source as any) }
         delete cleanedSource.cache
@@ -190,7 +281,7 @@ function FastImageBase({
             <View style={[styles.imageContainer, style]} ref={forwardedRef}>
                 <Image
                     {...props}
-                    style={[StyleSheet.absoluteFill, { tintColor }]}
+                    style={[StyleSheet.absoluteFill, sizeProps, { tintColor }]}
                     source={resolvedSource}
                     defaultSource={defaultSource}
                     onLoadStart={onLoadStart}
@@ -209,10 +300,16 @@ function FastImageBase({
     const FABRIC_ENABLED = !!global?.nativeFabricUIManager
 
     // this type differs based on the `source` prop passed
-    const resolvedSource = Image.resolveAssetSource(
-        source as any,
-    ) as ImageResolvedAssetSource & { headers: any }
-    // resolvedSource would be frozen, we can't modify it
+    const resolvedSource = getImageSourceFromImageProps({
+        ...props,
+        source,
+        src,
+        crossOrigin,
+        referrerPolicy,
+        height,
+        width,
+    }) as ImageResolvedAssetSource & { headers: any }
+
     let modifiedSource = resolvedSource
     if (
         resolvedSource?.headers &&
@@ -225,12 +322,16 @@ function FastImageBase({
         })
         modifiedSource = { ...resolvedSource, headers: headersArray }
     }
+
     const resolvedDefaultSource = resolveDefaultSource(defaultSource)
     const resolvedDefaultSourceAsString =
         resolvedDefaultSource !== null ? String(resolvedDefaultSource) : null
 
     return (
-        <View style={[styles.imageContainer, style]} ref={forwardedRef}>
+        <View
+            style={[styles.imageContainer, style, sizeProps]}
+            ref={forwardedRef}
+        >
             <FastImageView
                 {...props}
                 tintColor={tintColor}

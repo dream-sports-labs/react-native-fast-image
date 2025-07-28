@@ -61,6 +61,29 @@ describe('FastImage (iOS)', () => {
         )
         expect(toJSON()).toMatchSnapshot()
     })
+
+    it('renders with src prop', () => {
+        const { toJSON } = render(
+            <FastImage
+                src="https://facebook.github.io/react/img/logo_og.png"
+                style={style.image}
+            />,
+        )
+        expect(toJSON()).toMatchSnapshot()
+    })
+
+    it('renders with src, referrerPolicy, crossOrigin, width, and height props', () => {
+        const { toJSON } = render(
+            <FastImage
+                src="https://facebook.github.io/react/img/logo_og.png"
+                referrerPolicy="no-referrer"
+                crossOrigin="use-credentials"
+                width={100}
+                height={100}
+            />,
+        )
+        expect(toJSON()).toMatchSnapshot()
+    })
 })
 
 describe('FastImage (Android)', () => {
@@ -94,6 +117,29 @@ describe('FastImage (Android)', () => {
     it('renders a non-existing defaultSource', () => {
         const { toJSON } = render(
             <FastImage defaultSource={12345} style={style.image} />,
+        )
+        expect(toJSON()).toMatchSnapshot()
+    })
+
+    it('renders with src prop', () => {
+        const { toJSON } = render(
+            <FastImage
+                src="https://facebook.github.io/react/img/logo_og.png"
+                style={style.image}
+            />,
+        )
+        expect(toJSON()).toMatchSnapshot()
+    })
+
+    it('renders with src, referrerPolicy, crossOrigin, width, and height props', () => {
+        const { toJSON } = render(
+            <FastImage
+                src="https://facebook.github.io/react/img/logo_og.png"
+                referrerPolicy="no-referrer"
+                crossOrigin="use-credentials"
+                width={100}
+                height={100}
+            />,
         )
         expect(toJSON()).toMatchSnapshot()
     })

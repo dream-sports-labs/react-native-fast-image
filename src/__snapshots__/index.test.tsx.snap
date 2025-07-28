@@ -11,6 +11,7 @@ exports[`FastImage (Android) renders a non-existing defaultSource 1`] = `
         "height": 44,
         "width": 44,
       },
+      {},
     ]
   }
 >
@@ -41,6 +42,7 @@ exports[`FastImage (Android) renders a normal defaultSource 1`] = `
         "height": 44,
         "width": 44,
       },
+      {},
     ]
   }
 >
@@ -71,12 +73,100 @@ exports[`FastImage (Android) renders a normal defaultSource when fails to load s
         "height": 44,
         "width": 44,
       },
+      {},
     ]
   }
 >
   <FastImageView
     defaultSource={null}
     resizeMode="cover"
+    style={
+      {
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`FastImage (Android) renders with src prop 1`] = `
+<View
+  style={
+    [
+      {
+        "overflow": "hidden",
+      },
+      {
+        "height": 44,
+        "width": 44,
+      },
+      {},
+    ]
+  }
+>
+  <FastImageView
+    defaultSource={null}
+    resizeMode="cover"
+    source={
+      {
+        "headers": [],
+        "height": undefined,
+        "uri": "https://facebook.github.io/react/img/logo_og.png",
+        "width": undefined,
+      }
+    }
+    style={
+      {
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`FastImage (Android) renders with src, referrerPolicy, crossOrigin, width, and height props 1`] = `
+<View
+  style={
+    [
+      {
+        "overflow": "hidden",
+      },
+      undefined,
+      {
+        "height": 100,
+        "width": 100,
+      },
+    ]
+  }
+>
+  <FastImageView
+    defaultSource={null}
+    resizeMode="cover"
+    source={
+      {
+        "headers": [
+          {
+            "name": "Access-Control-Allow-Credentials",
+            "value": "true",
+          },
+          {
+            "name": "Referrer-Policy",
+            "value": "no-referrer",
+          },
+        ],
+        "height": 100,
+        "uri": "https://facebook.github.io/react/img/logo_og.png",
+        "width": 100,
+      }
+    }
     style={
       {
         "bottom": 0,
@@ -101,6 +191,7 @@ exports[`FastImage (iOS) renders 1`] = `
         "height": 44,
         "width": 44,
       },
+      {},
     ]
   }
 >
@@ -145,6 +236,7 @@ exports[`FastImage (iOS) renders Image with fallback prop 1`] = `
           "right": 0,
           "top": 0,
         },
+        {},
         {
           "tintColor": undefined,
         },
@@ -165,6 +257,7 @@ exports[`FastImage (iOS) renders a normal Image when not passed a uri 1`] = `
         "height": 44,
         "width": 44,
       },
+      {},
     ]
   }
 >
@@ -195,12 +288,100 @@ exports[`FastImage (iOS) renders defaultSource 1`] = `
         "height": 44,
         "width": 44,
       },
+      {},
     ]
   }
 >
   <FastImageView
     defaultSource="[object Object]"
     resizeMode="cover"
+    style={
+      {
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`FastImage (iOS) renders with src prop 1`] = `
+<View
+  style={
+    [
+      {
+        "overflow": "hidden",
+      },
+      {
+        "height": 44,
+        "width": 44,
+      },
+      {},
+    ]
+  }
+>
+  <FastImageView
+    defaultSource={null}
+    resizeMode="cover"
+    source={
+      {
+        "headers": [],
+        "height": undefined,
+        "uri": "https://facebook.github.io/react/img/logo_og.png",
+        "width": undefined,
+      }
+    }
+    style={
+      {
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`FastImage (iOS) renders with src, referrerPolicy, crossOrigin, width, and height props 1`] = `
+<View
+  style={
+    [
+      {
+        "overflow": "hidden",
+      },
+      undefined,
+      {
+        "height": 100,
+        "width": 100,
+      },
+    ]
+  }
+>
+  <FastImageView
+    defaultSource={null}
+    resizeMode="cover"
+    source={
+      {
+        "headers": [
+          {
+            "name": "Access-Control-Allow-Credentials",
+            "value": "true",
+          },
+          {
+            "name": "Referrer-Policy",
+            "value": "no-referrer",
+          },
+        ],
+        "height": 100,
+        "uri": "https://facebook.github.io/react/img/logo_og.png",
+        "width": 100,
+      }
+    }
     style={
       {
         "bottom": 0,
