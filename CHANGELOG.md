@@ -5,7 +5,7 @@
 
 ### Features
 
-* 80 support added ([c58f59a](https://github.com/dream-sports-labs/react-native-fast-image/commit/c58f59ae61db6f626096fe35bc36482e2cdd8199))
+* react-native 0.80.0 support added ([c58f59a](https://github.com/dream-sports-labs/react-native-fast-image/commit/c58f59ae61db6f626096fe35bc36482e2cdd8199))
 * added support for 16 kb page size ([65b6f24](https://github.com/dream-sports-labs/react-native-fast-image/commit/65b6f24534d3bd515b2bb44e371fcbba20a107ef))
 
 
