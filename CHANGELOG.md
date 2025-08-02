@@ -1,5 +1,19 @@
 
 
+## [8.11.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.10.0...v8.11.0) (2025-08-02)
+
+
+### Features
+
+* react-native 0.80.0 support added ([c58f59a](https://github.com/dream-sports-labs/react-native-fast-image/commit/c58f59ae61db6f626096fe35bc36482e2cdd8199))
+* added support for 16 kb page size ([65b6f24](https://github.com/dream-sports-labs/react-native-fast-image/commit/65b6f24534d3bd515b2bb44e371fcbba20a107ef))
+
+
+### Bug Fixes
+
+* [Android] Headers to being applied ([181e0d5](https://github.com/dream-sports-labs/react-native-fast-image/commit/181e0d5f3f58459fb351d9adba3c1eac68cdf23c))
+* react native error in strict bridgless mode ([dcdf93c](https://github.com/dream-sports-labs/react-native-fast-image/commit/dcdf93cd06ba86a439ad99afe111c0863982f568))
+
 ## [8.10.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.9.2...v8.10.0) (2025-07-08)
 
 
