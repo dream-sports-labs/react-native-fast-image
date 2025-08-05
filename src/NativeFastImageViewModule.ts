@@ -8,4 +8,4 @@ export interface Spec extends TurboModule {
     clearDiskCache: () => Promise<void>
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('FastImageModule')
+export default TurboModuleRegistry.getEnforcing<Spec>('FastImageViewModule')

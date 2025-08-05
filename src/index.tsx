@@ -21,7 +21,7 @@ import {
 const isFabricEnabled = (global as any)?.nativeFabricUIManager != null
 const isTurboModuleEnabled = (global as any).__turboModuleProxy != null
 const FastImageViewModule = isTurboModuleEnabled
-    ? require('./NativeFastImageModule').default
+    ? require('./NativeFastImageViewModule').default
     : NativeModules.FastImageViewModule
 
 const FastImageView = isFabricEnabled
