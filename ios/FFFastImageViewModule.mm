@@ -1,31 +1,13 @@
-#import "FFFastImageViewManager.h"
-#import "FFFastImageView.h"
+#import "FFFastImageViewModule.h"
+#import "FFFastImageSource.h"
 
 #import <SDWebImage/SDImageCache.h>
 #import <SDWebImage/SDWebImagePrefetcher.h>
-#ifdef RCT_NEW_ARCH_ENABLED
-#import <RNFastImageSpec/RNFastImageSpec.h>
-#endif
+#import <SDWebImage/SDWebImageDownloader.h>
 
-#if !defined(RCT_NEW_ARCH_ENABLED) || RCT_NEW_ARCH_ENABLED == 0
+@implementation FFFastImageViewModule
 
-@implementation FFFastImageViewManager
-
-RCT_EXPORT_MODULE(FastImageView)
-
-- (FFFastImageView*)view {
-  return [[FFFastImageView alloc] init];
-}
-
-RCT_EXPORT_VIEW_PROPERTY(source, FFFastImageSource)
-RCT_EXPORT_VIEW_PROPERTY(defaultSource, UIImage)
-RCT_EXPORT_VIEW_PROPERTY(resizeMode, RCTResizeMode)
-RCT_EXPORT_VIEW_PROPERTY(onFastImageLoadStart, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onFastImageProgress, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onFastImageError, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onFastImageLoad, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onFastImageLoadEnd, RCTDirectEventBlock)
-RCT_REMAP_VIEW_PROPERTY(tintColor, imageColor, UIColor)
+RCT_EXPORT_MODULE(FastImageViewModule)
 
 RCT_EXPORT_METHOD(preload:(nonnull NSArray<FFFastImageSource *> *)sources)
 {
@@ -57,10 +39,8 @@ RCT_EXPORT_METHOD(clearDiskCache:(RCTPromiseResolveBlock)resolve reject:(RCTProm
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params
 {
-    return std::make_shared<facebook::react::NativeFastImageViewSpecJSI>(params);
+    return std::make_shared<facebook::react::NativeFastImageViewModuleSpecJSI>(params);
 }
 #endif
 
 @end
-
-#endif
