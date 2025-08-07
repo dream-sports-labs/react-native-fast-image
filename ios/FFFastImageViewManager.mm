@@ -5,7 +5,7 @@
 
 @implementation FFFastImageViewManager
 
-RCT_EXPORT_MODULE(FastImageViewModule)
+RCT_EXPORT_MODULE(FastImageView)
 
 - (FFFastImageView*)view {
   return [[FFFastImageView alloc] init];
