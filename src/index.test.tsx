@@ -8,7 +8,7 @@ const style = StyleSheet.create({ image: { width: 44, height: 44 } })
 describe('FastImage (iOS)', () => {
     beforeAll(() => {
         Platform.OS = 'ios'
-        NativeModules.FastImageView = {
+        NativeModules.FastImageViewModule = {
             preload: Function.prototype,
             clearMemoryCache: Function.prototype,
             clearDiskCache: Function.prototype,
