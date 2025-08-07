@@ -3,15 +3,12 @@
 
 #import <SDWebImage/SDImageCache.h>
 #import <SDWebImage/SDWebImagePrefetcher.h>
-#ifdef RCT_NEW_ARCH_ENABLED
-#import <RNFastImageSpec/RNFastImageSpec.h>
-#endif
-
-#if !defined(RCT_NEW_ARCH_ENABLED) || RCT_NEW_ARCH_ENABLED == 0
 
 @implementation FFFastImageViewManager
 
 RCT_EXPORT_MODULE(FastImageView)
+
+#if !defined(RCT_NEW_ARCH_ENABLED) || RCT_NEW_ARCH_ENABLED == 0
 
 - (FFFastImageView*)view {
   return [[FFFastImageView alloc] init];
@@ -26,6 +23,16 @@ RCT_EXPORT_VIEW_PROPERTY(onFastImageError, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onFastImageLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onFastImageLoadEnd, RCTDirectEventBlock)
 RCT_REMAP_VIEW_PROPERTY(tintColor, imageColor, UIColor)
+
+#else
+
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+    (const facebook::react::ObjCTurboModule::InitParams &)params
+{
+    return std::make_shared<facebook::react::NativeFastImageViewSpecJSI>(params);
+}
+
+#endif
 
 RCT_EXPORT_METHOD(preload:(nonnull NSArray<FFFastImageSource *> *)sources)
 {
@@ -53,14 +60,5 @@ RCT_EXPORT_METHOD(clearDiskCache:(RCTPromiseResolveBlock)resolve reject:(RCTProm
         resolve(NULL);
     }];
 }
-#ifdef RCT_NEW_ARCH_ENABLED
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
-    (const facebook::react::ObjCTurboModule::InitParams &)params
-{
-    return std::make_shared<facebook::react::NativeFastImageViewSpecJSI>(params);
-}
-#endif
 
 @end
-
-#endif
