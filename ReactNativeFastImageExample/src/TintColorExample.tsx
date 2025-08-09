@@ -12,7 +12,7 @@ export const TintColorExample = () => {
   return (
     <View>
       <Section>
-        <FeatureText text="Images with tint color." />
+        <FeatureText text="• Images with tint color." />
         <FeatureText text="All non-transparent pixels are changed to the color." />
       </Section>
       <SectionFlex>
