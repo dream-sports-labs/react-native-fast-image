@@ -93,4 +93,6 @@ dependencies {
     }
     implementation "com.github.zjupure:webpdecoder:2.7.${glideVersion}"
     annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
+
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
 }
