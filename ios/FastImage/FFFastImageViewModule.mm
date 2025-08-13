@@ -3,11 +3,9 @@
 
 #import <SDWebImage/SDImageCache.h>
 #import <SDWebImage/SDWebImagePrefetcher.h>
-
 #import <SDWebImage/SDWebImageDownloader.h>
 
 @implementation FFFastImageViewModule
-
 
 RCT_EXPORT_MODULE(FastImageViewModule)
 
@@ -41,7 +39,6 @@ RCT_EXPORT_METHOD(clearDiskCache:(RCTPromiseResolveBlock)resolve reject:(RCTProm
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params
 {
-    return std::make_shared<facebook::react::NativeFastImageViewSpecJSI>(params);
 }
 #endif
 
