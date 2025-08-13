@@ -99,15 +99,21 @@
 
 
 
-- (id) init {
-    self = [super init];
-    self.resizeMode = RCTResizeModeCover;
-    self.clipsToBounds = YES;
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
-       [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
-       [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]];
+        NSLog(@"FFFastImageView: -initWithFrame called. Setting default properties.");
+        // Place all common setup logic here.
+        self.resizeMode = RCTResizeModeCover;
+        self.clipsToBounds = YES;
+        [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
+        [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]];
     }
     return self;
+}
+
+- (id)init {
+    return [self initWithFrame:CGRectZero];
 }
 
 - (void) setResizeMode: (RCTResizeMode)resizeMode {
