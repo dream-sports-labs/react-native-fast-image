@@ -1,8 +1,8 @@
 #if !defined(RCT_NEW_ARCH_ENABLED) || RCT_NEW_ARCH_ENABLED == 0
 #import "FFFastImageViewManager.h"
 #import "FFFastImageView.h"
-@implementation FFFastImageViewManager
 
+@implementation FFFastImageViewManager
 
 RCT_EXPORT_MODULE(FastImageView)
 
