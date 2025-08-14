@@ -112,7 +112,7 @@
     return self;
 }
 
-- (instancetype)init {
+- (id)init {
 //     Called on old arch from FFFastImageViewManager
     self = [super init];
     if (self) {
