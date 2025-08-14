@@ -96,22 +96,29 @@
 }
 
 
-
-
+- (void)commonInit {
+    self.resizeMode = RCTResizeModeCover;
+    self.clipsToBounds = YES;
+    [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
+    [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
+//     Called on new arch from FFFastImageComponentView
     self = [super initWithFrame:frame];
     if (self) {
-        self.resizeMode = RCTResizeModeCover;
-        self.clipsToBounds = YES;
-        [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
-        [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]];
+        [self commonInit];
     }
     return self;
 }
 
-- (id)init {
-    return [self initWithFrame:CGRectZero];
+- (instancetype)init {
+//     Called on old arch from FFFastImageViewManager
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
 }
 
 - (void) setResizeMode: (RCTResizeMode)resizeMode {
