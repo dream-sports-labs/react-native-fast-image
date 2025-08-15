@@ -148,9 +148,18 @@ If using [ProGuard](https://www.guardsquare.com/proguard), add these rules to `a
 
 | Method                           | Description                                                                                              |
 |----------------------------------|----------------------------------------------------------------------------------------------------------|
-| `FastImage.preload(sources: object[])`   | Preloads images for faster display when they are rendered. <br> Example: `FastImage.preload([{ uri: "https://unsplash.it/400/400?image=1" }])`. |
+| `FastImage.preload(sources: object[], callbacks?: PreloadCallbacks)`   | Preloads images for faster display when they are rendered. <br> Optional callbacks for when each image loads or when all images are loaded can be provided. <br> Example: `FastImage.preload([{ uri: "https://unsplash.it/400/400?image=1" }], {onComplete, onProgress})`. |
 | `FastImage.clearMemoryCache(): Promise<void>`   | Clears all images from the memory cache.                                                                 |
 | `FastImage.clearDiskCache(): Promise<void>`     | Clears all images from the disk cache.                                                                   |
+
+
+    
+### Interfaces
+#### `PreloadCallbacks`
+| Field                           | Description                                                                                              |
+|----------------------------------|----------------------------------------------------------------------------------------------------------|
+| `onProgress?(loadedCount: number, totalCount: number): void`  | Called each time an image is loaded, or fails to load, along with the total number of images currently being processed. |
+| `onComplete?(finishedCount: number, skippedCount: number): void` | Called once all images are loaded. `finishedCount` is how many images were sucessfully preloaded, `skippedCount` is how many images either failed to load or had empty/invalid URIs. |
 
 ## 👥 Contributing
 

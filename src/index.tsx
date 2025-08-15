@@ -16,6 +16,8 @@ import {
     ColorValue,
     ImageResolvedAssetSource,
     requireNativeComponent,
+    NativeEventEmitter,
+    EmitterSubscription,
 } from 'react-native'
 
 const isFabricEnabled = (global as any)?.nativeFabricUIManager != null
@@ -259,11 +261,15 @@ const FastImageComponent: React.ComponentType<FastImageProps> = forwardRef(
 
 FastImageComponent.displayName = 'FastImage'
 
+export interface PreloadCallbacks {
+    onProgress?(loadedCount: number, totalCount: number): void
+    onComplete?(finishedCount: number, skippedCount: number): void
+}
 export interface FastImageStaticProperties {
     resizeMode: typeof resizeMode
     priority: typeof priority
     cacheControl: typeof cacheControl
-    preload: (sources: Source[]) => void
+    preload: (sources: Source[], callbacks?: PreloadCallbacks) => void
     clearMemoryCache: () => Promise<void>
     clearDiskCache: () => Promise<void>
 }
@@ -277,7 +283,33 @@ FastImage.cacheControl = cacheControl
 
 FastImage.priority = priority
 
-FastImage.preload = (sources: Source[]) => FastImageViewModule.preload(sources)
+FastImage.preload = (sources: Source[], callbacks?: PreloadCallbacks) => {
+    let subscription: EmitterSubscription | null = null
+
+    if (callbacks?.onProgress) {
+        const eventEmitter = new NativeEventEmitter(FastImageViewModule)
+        subscription = eventEmitter.addListener(
+            FastImageViewModule.FAST_IMAGE_PROGRESS_EVENT,
+            (event) => {
+                if (callbacks.onProgress) {
+                    callbacks.onProgress(event.loaded, event.total)
+                }
+            },
+        )
+    }
+
+    return FastImageViewModule.preload(
+        sources,
+        (finished: number, skipped: number) => {
+            if (subscription) {
+                subscription.remove()
+            }
+            if (callbacks?.onComplete) {
+                callbacks.onComplete(finished, skipped)
+            }
+        },
+    )
+}
 
 FastImage.clearMemoryCache = () => FastImageViewModule.clearMemoryCache()
 

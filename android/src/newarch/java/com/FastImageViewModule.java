@@ -1,5 +1,8 @@
 package com.dylanvann.fastimage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.views.imagehelper.ImageSource;
+import com.facebook.react.bridge.Callback;
 
 class FastImageViewModule extends NativeFastImageViewModuleSpec {
 
@@ -23,6 +27,11 @@ class FastImageViewModule extends NativeFastImageViewModuleSpec {
         impl = new FastImageViewModuleImplementation(reactContext);
     }
 
+    @Override
+    public Map<String, Object> getConstants() {
+        return impl.getConstants();
+    }
+
     @NonNull
     @Override
     public String getName() {
@@ -30,8 +39,8 @@ class FastImageViewModule extends NativeFastImageViewModuleSpec {
     }
 
     @Override
-    public void preload(final ReadableArray sources) {
-        impl.preload(sources);
+    public void preload(final ReadableArray sources, final Callback onComplete) {
+        impl.preload(sources, onComplete);
     }
 
     @Override
@@ -42,5 +51,15 @@ class FastImageViewModule extends NativeFastImageViewModuleSpec {
     @Override
     public void clearDiskCache(Promise promise) {
         impl.clearDiskCache(promise);
+    }
+
+    @ReactMethod
+    public void addListener(String eventName) {
+        impl.addListener(eventName);
+    }
+
+    @ReactMethod
+    public void removeListeners(Integer count) {
+        impl.removeListeners(count);
     }
 }

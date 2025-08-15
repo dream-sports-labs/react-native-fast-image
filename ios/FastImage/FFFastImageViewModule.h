@@ -6,9 +6,9 @@
 
 #else
 
-#import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
-@interface FFFastImageViewModule : NSObject <RCTBridgeModule>
+@interface FFFastImageViewModule : RCTEventEmitter
 
 #endif
 
