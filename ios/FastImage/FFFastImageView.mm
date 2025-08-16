@@ -3,6 +3,7 @@
 #import <SDWebImage/UIView+WebCache.h>
 #import <SDWebImageAVIFCoder/SDImageAVIFCoder.h>
 #import <SDWebImageWebPCoder/SDImageWebPCoder.h>
+#import <CoreImage/CoreImage.h>
 
 @interface FFFastImageView ()
 
@@ -171,6 +172,13 @@
     }
 }
 
+- (void)setBlurRadius:(CGFloat)blurRadius {
+    if (_blurRadius != blurRadius) {
+        _blurRadius = blurRadius;
+        _needsReload = YES;
+    }
+}
+
 - (UIImage*) makeImage: (UIImage*)image withTint: (UIColor*)color {
     UIImage* newImage = [image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:image.size];
@@ -182,6 +190,13 @@
 }
 
 - (void) setImage: (UIImage*)image {
+    if (_blurRadius && _blurRadius > 0) {
+        UIImage *blurImage = [self blurImage: image withRadius: _blurRadius];
+        if (blurImage) {
+            image = blurImage;
+        }
+    }
+
     if (self.imageColor != nil) {
         super.image = [self makeImage: image withTint: self.imageColor];
     } else {
@@ -300,6 +315,29 @@
                     [weakSelf onLoadEndEvent];
                 }
             }];
+}
+
+- (UIImage *)blurImage:(UIImage *)image withRadius:(CGFloat)radius {
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CIImage *inputImage = [CIImage imageWithCGImage:image.CGImage];
+
+    CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    [filter setValue:inputImage forKey:kCIInputImageKey];
+    [filter setValue:[NSNumber numberWithFloat:radius] forKey:kCIInputRadiusKey];
+    CIImage *outputImage = [filter valueForKey:kCIOutputImageKey];
+
+    if (outputImage) {
+        CGRect rect = CGRectMake(radius * 2, radius * 2, image.size.width - radius * 4, image.size.height - radius * 4);
+        CGImageRef outputImageRef = [context createCGImage:outputImage fromRect:rect];
+
+        if (outputImageRef) {
+            UIImage *blurImage = [UIImage imageWithCGImage:outputImageRef];
+            CGImageRelease(outputImageRef);
+            return blurImage;
+        }
+    }
+
+    return nil;
 }
 
 - (void) dealloc {
