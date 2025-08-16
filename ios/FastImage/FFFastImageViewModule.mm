@@ -7,9 +7,12 @@
 
 @implementation FFFastImageViewModule
 
+static NSString *const FAST_IMAGE_PROGRESS_EVENT = @"FastImagePreloadProgress";
+
 RCT_EXPORT_MODULE(FastImageViewModule)
 
-RCT_EXPORT_METHOD(preload:(nonnull NSArray<FFFastImageSource *> *)sources)
+RCT_EXPORT_METHOD(preload:(nonnull NSArray<FFFastImageSource *> *)sources
+                onComplete:(RCTResponseSenderBlock)onComplete)
 {
     NSMutableArray *urls = [NSMutableArray arrayWithCapacity:sources.count];
 
@@ -20,7 +23,19 @@ RCT_EXPORT_METHOD(preload:(nonnull NSArray<FFFastImageSource *> *)sources)
         [urls setObject:source.url atIndexedSubscript:idx];
     }];
 
-    [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:urls];
+    [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:urls 
+        progress:^(NSUInteger loaded, NSUInteger total) {
+            [self sendEventWithName:FAST_IMAGE_PROGRESS_EVENT
+                            body:@{
+                                @"loaded": @(loaded),
+                                @"total": @(total)
+                            }];
+        }
+        completed:^(NSUInteger finishedCount, NSUInteger skippedCount) {
+            if (onComplete) {
+                onComplete(@[@(finishedCount), @(skippedCount)]);
+            }
+    }];
 }
 
 RCT_EXPORT_METHOD(clearMemoryCache:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
@@ -35,6 +50,16 @@ RCT_EXPORT_METHOD(clearDiskCache:(RCTPromiseResolveBlock)resolve reject:(RCTProm
         resolve(NULL);
     }];
 }
+
+- (NSDictionary *)constantsToExport {
+  return @{@"FAST_IMAGE_PROGRESS_EVENT": FAST_IMAGE_PROGRESS_EVENT};
+}
+
+- (NSArray<NSString *> *)supportedEvents {
+  return @[FAST_IMAGE_PROGRESS_EVENT];
+}
+
+
 #ifdef RCT_NEW_ARCH_ENABLED
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
     (const facebook::react::ObjCTurboModule::InitParams &)params
