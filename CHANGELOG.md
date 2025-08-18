@@ -1,5 +1,12 @@
 
 
+### [8.11.1](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.11.0...v8.11.1) (2025-08-18)
+
+
+### Bug Fixes
+
+* ios-view-proper-init ([e514025](https://github.com/dream-sports-labs/react-native-fast-image/commit/e514025770d55bb97016bb4b92d6bc1b978b3639))
+
 ## [8.11.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.10.0...v8.11.0) (2025-08-02)
 
 
