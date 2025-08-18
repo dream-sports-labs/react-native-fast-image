@@ -10,6 +10,7 @@ import {ProgressExample} from './ProgressExample';
 import {PreloadExample} from './PreloadExample';
 import {ResizeModeExample} from './ResizeModeExample';
 import {TintColorExample} from './TintColorExample';
+import {BlurRadiusExample} from './BlurRadiusExample';
 import {LocalImagesExample} from './LocalImagesExample';
 import {AutoSizeExample} from './AutoSizeExample';
 import {AvifExample} from './AvifExample';
@@ -36,6 +37,7 @@ const FastImageExample = () => (
         <PreloadExample />
         <ResizeModeExample />
         <TintColorExample />
+        <BlurRadiusExample />
         <LocalImagesExample />
         <AutoSizeExample />
         <AvifExample />

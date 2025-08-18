@@ -102,6 +102,8 @@ using namespace facebook::react;
 
     fastImageView.imageColor = RCTUIColorFromSharedColor(newViewProps.tintColor);
 
+    fastImageView.blurRadius = newViewProps.blurRadius;
+
     [super updateProps:props oldProps:oldProps];
     // this method decides whether to reload the image based on changed props
     // so we call it after updating the props. If the _eventEmitter is not present yet,
