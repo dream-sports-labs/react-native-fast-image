@@ -96,7 +96,7 @@
 }
 
 
-- (void)commonInit {
+- (void)commonInitUtils {
     self.resizeMode = RCTResizeModeCover;
     self.clipsToBounds = YES;
     [[SDImageCodersManager sharedManager] addCoder:[SDImageAVIFCoder sharedCoder]];
@@ -107,7 +107,7 @@
 //     Called on new arch from FFFastImageComponentView
     self = [super initWithFrame:frame];
     if (self) {
-        [self commonInit];
+        [self commonInitUtils];
     }
     return self;
 }
@@ -116,7 +116,7 @@
 //     Called on old arch from FFFastImageViewManager
     self = [super init];
     if (self) {
-        [self commonInit];
+        [self commonInitUtils];
     }
     return self;
 }
