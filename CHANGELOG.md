@@ -5,7 +5,8 @@
 
 ### Bug Fixes
 
-* ios-view-proper-init ([e514025](https://github.com/dream-sports-labs/react-native-fast-image/commit/e514025770d55bb97016bb4b92d6bc1b978b3639))
+* ios-view-proper-init ([d73356b57](https://github.com/dream-sports-labs/react-native-fast-image/commit/64f36d6e79b1d11d647f0f1c5c0fab0d73356b57))
+* split module from view in ios ([fe124f91](https://github.com/dream-sports-labs/react-native-fast-image/commit/3943fd7e060cda6dc36f543b1aaba1d8fe124f91))
 
 ## [8.11.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.10.0...v8.11.0) (2025-08-02)
 
