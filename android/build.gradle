@@ -93,5 +93,6 @@ dependencies {
     }
     implementation "com.github.zjupure:webpdecoder:2.7.${glideVersion}"
     annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
+    // TODO: Make this configurable as it increases apk size by 900KB
     implementation 'com.github.penfeizhou.android.animation:glide-plugin:3.0.5'
 }
