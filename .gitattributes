@@ -2,3 +2,7 @@
 /.yarn/releases/*    binary
 /.yarn/plugins/**/*  binary
 /.pnp.*              binary linguist-generated
+docs/assets/priority.gif filter=lfs diff=lfs merge=lfs -text
+docs/assets/scroll.gif filter=lfs diff=lfs merge=lfs -text
+ReactNativeFastImageExampleServer/pictures/plankton.gif filter=lfs diff=lfs merge=lfs -text
+ReactNativeFastImageExampleServer/pictures/jellyfish.gif filter=lfs diff=lfs merge=lfs -text
