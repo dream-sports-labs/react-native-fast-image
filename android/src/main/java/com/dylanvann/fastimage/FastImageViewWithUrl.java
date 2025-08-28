@@ -1,7 +1,5 @@
 package com.dylanvann.fastimage;
 
-import static com.dylanvann.fastimage.FastImageRequestListener.REACT_ON_ERROR_EVENT;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -27,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import android.util.Log;
 
 class FastImageViewWithUrl extends AppCompatImageView {
@@ -153,6 +152,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
             RequestBuilder<? extends Drawable> builder;
             Map<String, Object> builderOptions = new HashMap<>();
             builderOptions.put("blurRadius", mBlurRadius);
+            builderOptions.put("view", this);
 
             try {
                 String extension = FastImageUrlUtils.getFileExtensionFromUrl(imageSource.getUri().toString());

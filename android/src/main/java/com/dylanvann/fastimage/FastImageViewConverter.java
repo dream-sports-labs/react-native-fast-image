@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.Headers;
@@ -27,11 +29,8 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-
 class FastImageViewConverter {
     private static final Drawable TRANSPARENT_DRAWABLE = new ColorDrawable(Color.TRANSPARENT);
-    private static final int BLUR_SAMPLING = 3;
 
     private static final Map<String, FastImageCacheControl> FAST_IMAGE_CACHE_CONTROL_MAP =
             new HashMap<String, FastImageCacheControl>() {{
@@ -146,15 +145,22 @@ class FastImageViewConverter {
                 .placeholder(TRANSPARENT_DRAWABLE);
 
         int blurRadius = 0;
+        AppCompatImageView view = null;
+
         if (imageOptions != null) {
-            Object value = imageOptions.get("blurRadius");
-            if (value instanceof Number) {
-                blurRadius = ((Number) value).intValue();
+            Object blurRadiusValue = imageOptions.get("blurRadius");
+            if (blurRadiusValue instanceof Number) {
+                blurRadius = ((Number) blurRadiusValue).intValue();
+            }
+
+            Object viewValue = imageOptions.get("view");
+            if (viewValue instanceof AppCompatImageView) {
+                view = (AppCompatImageView) viewValue;
             }
         }
 
         if (blurRadius > 0) {
-            options = options.transform(new BlurTransformation(blurRadius, BLUR_SAMPLING));
+            options = options.transform(new FastImageBlurTransformation(context, blurRadius, view));
         }
 
         if (imageSource.isResource()) {
