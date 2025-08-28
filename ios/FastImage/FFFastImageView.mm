@@ -1,4 +1,5 @@
 #import "FFFastImageView.h"
+#import "FFFastImageBlurTransformation.h"
 #import <SDWebImage/UIImage+MultiFormat.h>
 #import <SDWebImage/UIView+WebCache.h>
 #import <SDWebImageAVIFCoder/SDImageAVIFCoder.h>
@@ -180,10 +181,9 @@
 
 - (void) setImage: (UIImage*)image {
     if (_blurRadius && _blurRadius > 0) {
-        UIImage *blurImage = [self blurImage: image withRadius: _blurRadius];
-        if (blurImage) {
-            image = blurImage;
-        }
+        FFFastImageBlurTransformation *transformation =
+            [[FFFastImageBlurTransformation alloc] initWithRadius:_blurRadius];
+        image = [transformation transform:image];
     }
 
     if (self.imageColor != nil) {
@@ -304,29 +304,6 @@
                     [weakSelf onLoadEndEvent];
                 }
             }];
-}
-
-- (UIImage *)blurImage:(UIImage *)image withRadius:(CGFloat)radius {
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CIImage *inputImage = [CIImage imageWithCGImage:image.CGImage];
-
-    CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
-    [filter setValue:inputImage forKey:kCIInputImageKey];
-    [filter setValue:[NSNumber numberWithFloat:radius] forKey:kCIInputRadiusKey];
-    CIImage *outputImage = [filter valueForKey:kCIOutputImageKey];
-
-    if (outputImage) {
-        CGRect rect = CGRectMake(radius * 2, radius * 2, image.size.width - radius * 4, image.size.height - radius * 4);
-        CGImageRef outputImageRef = [context createCGImage:outputImage fromRect:rect];
-
-        if (outputImageRef) {
-            UIImage *blurImage = [UIImage imageWithCGImage:outputImageRef];
-            CGImageRelease(outputImageRef);
-            return blurImage;
-        }
-    }
-
-    return nil;
 }
 
 - (void) dealloc {
