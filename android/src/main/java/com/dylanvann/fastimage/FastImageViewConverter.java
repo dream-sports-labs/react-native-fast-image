@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.Headers;
@@ -108,7 +110,12 @@ class FastImageViewConverter {
         return headers;
     }
 
-    static RequestOptions getOptions(Context context, FastImageSource imageSource, ReadableMap source) {
+    static RequestOptions getOptions(
+            Context context,
+            FastImageSource imageSource,
+            ReadableMap source,
+            @Nullable Map<String, Object> imageOptions
+    ) {
         // Get priority.
         final Priority priority = FastImageViewConverter.getPriority(source);
         // Get cache control method.
@@ -136,6 +143,25 @@ class FastImageViewConverter {
                 .skipMemoryCache(skipMemoryCache)
                 .priority(priority)
                 .placeholder(TRANSPARENT_DRAWABLE);
+
+        int blurRadius = 0;
+        AppCompatImageView view = null;
+
+        if (imageOptions != null) {
+            Object blurRadiusValue = imageOptions.get("blurRadius");
+            if (blurRadiusValue instanceof Number) {
+                blurRadius = ((Number) blurRadiusValue).intValue();
+            }
+
+            Object viewValue = imageOptions.get("view");
+            if (viewValue instanceof AppCompatImageView) {
+                view = (AppCompatImageView) viewValue;
+            }
+        }
+
+        if (blurRadius > 0) {
+            options = options.transform(new FastImageBlurTransformation(context, blurRadius, view));
+        }
 
         if (imageSource.isResource()) {
             // Every local resource (drawable) in Android has its own unique numeric id, which are
