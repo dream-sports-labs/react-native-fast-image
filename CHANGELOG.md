@@ -1,5 +1,42 @@
 
 
+### [8.11.1](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.11.0...v8.11.1) (2025-08-18)
+
+
+### Bug Fixes
+
+* ios fix fast image view init for new arch, fix decoders for avif and webp ([d73356b57](https://github.com/dream-sports-labs/react-native-fast-image/commit/64f36d6e79b1d11d647f0f1c5c0fab0d73356b57))
+* split module from view in ios ([fe124f91](https://github.com/dream-sports-labs/react-native-fast-image/commit/3943fd7e060cda6dc36f543b1aaba1d8fe124f91))
+
+## [8.11.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.10.0...v8.11.0) (2025-08-02)
+
+
+### Features
+
+* react-native 0.80.0 support added ([c58f59a](https://github.com/dream-sports-labs/react-native-fast-image/commit/c58f59ae61db6f626096fe35bc36482e2cdd8199))
+* added support for 16 kb page size ([65b6f24](https://github.com/dream-sports-labs/react-native-fast-image/commit/65b6f24534d3bd515b2bb44e371fcbba20a107ef))
+
+
+### Bug Fixes
+
+* [Android] Headers to being applied ([181e0d5](https://github.com/dream-sports-labs/react-native-fast-image/commit/181e0d5f3f58459fb351d9adba3c1eac68cdf23c))
+* react native error in strict bridgless mode ([dcdf93c](https://github.com/dream-sports-labs/react-native-fast-image/commit/dcdf93cd06ba86a439ad99afe111c0863982f568))
+
+## [8.10.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.9.2...v8.10.0) (2025-07-08)
+
+
+### Features
+
+* added code of conduct and contribution doc ([9c5fa94](https://github.com/dream-sports-labs/react-native-fast-image/commit/9c5fa94bbe2ca80906f133e8cdd67faba1076965))
+* added issue template for feature request and discussions ([a61548a](https://github.com/dream-sports-labs/react-native-fast-image/commit/a61548a0cb638ace1fbfdf010eb6990d34637f4b))
+* added pull request template ([f177cca](https://github.com/dream-sports-labs/react-native-fast-image/commit/f177ccaa45901ad47180fb8862e539fbc0ae80d1))
+
+
+### Bug Fixes
+
+* crash on android when the headers property is specified on the source ([6c149d1](https://github.com/dream-sports-labs/react-native-fast-image/pull/212/commits/6c149d10182ba06af91086764e2318868fe10c7a))
+
+
 ### [8.9.2](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.9.1...v8.9.2) (2025-02-16)
 
 

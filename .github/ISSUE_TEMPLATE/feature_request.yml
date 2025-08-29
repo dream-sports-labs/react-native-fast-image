@@ -1,0 +1,64 @@
+name: Feature request
+description: Suggest an idea for this project
+labels: enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like
+      placeholder: A clear and concise description of what you want to happen. Ex. Add a 'fadeIn' prop that would allow images to fade in smoothly when they load. This could be implemented using the existing onLoad event combined with React Native's Animated API.
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe alternatives you've considered
+      placeholder: A clear and concise description of any alternative solutions or features you've considered. Ex. I tried using a wrapper component with opacity animation, but this doesn't integrate well with the existing caching system and creates extra rendering work.
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature request here.
+      placeholder: "Example: Similar implementations exist in other libraries such as https://github.com/username/image-library which implements this feature with good performance. There's also a detailed blog post about this technique at https://example.com/blog/image-caching-techniques that explains the benefits and implementation details."
+    validations:
+      required: false
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Affected Platforms
+      description: Which platforms would this feature impact?
+      multiple: true
+      options:
+        - Android
+        - iOS
+        - Other (tvOS, web, visionOS, etc)
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - Critical (blocking my work)
+        - High (significantly improves my workflow)
+        - Medium (would be a nice addition)
+        - Low (just an idea)
+    validations:
+      required: true 

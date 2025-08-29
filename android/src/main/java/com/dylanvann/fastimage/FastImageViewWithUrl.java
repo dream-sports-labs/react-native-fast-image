@@ -155,25 +155,12 @@ class FastImageViewWithUrl extends AppCompatImageView {
             builderOptions.put("view", this);
 
             try {
-                String extension = FastImageUrlUtils.getFileExtensionFromUrl(imageSource.getUri().toString());
-
-                if ("gif".equals(extension)) {
-                    builder = requestManager
-                            .asGif()
-                            .load(imageSource == null ? null : imageSource.getSourceForLoad())
-                            .apply(FastImageViewConverter
-                                    .getOptions(context, imageSource, mSource, builderOptions)
-                                    .placeholder(mDefaultSource)
-                                    .fallback(mDefaultSource))
-                            .listener(new FastImageRequestListener<GifDrawable>(key));
-                } else {
-                    builder = requestManager
-                            .load(imageSource == null ? null : imageSource.getSourceForLoad())
-                            .apply(FastImageViewConverter
-                                    .getOptions(context, imageSource, mSource, builderOptions)
-                                    .placeholder(mDefaultSource) // show until loaded
-                                    .fallback(mDefaultSource)); // null will not be treated as error
-                }
+                builder = requestManager
+                        .load(imageSource == null ? null : imageSource.getSourceForLoad())
+                        .apply(FastImageViewConverter
+                                .getOptions(context, imageSource, mSource, builderOptions)
+                                .placeholder(mDefaultSource) // show until loaded
+                                .fallback(mDefaultSource)); // null will not be treated as error
 
                 if (key != null) {
                     builder.listener(new FastImageRequestListener(key));

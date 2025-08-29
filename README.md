@@ -153,6 +153,10 @@ If using [ProGuard](https://www.guardsquare.com/proguard), add these rules to `a
 | `FastImage.clearMemoryCache(): Promise<void>` | Clears all images from the memory cache.                                                                 |
 | `FastImage.clearDiskCache(): Promise<void>`   | Clears all images from the disk cache.                                                                   |
 
+## 👥 Contributing
+
+We welcome contributions to improve FastImage! Please check out our [contributing guide](CONTRIBUTING.md) for guidelines on how to proceed.
+
 ## 🛠️ Troubleshooting
 
 If you run into issues while using this library, try the solutions in our [troubleshooting guide](docs/troubleshooting.md).
@@ -179,7 +183,7 @@ Special thanks to:
 [build]: https://github.com/dream-sports-labs/react-native-fast-image/actions?query=workflow%3ACI
 [coverage-badge]: https://img.shields.io/codecov/c/github/dream-sports-labs/react-native-fast-image.svg
 [coverage]: https://codecov.io/github/dream-sports-labs/react-native-fast-image
-[downloads-badge]: https://img.shields.io/npm/dm/react-native-fast-image.svg
+[downloads-badge]: https://img.shields.io/npm/dm/@d11/react-native-fast-image.svg
 [npmtrends]: http://www.npmtrends.com/@d11/react-native-fast-image
 [package]: https://www.npmjs.com/package/@d11/react-native-fast-image
 [version-badge]: https://img.shields.io/npm/v/@d11/react-native-fast-image.svg

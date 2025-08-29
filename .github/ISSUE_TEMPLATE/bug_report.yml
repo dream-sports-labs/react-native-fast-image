@@ -1,0 +1,107 @@
+name: Bug report
+description: Create a report to help us improve
+labels: bug
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+      placeholder: |
+        Describe the bug in detail, including relevant context and information.
+        Example: "When loading large images, the app crashes after scrolling through 10-15 images."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: The list of steps that reproduce the issue.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behaviour
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: |
+        Describe what you expected to happen when performing the steps.
+        Example: "The images should load smoothly without any crashes or performance issues."
+    validations:
+      required: true
+  - type: textarea
+    id: stacktrace
+    attributes:
+      label: Stacktrace or Logs
+      description: Please provide a stacktrace or a log of your crash or failure
+      render: text
+      placeholder: |
+        Paste your stacktraces and logs here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: react-native-info
+    attributes:
+      label: Output of `npx react-native info`
+      description: Run `npx react-native info` in your terminal at root of the project, copy and paste the results here.
+      placeholder: |
+        Paste the output of `npx react-native info` here. The output looks like:
+        ...
+        System:
+          OS: macOS 14.1.1
+          CPU: (10) arm64 Apple M1 Max
+          Memory: 417.81 MB / 64.00 GB
+          Shell:
+            version: "5.9"
+            path: /bin/zsh
+        Binaries:
+          Node: ...
+            version: 18.14.0
+        ...
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Affected React-Native Architecture
+      description: Please select which architecture you're developing to.
+      multiple: true
+      options:
+        - Old Architecture
+        - New Architecture
+    validations:
+      required: true
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Affected Platforms
+      description: Please select which platform you're developing to, and which OS you're using for building.
+      multiple: true
+      options:
+        - Runtime - Android
+        - Runtime - iOS
+        - Other (please specify)
+    validations:
+      required: true
+  - type: input
+    id: reproducer
+    attributes:
+      label: Reproducer
+      description: A link to either a failing RNTesterPlayground.js file, an Expo Snack or a public repository from [this template](https://github.com/react-native-community/reproducer-react-native) that reproduces this bug.
+      placeholder: "https://github.com/<myuser>/<myreproducer>"
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots and Videos
+      description: |
+        Please provide screenshot or a video of your bug if relevant.
+        Issues with videos and screenshots are more likely to **get prioritized**.

@@ -19,7 +19,7 @@ class FastImageViewModuleImplementation {
     this.reactContext = reactContext;
     }
 
-    public static final String REACT_CLASS = "FastImageView";
+    public static final String REACT_CLASS = "FastImageViewModule";
 
     private Activity getCurrentActivity(){
         return reactContext.getCurrentActivity();
