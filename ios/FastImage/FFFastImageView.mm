@@ -82,15 +82,18 @@
 #endif
 }
 
-- (void)onErrorEvent {
+- (void)onErrorEvent:(NSError *)error {
     #ifdef RCT_NEW_ARCH_ENABLED
         if (_eventEmitter != nullptr) {
             std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
-            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{});
+            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{.message = static_cast<string>([error.localizedDescription UTF8String])});
         }
     #else
         if (self.onFastImageError) {
-            self.onFastImageError(@{});
+            self.onFastImageError(@{
+                    @"message": error.localizedDescription ?: @"Load failed"
+                }
+            );
         }
     #endif
 }
@@ -145,7 +148,11 @@
 - (void) setOnFastImageError: (RCTDirectEventBlock)onFastImageError {
     _onFastImageError = onFastImageError;
     if (self.hasErrored && _onFastImageError) {
-        _onFastImageError(@{});
+        _onFastImageError(@{
+            @"error": @{
+                @"message": @"Load failed"
+            }
+        });
     }
 }
 
@@ -291,7 +298,7 @@
                     NSURL* _Nullable imageURL) {
                 if (error) {
                     weakSelf.hasErrored = YES;
-                    [weakSelf onErrorEvent];
+                    [weakSelf onErrorEvent:error];
 
                     [weakSelf onLoadEndEvent];
                 } else {

@@ -44,9 +44,11 @@ public class FastImageRequestListener<T extends Drawable> implements RequestList
         ThemedReactContext context = (ThemedReactContext) view.getContext();
         EventDispatcher dispatcher = UIManagerHelper.getEventDispatcherForReactTag(context, view.getId());
         int surfaceId = UIManagerHelper.getSurfaceId(view);
+        WritableMap errorEvent = new WritableNativeMap();
+        errorEvent.putString("error", e != null ? e.getMessage() : "Load Failed");
 
         if (dispatcher != null) {
-            dispatcher.dispatchEvent(new FastImageErrorEvent(surfaceId, view.getId(), null));
+            dispatcher.dispatchEvent(new FastImageErrorEvent(surfaceId, view.getId(), errorEvent));
             dispatcher.dispatchEvent(new FastImageLoadEndEvent(surfaceId, view.getId()));
         }
         return false;

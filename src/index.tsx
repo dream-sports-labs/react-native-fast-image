@@ -77,6 +77,12 @@ export interface OnProgressEvent {
     }
 }
 
+export interface OnErrorEvent {
+    nativeEvent: {
+        message?: string
+    }
+}
+
 export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
     backfaceVisibility?: 'visible' | 'hidden'
     borderBottomLeftRadius?: number
@@ -103,7 +109,7 @@ export interface FastImageProps extends AccessibilityProps, ViewProps {
 
     onLoad?(event: OnLoadEvent): void
 
-    onError?(): void
+    onError?(event: OnErrorEvent): void
 
     onLoadEnd?(): void
 
