@@ -5,9 +5,10 @@ import FastImage, {FastImageProps} from '@d11/react-native-fast-image';
 import Section from './Section';
 import FeatureText from './FeatureText';
 import {useCacheBust} from './useCacheBust';
+import { error } from 'console';
 
 const GIF_URL =
-  'https://cdn-images-1.medium.com/max/1600/1*-CY5bU4OqiJRox7G00sftw.gif';
+  'https://cn-images-1.medium.com/max/1600/1*-CY5bU4OqiJRox7G00sftw.gif';
 
 interface AutoSizingImageProps extends FastImageProps {
   onLoad?: (event: any) => void;
@@ -47,6 +48,7 @@ const AutoSizingImage = (props: AutoSizingImageProps) => {
     <FastImage
       {...props}
       onLoad={onLoad}
+      onError={(error) => console.log(error.nativeEvent.message)}
       style={[{width: props.width, height}, props.style]}
     />
   );
