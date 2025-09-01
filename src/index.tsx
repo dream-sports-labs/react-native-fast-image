@@ -79,7 +79,7 @@ export interface OnProgressEvent {
 
 export interface OnErrorEvent {
     nativeEvent: {
-        message?: string
+        error: string
     }
 }
 

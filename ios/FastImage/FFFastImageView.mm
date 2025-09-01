@@ -86,12 +86,12 @@
     #ifdef RCT_NEW_ARCH_ENABLED
         if (_eventEmitter != nullptr) {
             std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
-            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{.message = static_cast<string>([error.localizedDescription UTF8String])});
+            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{.error = static_cast<string>([error.localizedDescription UTF8String])});
         }
     #else
         if (self.onFastImageError) {
             self.onFastImageError(@{
-                    @"message": error.localizedDescription ?: @"Load failed"
+                    @"error": error.localizedDescription ?: @"Load failed"
                 }
             );
         }
@@ -150,7 +150,7 @@
     if (self.hasErrored && _onFastImageError) {
         _onFastImageError(@{
             @"error": @{
-                @"message": @"Load failed"
+                @"error": @"Load failed"
             }
         });
     }

@@ -19,7 +19,7 @@ type FastImageSource = Readonly<{
 }>
 
 type OnErrorEvent = Readonly<{
-    message: string
+    error: string
 }>
 
 type OnLoadEvent = Readonly<{

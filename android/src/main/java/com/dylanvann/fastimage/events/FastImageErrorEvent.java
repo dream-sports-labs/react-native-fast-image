@@ -27,7 +27,7 @@ public class FastImageErrorEvent extends Event<FastImageErrorEvent> {
     protected WritableMap getEventData() {
         WritableMap eventData = Arguments.createMap();
         if (mSource != null) {
-            eventData.putString("message", "Invalid source prop:" + mSource);
+            eventData.putString("error", "Invalid source prop:" + mSource);
         }
         return eventData;
     }
