@@ -18,6 +18,10 @@ type FastImageSource = Readonly<{
     cache?: CacheControl
 }>
 
+type OnErrorEvent = Readonly<{
+    message: string
+}>
+
 type OnLoadEvent = Readonly<{
     width: Float
     height: Float
@@ -29,7 +33,7 @@ type OnProgressEvent = Readonly<{
 }>
 
 interface NativeProps extends ViewProps {
-    onFastImageError?: BubblingEventHandler<Readonly<{}>>
+    onFastImageError?: BubblingEventHandler<OnErrorEvent>
     onFastImageLoad?: BubblingEventHandler<OnLoadEvent>
     onFastImageLoadEnd?: BubblingEventHandler<Readonly<{}>>
     onFastImageLoadStart?: BubblingEventHandler<Readonly<{}>>
