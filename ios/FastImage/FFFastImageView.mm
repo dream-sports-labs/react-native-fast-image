@@ -14,10 +14,13 @@
 
 @property(nonatomic, strong) NSDictionary* onLoadEvent;
 
+@property(nonatomic, strong) NSDictionary *lastErrorEvent;
+
 @end
 
 @implementation FFFastImageView
 
+static NSString * const kFFFastImageDefaultErrorMessage = @"Load failed";
 
 
 - (void)onLoadEventSend:(UIImage *)image {
@@ -83,15 +86,20 @@
 }
 
 - (void)onErrorEvent:(NSError *)error {
+
+    NSString *msg = error.localizedDescription ?: kFFFastImageDefaultErrorMessage;
+    NSDictionary *event = @{ @"error": msg };
+    self.lastErrorEvent = event;
+
     #ifdef RCT_NEW_ARCH_ENABLED
         if (_eventEmitter != nullptr) {
             std::dynamic_pointer_cast<const facebook::react::FastImageViewEventEmitter>(_eventEmitter)
-            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{.error = static_cast<string>([error.localizedDescription UTF8String])});
+            ->onFastImageError(facebook::react::FastImageViewEventEmitter::OnFastImageError{.error = static_cast<std::string>([error.localizedDescription UTF8String])});
         }
     #else
         if (self.onFastImageError) {
             self.onFastImageError(@{
-                    @"error": error.localizedDescription ?: @"Load failed"
+                    @"error": error.localizedDescription ?: kFFFastImageDefaultErrorMessage
                 }
             );
         }
@@ -148,11 +156,7 @@
 - (void) setOnFastImageError: (RCTDirectEventBlock)onFastImageError {
     _onFastImageError = onFastImageError;
     if (self.hasErrored && _onFastImageError) {
-        _onFastImageError(@{
-            @"error": @{
-                @"error": @"Load failed"
-            }
-        });
+        _onFastImageError(self.lastErrorEvent ?: @{ @"error": kFFFastImageDefaultErrorMessage});
     }
 }
 
