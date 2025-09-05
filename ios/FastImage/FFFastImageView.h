@@ -35,5 +35,5 @@
 
 - (void)onLoadEndEvent;
 
-- (void)onErrorEvent;
+- (void)onErrorEvent:(NSError *)error;
 @end
