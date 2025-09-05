@@ -5,7 +5,7 @@
 
 ### Features
 
-* Better error reporting ([bbd812b](https://github.com/dream-sports-labs/react-native-fast-image/commit/bbd812b5e6ea9e6df8ca63193fdf2c0209264da5))
+* Error propagation from native to JS ([bbd812b](https://github.com/dream-sports-labs/react-native-fast-image/commit/bbd812b5e6ea9e6df8ca63193fdf2c0209264da5))
 
 
 ### Bug Fixes
