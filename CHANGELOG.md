@@ -5,15 +5,12 @@
 
 ### Features
 
-* error reporting ([bbd812b](https://github.com/dream-sports-labs/react-native-fast-image/commit/bbd812b5e6ea9e6df8ca63193fdf2c0209264da5))
+* Better error reporting ([bbd812b](https://github.com/dream-sports-labs/react-native-fast-image/commit/bbd812b5e6ea9e6df8ca63193fdf2c0209264da5))
 
 
 ### Bug Fixes
 
-* codegen issue ([dcdbb3d](https://github.com/dream-sports-labs/react-native-fast-image/commit/dcdbb3d23f099628c2240e74883e22ac4dae07d3))
 * gif playback broken on android in release builds ([7151aca](https://github.com/dream-sports-labs/react-native-fast-image/commit/7151acacb08323428a39135173f8d5c5f10511de))
-* readme and event props ([d5ab0ae](https://github.com/dream-sports-labs/react-native-fast-image/commit/d5ab0ae2abf7a033d235a991bfe78fd629f569ec))
-* replay error event ([45e0dee](https://github.com/dream-sports-labs/react-native-fast-image/commit/45e0deed856bef783f2fc4e9da5be7535fff7ff7))
 
 ### [8.11.1](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.11.0...v8.11.1) (2025-08-18)
 
