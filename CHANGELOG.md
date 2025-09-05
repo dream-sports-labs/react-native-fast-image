@@ -1,5 +1,17 @@
 
 
+## [8.12.0](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.11.1...v8.12.0) (2025-09-05)
+
+
+### Features
+
+* Error propagation from native to JS ([bbd812b](https://github.com/dream-sports-labs/react-native-fast-image/commit/bbd812b5e6ea9e6df8ca63193fdf2c0209264da5))
+
+
+### Bug Fixes
+
+* gif playback broken on android in release builds ([7151aca](https://github.com/dream-sports-labs/react-native-fast-image/commit/7151acacb08323428a39135173f8d5c5f10511de))
+
 ### [8.11.1](https://github.com/dream-sports-labs/react-native-fast-image/compare/v8.11.0...v8.11.1) (2025-08-18)
 
 
